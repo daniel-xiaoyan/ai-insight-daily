@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>萧炎的AI洞察 - 每日AI行业追踪</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a25;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --border: #2a2a3a;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 40px 0;
+        }
+        
+        .header-content {
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-light);
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        /* Navigation */
+        nav {
+            background: var(--bg-secondary);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-primary);
+            background: var(--accent);
+        }
+        
+        /* Content */
+        main {
+            padding: 40px 0;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .report-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .report-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+        }
+        
+        .report-card:hover {
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .report-icon {
+            font-size: 2rem;
+            min-width: 50px;
+            text-align: center;
+        }
+        
+        .report-content {
+            flex: 1;
+        }
+        
+        .report-title {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .report-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .report-arrow {
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 10px;
+        }
+        
+        /* Calendar */
+        .calendar {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+        
+        .calendar-day {
+            padding: 10px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+        }
+        
+        .calendar-day.has-report {
+            background: var(--accent);
+            color: white;
+            cursor: pointer;
+        }
+        
+        .calendar-day.today {
+            border: 2px solid var(--accent-light);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 30px 0;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        
+        footer a {
+            color: var(--accent-light);
+        }
+        
+        @media (max-width: 768px) {
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .nav-links { gap: 10px; }
+            .nav-links a { padding: 6px 12px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">🤖</div>
+                <h1>萧炎的AI洞察</h1>
+                <p class="subtitle">系统化追踪 AI 行业动态，每日输出大模型领域洞察</p>
+            </div>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value">50+</div>
+                    <div class="stat-label">追踪人物</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">80+</div>
+                    <div class="stat-label">追踪公司</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">100+</div>
+                    <div class="stat-label">信息源</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="report-count">0</div>
+                    <div class="stat-label">日报/周报</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <div class="nav-links">
+                <a href="#" class="active">📰 AI日报</a>
+                <a href="#weekly">📊 周报</a>
+                <a href="#sources">🎯 信息源</a>
+                <a href="#about">ℹ️ 关于</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main>
+        <div class="container">
+            <h2 class="section-title">📰 AI 日报 & 周报</h2>
+            <div class="report-list" id="report-list">
+                <!-- 动态加载 -->
+            </div>
+            
+            <div class="calendar">
+                <div class="calendar-header">
+                    <button onclick="changeMonth(-1)">◀</button>
+                    <span id="current-month"></span>
+                    <button onclick="changeMonth(1)">▶</button>
+                </div>
+                <div class="calendar-grid" id="calendar-grid">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>🤖 萧炎的AI洞察 · 自动追踪 · 每日洞察</p>
+            <p>由熏儿自动生成维护 · <a href="https://github.com/" target="_blank">GitHub</a></p>
+        </div>
+    </footer>
+    
+    <script>
+        // 模拟数据 - 实际应从 JSON 加载
+        const reports = [
+            {
+                type: 'weekly',
+                date: '2026-03-31',
+                title: 'AI 周报 · 第13周（3.23 - 3.29）',
+                summary: '覆盖80+条资讯 · Top5: Sora关闭商业退场 / MiniMax M2.7国产第四 / Cursor Composer 2降价86%',
+                isLatest: true
+            },
+            {
+                type: 'daily',
+                date: '2026-03-31',
+                title: '2026年3月31日 AI日报',
+                summary: 'Anthropic双管齐下：科学计算+劳动法 / Cursor $2B ARR里程碑 / ChatGPT购物升级',
+                isLatest: true
+            }
+        ];
+        
+        function renderReports() {
+            const list = document.getElementById('report-list');
+            list.innerHTML = reports.map(r => `
+                <a href="reports/${r.date}.html" class="report-card">
+                    <div class="report-icon">${r.type === 'weekly' ? '📊' : '📅'}</div>
+                    <div class="report-content">
+                        <div class="report-title">
+                            ${r.title}
+                            ${r.isLatest ? '<span class="badge">最新</span>' : ''}
+                        </div>
+                        <div class="report-meta">${r.summary}</div>
+                    </div>
+                    <div class="report-arrow">→</div>
+                </a>
+            `).join('');
+            
+            document.getElementById('report-count').textContent = reports.length;
+        }
+        
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-grid');
+            const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+            
+            // 星期标题
+            grid.innerHTML = weekdays.map(d => `<div class="calendar-day">${d}</div>`).join('');
+            
+            // 日期（示例）
+            const today = new Date();
+            const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+            
+            for (let i = 1; i <= daysInMonth; i++) {
+                const hasReport = Math.random() > 0.3; // 模拟
+                const isToday = i === today.getDate();
+                grid.innerHTML += `
+                    <div class="calendar-day ${hasReport ? 'has-report' : ''} ${isToday ? 'today' : ''}">
+                        ${i}
+                    </div>
+                `;
+            }
+            
+            document.getElementById('current-month').textContent = 
+                `${today.getFullYear()}年${today.getMonth() + 1}月`;
+        }
+        
+        function changeMonth(delta) {
+            // 切换月份逻辑
+        }
+        
+        // 初始化
+        renderReports();
+        renderCalendar();
+    </script>
+</body>
+</html>
