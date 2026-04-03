@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 日报 - 2026年04月03日</title>
+    <style>
+        :root {
+            --primary-color: #1976d2;
+            --secondary-color: #424242;
+            --background-color: #f5f5f5;
+            --card-background: #ffffff;
+            --text-color: #333333;
+            --text-muted: #757575;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-hover: 0 4px 16px rgba(0,0,0,0.15);
+            --border-radius: 8px;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: var(--spacing-lg);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 700;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .header .date {
+            font-size: 1em;
+            opacity: 0.8;
+        }
+        
+        /* Statistics */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .stat-card {
+            background: var(--card-background);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .stat-card .number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .stat-card .label {
+            color: var(--text-muted);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Category Sections */
+        .category-section {
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 3px solid var(--border-color);
+        }
+        
+        .category-header .icon {
+            font-size: 1.5em;
+        }
+        
+        .category-header h2 {
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        
+        .category-header .count {
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        /* News Cards */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--spacing-md);
+        }
+        
+        .news-card {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid var(--border-color);
+        }
+        
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .news-card .card-body {
+            padding: var(--spacing-md);
+        }
+        
+        .news-card .source {
+            display: inline-block;
+            font-size: 0.75em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .news-card .title {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.4;
+        }
+        
+        .news-card .title a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .news-card .title a:hover {
+            color: var(--primary-color);
+        }
+        
+        .news-card .summary {
+            font-size: 0.9em;
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.5;
+        }
+        
+        .news-card .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8em;
+            color: var(--text-muted);
+        }
+        
+        .news-card .categories {
+            display: flex;
+            gap: var(--spacing-xs);
+            flex-wrap: wrap;
+        }
+        
+        .news-card .category-tag {
+            background: var(--background-color);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+        }
+        
+        /* Source Summary */
+        .source-section {
+            background: var(--card-background);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .source-section h3 {
+            margin-bottom: var(--spacing-md);
+            color: var(--secondary-color);
+        }
+        
+        .source-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+        
+        .source-item {
+            background: var(--background-color);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .source-item .name {
+            font-weight: 500;
+        }
+        
+        .source-item .count {
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: var(--spacing-lg);
+            color: var(--text-muted);
+            font-size: 0.9em;
+            border-top: 1px solid var(--border-color);
+            margin-top: var(--spacing-xl);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--text-muted);
+        }
+        
+        .empty-state .icon {
+            font-size: 4em;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: var(--spacing-sm);
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="header">
+            <h1>AI 日报 - 2026年04月03日</h1>
+            <div class="subtitle">汇聚全球 AI 领域最新动态</div>
+            <div class="date">📅 生成时间: 2026-04-03 13:47</div>
+        </div>
+        
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="number">63</div>
+                <div class="label">总新闻数</div>
+            </div>
+            
+
+            <div class="stat-card">
+                <div class="number">投融资</div>
+                <div class="label">主要分类</div>
+            </div>
+            
+
+            <div class="stat-card">
+                <div class="number">5</div>
+                <div class="label">新闻来源</div>
+            </div>
+            </div>
+        
+        <div class="category-section">
+            <div class="category-header" style="border-color: #2196f3">
+                <span class="icon">🧠</span>
+                <h2>大模型</h2>
+                <span class="count">28</span>
+            </div>
+            <div class="news-grid">
+                
+        <div class="news-card" style="border-left-color: #2196f3">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/codex-flexible-pricing-for-teams" target="_blank" rel="noopener">Codex now offers more flexible pricing for teams</a>
+                </h3>
+                <p class="summary">Codex now includes pay-as-you-go pricing for ChatGPT Business and Enterprise, providing teams a more flexible option to start and scale adoption.</p>
+                <div class="meta">
+                    <span class="date">🕐 Thu, 02 Apr 2026 10:</span>
+                    <div class="categories"><span class="category-tag">大模型</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #2196f3">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/gradient-labs" target="_blank" rel="noopener">Gradient Labs gives every bank customer an AI account manager</a>
+                </h3>
+                <p class="summary">Gradient Labs uses GPT-4.1 and GPT-5.4 mini and nano to power AI agents that automate banking support workflows with low latency and high reliability.</p>
+                <div class="meta">
+                    <span class="date">🕐 Wed, 01 Apr 2026 02:</span>
+                    <div class="categories"><span class="category-tag">大模型</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #2196f3">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/stadler" target="_blank" rel="noopener">STADLER reshapes knowledge work at a 230-year-old company</a>
+                </h3>
+                <p class="summary">Learn how STADLER uses ChatGPT to transform knowledge work, saving time and accelerating productivity across 650 employees.</p>
+                <div class="meta">
+                    <span class="date">🕐 Fri, 27 Mar 2026 22:</span>
+                    <div class="categories"><span class="category-tag">大模型</span><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #2196f3">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/safety-bug-bounty" target="_blank" rel="noopener">Introducing the OpenAI Safety Bug Bounty program</a>
+                </h3>
+                <p class="summary">OpenAI launches a Safety Bug Bounty program to identify AI abuse and safety risks, including agentic vulnerabilities, prompt injection, and data exfiltration.</p>
+                <div class="meta">
+                    <span class="date">🕐 Wed, 25 Mar 2026 00:</span>
+                    <div class="categories"><span class="category-tag">大模型</span><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #2196f3">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/teen-safety-policies-gpt-oss-safeguard" target="_blank" rel="noopener">Helping developers build safer AI experiences for teens</a>
+                </h3>
+                <p class="summary">OpenAI releases prompt-based teen safety policies for developers using gpt-oss-safeguard, helping moderate age-specific risks in AI systems.</p>
+                <div class="meta">
+                    <span class="date">🕐 Tue, 24 Mar 2026 11:</span>
+                    <div class="categories"><span class="category-tag">大模型</span><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #2196f3">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/powering-product-discovery-in-chatgpt" target="_blank" rel="noopener">Powering product discovery in ChatGPT</a>
+                </h3>
+                <p class="summary">ChatGPT introduces richer, visually immersive shopping powered by the Agentic Commerce Protocol, enabling product discovery, side-by-side comparisons, and merchant integration.</p>
+                <div class="meta">
+                    <span class="date">🕐 Tue, 24 Mar 2026 09:</span>
+                    <div class="categories"><span class="category-tag">大模型</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #2196f3">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/how-we-monitor-internal-coding-agents-misalignment" target="_blank" rel="noopener">How we monitor internal coding agents for misalignment</a>
+                </h3>
+                <p class="summary">How OpenAI uses chain-of-thought monitoring to study misalignment in internal coding agents—analyzing real-world deployments to detect risks and strengthen AI safety safeguards.</p>
+                <div class="meta">
+                    <span class="date">🕐 Thu, 19 Mar 2026 10:</span>
+                    <div class="categories"><span class="category-tag">大模型</span><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #2196f3">
+            <div class="card-body">
+                <div class="source">MIT Technology Review - AI</div>
+                <h3 class="title">
+                    <a href="https://www.technologyreview.com/2026/04/02/1135045/plastic-economic-effects/" target="_blank" rel="noopener">Fuel prices are soaring. Plastic could be next.</a>
+                </h3>
+                <p class="summary">As the war in Iran continues to engulf the Middle East and the Strait of Hormuz stays closed, one of the most visible global economic ripple effects has been fossil-fuel prices. In particular, you can...</p>
+                <div class="meta">
+                    <span class="date">🕐 Thu, 02 Apr 2026 10:</span>
+                    <div class="categories"><span class="category-tag">大模型</span><span class="category-tag">AI应用</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #2196f3">
+            <div class="card-body">
+                <div class="source">MIT Technology Review - AI</div>
+                <h3 class="title">
+                    <a href="https://www.technologyreview.com/2026/04/01/1134993/the-download-gig-workers-training-humanoids-better-ai-benchmarks/" target="_blank" rel="noopener">The Download: gig workers training humanoids, and better AI benchmarks</a>
+                </h3>
+                <p class="summary">This is today&amp;#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&amp;#8217;s going on in the world of technology. The gig workers who are training humanoid robots a...</p>
+                <div class="meta">
+                    <span class="date">🕐 Wed, 01 Apr 2026 12:</span>
+                    <div class="categories"><span class="category-tag">大模型</span><span class="category-tag">AI应用</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #2196f3">
+            <div class="card-body">
+                <div class="source">MIT Technology Review - AI</div>
+                <h3 class="title">
+                    <a href="https://www.technologyreview.com/2026/04/01/1134863/humanoid-data-training-gig-economy-2026-breakthrough-technology/" target="_blank" rel="noopener">The gig workers who are training humanoid robots at home</a>
+                </h3>
+                <p class="summary">When Zeus, a medical student living in a hilltop city in central Nigeria, returns to his studio apartment from a long day at the hospital, he turns on his ring light, straps his iPhone to his forehead...</p>
+                <div class="meta">
+                    <span class="date">🕐 Wed, 01 Apr 2026 11:</span>
+                    <div class="categories"><span class="category-tag">大模型</span><span class="category-tag">AI应用</span></div>
+                </div>
+            </div>
+        </div>
+        
+            </div>
+            <div class='empty-state'>...</div>
+        </div>
+        
+        <div class="category-section">
+            <div class="category-header" style="border-color: #9c27b0">
+                <span class="icon">🚀</span>
+                <h2>AI应用</h2>
+                <span class="count">3</span>
+            </div>
+            <div class="news-grid">
+                
+        <div class="news-card" style="border-left-color: #9c27b0">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/creating-with-sora-safely" target="_blank" rel="noopener">Creating with Sora Safely</a>
+                </h3>
+                <p class="summary">To address the novel safety challenges posed by a state-of-the-art video model as well as a new social creation platform, we’ve built Sora 2 and the Sora app with safety at the foundation. Our approac...</p>
+                <div class="meta">
+                    <span class="date">🕐 Mon, 23 Mar 2026 00:</span>
+                    <div class="categories"><span class="category-tag">AI应用</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #9c27b0">
+            <div class="card-body">
+                <div class="source">MIT Technology Review - AI</div>
+                <h3 class="title">
+                    <a href="https://www.technologyreview.com/2026/03/30/1134795/there-are-more-ai-health-tools-than-ever-but-how-well-do-they-work/" target="_blank" rel="noopener">There are more AI health tools than ever—but how well do they work?</a>
+                </h3>
+                <p class="summary">Earlier this month, Microsoft launched Copilot Health, a new space within its Copilot app where users will be able to connect their medical records and ask specific questions about their health. A cou...</p>
+                <div class="meta">
+                    <span class="date">🕐 Mon, 30 Mar 2026 16:</span>
+                    <div class="categories"><span class="category-tag">AI应用</span><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #9c27b0">
+            <div class="card-body">
+                <div class="source">雷锋网</div>
+                <h3 class="title">
+                    <a href="https://www.leiphone.com/category/industrynews/pSErSvNcQeKylXVJ.html" target="_blank" rel="noopener">割草机进入自主决策时代 MOVA将无人驾驶级AI视觉感知搬进庭院</a>
+                </h3>
+                <p class="summary">随着AI感知技术加速向户外场景落地，割草机器人正迎来从自动执行到自主决策的关键跃迁。在智能庭院机器人领域，MOVA率先推出AI双目视觉割草机器人ViAX系列，并在最新的LiDAX Ultra AWD系列中实现3D高精度激光雷达与AI视觉的深度融合应用。通过将无人驾驶领域的核心感知技术引入庭院场景，MOVA构建了以AI视觉为核心的多传感器融合系统，使割草机器人具备接近无人驾驶级的环境理解与自主决策能...</p>
+                <div class="meta">
+                    <span class="date">🕐 Thu, 02 Apr 2026 10:</span>
+                    <div class="categories"><span class="category-tag">AI应用</span></div>
+                </div>
+            </div>
+        </div>
+        
+            </div>
+            
+        </div>
+        
+        <div class="category-section">
+            <div class="category-header" style="border-color: #4caf50">
+                <span class="icon">📊</span>
+                <h2>行业动态</h2>
+                <span class="count">8</span>
+            </div>
+            <div class="news-grid">
+                
+        <div class="news-card" style="border-left-color: #4caf50">
+            <div class="card-body">
+                <div class="source">量子位</div>
+                <h3 class="title">
+                    <a href="https://www.qbitai.com/2026/04/395194.html" target="_blank" rel="noopener">AI原生时代来临，商汤大装置如何重塑算力集群架构</a>
+                </h3>
+                <p class="summary">商汤大装置分享AI原生云实践</p>
+                <div class="meta">
+                    <span class="date">🕐 Thu, 02 Apr 2026 10:</span>
+                    <div class="categories"><span class="category-tag">行业动态</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #4caf50">
+            <div class="card-body">
+                <div class="source">雷锋网</div>
+                <h3 class="title">
+                    <a href="https://www.leiphone.com/category/transportation/gAgvYoBEPZR6LBjm.html" target="_blank" rel="noopener">一次停滞观全局：自动驾驶安全冗余与产业发展定力</a>
+                </h3>
+                <p class="summary">作者 | 郑浩钧编辑 |&amp;nbsp;王瑞昊2026年3月31日晚，武汉市区部分“萝卜快跑”无人驾驶车发生停滞，相关部门快速处置后，受影响交通路段很快恢复正常秩序，事件未造成人员受伤。作为自动驾驶规模化落地过程中的一次典型场景，这一事件引发了公众对无人驾驶技术安全性的广泛讨论。不少人将车辆临时停滞等同于技术异常，却忽略了其背后成熟的安全设计逻辑。结合此前谷歌Waymo的相似案例，以及自动驾驶行业的通...</p>
+                <div class="meta">
+                    <span class="date">🕐 Thu, 02 Apr 2026 23:</span>
+                    <div class="categories"><span class="category-tag">行业动态</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #4caf50">
+            <div class="card-body">
+                <div class="source">雷锋网</div>
+                <h3 class="title">
+                    <a href="https://www.leiphone.com/category/industrynews/fsdHdIn4bT0JUoNV.html" target="_blank" rel="noopener">沙利文：阿里云位居中国金融智能体市场第一</a>
+                </h3>
+                <p class="summary">4月2日，全球知名咨询公司沙利文发布了《中国金融智能体市场追踪2025年度报告》。报告显示，阿里云以32.4%的市场份额断层领先，稳居行业第一，其市场份额甚至超过了第二名与第三名的总和。在竞争力评估中，沙利文从平台全栈、多智能体协同、自适应学习、任务闭环、工具编排、业务覆盖及市场拓展七大维度进行系统性评分，阿里云是唯一在全部七个维度均处于领先位置的厂商。从打通“芯片-云-模型-应用”的垂直整合能力...</p>
+                <div class="meta">
+                    <span class="date">🕐 Thu, 02 Apr 2026 18:</span>
+                    <div class="categories"><span class="category-tag">行业动态</span><span class="category-tag">大模型</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #4caf50">
+            <div class="card-body">
+                <div class="source">雷锋网</div>
+                <h3 class="title">
+                    <a href="https://www.leiphone.com/category/transportation/gG9uRSoD7RJbOp04.html" target="_blank" rel="noopener">对话图达通CEO鲍君威：有摄像头的地方，就是激光雷达的赛道</a>
+                </h3>
+                <p class="summary">“有摄像头的地方，就有激光雷达”，图达通CEO鲍君威认为，汽车并不是激光雷达的唯一赛道。在这样的判断下，图达通坐稳ADAS激光雷达头部供应商的同时，向覆盖商用车、Robotaxi、机器人、智慧交通等更广泛车型及场景的规模化市场延伸。拿下DeepWay深向、陕汽重卡、九识智能等头部企业的大规模订单。在智能驾驶、Robotaxi等汽车形态逐渐成为趋势的背景下，车载场景成为激光雷达最重要的落地切口，但行...</p>
+                <div class="meta">
+                    <span class="date">🕐 Thu, 02 Apr 2026 16:</span>
+                    <div class="categories"><span class="category-tag">行业动态</span><span class="category-tag">AI应用</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #4caf50">
+            <div class="card-body">
+                <div class="source">雷锋网</div>
+                <h3 class="title">
+                    <a href="https://www.leiphone.com/category/ai/g9uztc7y94L82Eaw.html" target="_blank" rel="noopener">上海人工智能实验室联合商汤大装置等共建AI全链路验证平台与生态社区</a>
+                </h3>
+                <p class="summary">近日，在第二届浦江AI学术年会上，上海人工智能实验室（上海AI实验室）联合北京智源研究院、中国科学院计算技术研究所、北京开源芯片研究院、商汤科技、IDEA数字经济研究院等机构，共同发起“国产软硬件适配验证合作计划”。该计划拟推出覆盖AI全流程的软硬件验证平台及自主生态社区，并预计年内正式对外提供服务。该验证平台将聚焦国产算力底座与人工智能应用生态的协同发展，打造集资源接入、环境适配、评测验证、成果...</p>
+                <div class="meta">
+                    <span class="date">🕐 Wed, 01 Apr 2026 22:</span>
+                    <div class="categories"><span class="category-tag">行业动态</span><span class="category-tag">AI应用</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #4caf50">
+            <div class="card-body">
+                <div class="source">雷锋网</div>
+                <h3 class="title">
+                    <a href="https://www.leiphone.com/category/industrynews/ZMIJxUutAtwnKQVD.html" target="_blank" rel="noopener">字节Seed启动大模型校招，全球招募100位最具潜力的2027届AI人才</a>
+                </h3>
+                <p class="summary">4月1日消息，字节跳动Seed正式启动大模型人才校招，下设2027届应届生招聘和在校实习生招聘。据悉，今年Seed将加大人才投入，本次在全球招募的2027届大模型人才将达到约100位。&amp;nbsp;在招聘标准上，Seed大模型校招保持了此前的业界最高水准，希望寻找有极强技术信仰和高远目标、具备出色研究和实践能力、极具好奇心和自驱力的人才。除需在大模型某一领域有深刻的技术见解和代表性工作外，Seed更...</p>
+                <div class="meta">
+                    <span class="date">🕐 Wed, 01 Apr 2026 14:</span>
+                    <div class="categories"><span class="category-tag">行业动态</span><span class="category-tag">大模型</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #4caf50">
+            <div class="card-body">
+                <div class="source">雷锋网</div>
+                <h3 class="title">
+                    <a href="https://www.leiphone.com/category/industrynews/0aPtdzFGItdnehtR.html" target="_blank" rel="noopener">佑驾创新2025年营收、毛利再创新高，L4首年营收狂飙6500万</a>
+                </h3>
+                <p class="summary">2026年3月31日，中国领先的智能驾驶、智能座舱与无人车科技企业佑驾创新（2431.HK）正式披露2025年度业绩报告。在智能驾驶产业发展回归商业本质的背景下，佑驾创新凭借多维度突破，核心经营指标持续向好，营收与毛利同步增长，创下历史新高。同时，L4无人车及运营业务迎来业绩爆发，不仅营收达到6500万元，2025年下半年营收较上半年实现了450%环比增长。财报数据显示，2025年公司实现总收入7...</p>
+                <div class="meta">
+                    <span class="date">🕐 Tue, 31 Mar 2026 22:</span>
+                    <div class="categories"><span class="category-tag">行业动态</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #4caf50">
+            <div class="card-body">
+                <div class="source">雷锋网</div>
+                <h3 class="title">
+                    <a href="https://www.leiphone.com/category/industrynews/VKIBG1g17zGTb0vO.html" target="_blank" rel="noopener">北京消协评测出炉：追觅扫地机综合TOP1全面领先</a>
+                </h3>
+                <p class="summary">近日，在北京市消费者协会的一场扫地机产品测试中，追觅扫地机以综合评分五星的成绩脱颖而出，成为此次测试中最受推荐的产品，在众多扫地机中一骑绝尘。&amp;nbsp;&amp;nbsp;北京市消费者协会在测评结论中称：“追觅S50 Pro在多项核心指标上均获五星，表现全面。”这意味着，无论是在满足多场景需求，还是在技术前沿性上，追觅S50 Pro都达到了行业顶尖水平，做到了真正的全面均衡。&amp;nbsp;追觅S50 Pr...</p>
+                <div class="meta">
+                    <span class="date">🕐 Tue, 31 Mar 2026 21:</span>
+                    <div class="categories"><span class="category-tag">行业动态</span></div>
+                </div>
+            </div>
+        </div>
+        
+            </div>
+            
+        </div>
+        
+        <div class="category-section">
+            <div class="category-header" style="border-color: #ff9800">
+                <span class="icon">💰</span>
+                <h2>投融资</h2>
+                <span class="count">24</span>
+            </div>
+            <div class="news-grid">
+                
+        <div class="news-card" style="border-left-color: #ff9800">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/openai-acquires-tbpn" target="_blank" rel="noopener">OpenAI acquires TBPN</a>
+                </h3>
+                <p class="summary">OpenAI acquires TBPN to accelerate global conversations around AI and support independent media, expanding dialogue with builders, businesses, and the broader tech community.</p>
+                <div class="meta">
+                    <span class="date">🕐 Thu, 02 Apr 2026 10:</span>
+                    <div class="categories"><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #ff9800">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/accelerating-the-next-phase-ai" target="_blank" rel="noopener">Accelerating the next phase of AI</a>
+                </h3>
+                <p class="summary">OpenAI raises $122 billion in new funding to expand frontier AI globally, invest in next-generation compute, and meet growing demand for ChatGPT, Codex, and enterprise AI.</p>
+                <div class="meta">
+                    <span class="date">🕐 Tue, 31 Mar 2026 13:</span>
+                    <div class="categories"><span class="category-tag">投融资</span><span class="category-tag">大模型</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #ff9800">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/helping-disaster-response-teams-asia" target="_blank" rel="noopener">Helping disaster response teams turn AI into action across Asia</a>
+                </h3>
+                <p class="summary">AI for Disaster Response in Asia: OpenAI Workshop with Gates Foundation</p>
+                <div class="meta">
+                    <span class="date">🕐 Sun, 29 Mar 2026 22:</span>
+                    <div class="categories"><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #ff9800">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/our-approach-to-the-model-spec" target="_blank" rel="noopener">Inside our approach to the Model Spec</a>
+                </h3>
+                <p class="summary">Learn how OpenAI’s Model Spec serves as a public framework for model behavior, balancing safety, user freedom, and accountability as AI systems advance.</p>
+                <div class="meta">
+                    <span class="date">🕐 Wed, 25 Mar 2026 10:</span>
+                    <div class="categories"><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #ff9800">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/update-on-the-openai-foundation" target="_blank" rel="noopener">Update on the OpenAI Foundation</a>
+                </h3>
+                <p class="summary">The OpenAI Foundation announces plans to invest at least $1 billion in curing diseases, economic opportunity, AI resilience, and community programs.</p>
+                <div class="meta">
+                    <span class="date">🕐 Tue, 24 Mar 2026 09:</span>
+                    <div class="categories"><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #ff9800">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/openai-to-acquire-astral" target="_blank" rel="noopener">OpenAI to acquire Astral</a>
+                </h3>
+                <p class="summary">Accelerates Codex growth to power the next generation of Python developer tools</p>
+                <div class="meta">
+                    <span class="date">🕐 Thu, 19 Mar 2026 00:</span>
+                    <div class="categories"><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #ff9800">
+            <div class="card-body">
+                <div class="source">OpenAI Blog</div>
+                <h3 class="title">
+                    <a href="https://openai.com/index/japan-teen-safety-blueprint" target="_blank" rel="noopener">OpenAI Japan announces Japan Teen Safety Blueprint to put teen safety first</a>
+                </h3>
+                <p class="summary">OpenAI Japan announces the Japan Teen Safety Blueprint, introducing stronger age protections, parental controls, and well-being safeguards for teens using generative AI.</p>
+                <div class="meta">
+                    <span class="date">🕐 Tue, 17 Mar 2026 10:</span>
+                    <div class="categories"><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #ff9800">
+            <div class="card-body">
+                <div class="source">MIT Technology Review - AI</div>
+                <h3 class="title">
+                    <a href="https://www.technologyreview.com/2026/04/02/1135049/the-download-plastic-problem-fuel-prices-spacex-ipo/" target="_blank" rel="noopener">The Download: plastic&amp;#8217;s problem with fuel prices, and SpaceX&amp;#8217;s blockbuster IPO</a>
+                </h3>
+                <p class="summary">This is today&amp;#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&amp;#8217;s going on in the world of technology. Fuel prices are soaring. Plastic could be next.&amp;#1...</p>
+                <div class="meta">
+                    <span class="date">🕐 Thu, 02 Apr 2026 12:</span>
+                    <div class="categories"><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #ff9800">
+            <div class="card-body">
+                <div class="source">MIT Technology Review - AI</div>
+                <h3 class="title">
+                    <a href="https://www.technologyreview.com/2026/03/31/1134934/the-download-testing-ai-health-tools-pentagon-anthropic-culture-war-backfires/" target="_blank" rel="noopener">The Download: AI health tools and the Pentagon’s Anthropic culture war</a>
+                </h3>
+                <p class="summary">This is today&amp;#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&amp;#8217;s going on in the world of technology. There are more AI health tools than ever—but how w...</p>
+                <div class="meta">
+                    <span class="date">🕐 Tue, 31 Mar 2026 12:</span>
+                    <div class="categories"><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="news-card" style="border-left-color: #ff9800">
+            <div class="card-body">
+                <div class="source">MIT Technology Review - AI</div>
+                <h3 class="title">
+                    <a href="https://www.technologyreview.com/2026/03/31/1134833/ai-benchmarks-are-broken-heres-what-we-need-instead/" target="_blank" rel="noopener">AI benchmarks are broken. Here’s what we need instead.</a>
+                </h3>
+                <p class="summary">For decades, artificial intelligence has been evaluated through the question of whether machines outperform humans. From chess to advanced math, from coding to essay writing, the performance of AI mod...</p>
+                <div class="meta">
+                    <span class="date">🕐 Tue, 31 Mar 2026 12:</span>
+                    <div class="categories"><span class="category-tag">投融资</span></div>
+                </div>
+            </div>
+        </div>
+        
+            </div>
+            <div class='empty-state'>...</div>
+        </div>
+        
+        
+        <div class="source-section">
+            <h3>📡 数据来源</h3>
+            <div class="source-list">
+                
+            <div class="source-item">
+                <span class="name">OpenAI Blog</span>
+                <span class="count">15</span>
+            </div>
+            
+
+            <div class="source-item">
+                <span class="name">雷锋网</span>
+                <span class="count">14</span>
+            </div>
+            
+
+            <div class="source-item">
+                <span class="name">Towards Data Science</span>
+                <span class="count">14</span>
+            </div>
+            
+
+            <div class="source-item">
+                <span class="name">MIT Technology Review - AI</span>
+                <span class="count">10</span>
+            </div>
+            
+
+            <div class="source-item">
+                <span class="name">量子位</span>
+                <span class="count">10</span>
+            </div>
+            
+            </div>
+        </div>
+        
+        
+        <div class="footer">
+            <p>由 AI Insight Team 自动生成</p>
+            <p>Powered by AI Insight Daily | 2026</p>
+        </div>
+        
+    </div>
+</body>
+</html>
