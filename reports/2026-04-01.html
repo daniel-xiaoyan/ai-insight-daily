@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 日报 - 2026年04月03日</title>
+    <title>AI 日报 - 2026年04月01日</title>
     <style>
         :root {
             --primary-color: #1976d2;
@@ -99,6 +99,29 @@
             gap: var(--spacing-sm);
         }
         
+        .hot-news {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .hot-news h2 {
+            color: white;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .hot-news h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .hot-news p {
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+        
         .article-list {
             display: flex;
             flex-direction: column;
@@ -162,46 +185,64 @@
         
         <div class="header">
             <h1>📰 AI 日报</h1>
-            <div class="date">2026年04月03日 星期五</div>
+            <div class="date">2026年04月01日 星期三</div>
             <div class="meta">来源：快手KStack技术社区 | 维护者：熏儿</div>
+        </div>
+        
+        <div class="hot-news">
+            <h2>🔥 热点资讯</h2>
+            <h3>Claude Code 源码泄漏引发技术社区深度分析</h3>
+            <p>Anthropic官方CLI工具Claude Code的源代码意外流出，技术社区迅速展开深度分析，揭示其上下文压缩机制、多Agent架构等核心设计。</p>
         </div>
         
         <div class="section">
             <h2>🛠️ AI Coding 实践</h2>
             <div class="article-list">
                 <div class="article-card">
-                    <h4>不写代码的程序员我如何用 AI 编程 让 Codeflicker CLI 进化</h4>
-                    <div class="meta">作者：谢仁洪 | 阅读：533</div>
-                    <div class="summary">不写代码了，那我在干什么？分享下日志日常在用什么工具、怎么配置、工作流长什么样，以及一些实践。</div>
+                    <h4>源码泄漏之后，我扒光了 Claude Code 的上下文压缩机制</h4>
+                    <div class="meta">作者：吕波 | 阅读：836</div>
+                    <div class="summary">Claude Code源代码流出，这是一份难得的工程参考——一个真正在生产环境中承载数百万次对话的LLM应用，它到底是如何处理上下文窗口这个最根本限制的？</div>
                 </div>
                 
                 <div class="article-card">
-                    <h4>🚗 CodeFlicker 实战：一键滴滴打车 + 周边搜索</h4>
-                    <div class="meta">作者：王子贤 | 阅读：196</div>
-                    <div class="summary">展示了如何在 CodeFlicker 中安装并使用 didi-ride-skill，实现智能出行助手功能，包括打车、路线规划、周边搜索等。</div>
+                    <h4>Claude Code 的 AgentTeam 是怎么实现的？</h4>
+                    <div class="meta">作者：徐文学 | 阅读：160</div>
+                    <div class="summary">拆解ClaudeCode的多Agent实现：通过团队配置、Agent拉起、Mailbox通信、权限桥接和状态管理，构建出可运行、可观察、可控制的本地多Agent系统。</div>
                 </div>
                 
                 <div class="article-card">
-                    <h4>用 CodeFlicker - Subagent 解锁你的 AI 专属助手</h4>
-                    <div class="meta">作者：任北海 | 阅读：201</div>
-                    <div class="summary">解决上下文混乱问题：刚做完需求分析，马上要审查代码？Subagent让AI保持清晰边界，为每个任务创建独立的上下文环境。</div>
+                    <h4>Claude Code的Agent Teams分析以及和Sparrow项目对比</h4>
+                    <div class="meta">作者：孔维先 | 阅读：121</div>
+                    <div class="summary">Claude Code的Agent Teams更偏向产品化协作工作台，强调可见性、权限桥接与任务看板；Sparrow的Agent Teams更偏向可装配的团队能力底座。</div>
+                </div>
+                
+                <div class="article-card">
+                    <h4>2W行代码的需求AI怎么写：从1个PRD到7个独立文档</h4>
+                    <div class="meta">作者：李志华 | 阅读：189</div>
+                    <div class="summary">通过六个阶段的流程（需求全景分析、模块边界划分、独立文档生成等），将大型需求拆分为多个部分，确保每个模块都有清晰的职责和完整的文档。</div>
+                </div>
+                
+                <div class="article-card">
+                    <h4>BMAD-METHOD 使用指南：快手 Java 后端研发实战</h4>
+                    <div class="meta">作者：张亚魁 | 阅读：65</div>
+                    <div class="summary">BMAD-METHOD是一套开源的AI驱动敏捷开发框架，通过12+个专业角色智能体和结构化工作流，覆盖从需求分析到代码上线的完整研发链路。</div>
                 </div>
             </div>
         </div>
         
         <div class="section">
-            <h2>📱 AI 应用分享</h2>
+            <h2>🎯 学习推荐</h2>
             <div class="article-list">
                 <div class="article-card">
-                    <h4>屏保不只有Fliqlo，我做了一个快手人的屏保</h4>
-                    <div class="meta">作者：武翔宇 | 阅读：132</div>
-                    <div class="summary">分享四个创意Mac屏保设计，专为快手人打造。</div>
+                    <h4>AI小白名词自学解析</h4>
+                    <div class="meta">作者：郝彤慧 | 阅读：105</div>
+                    <div class="summary">适合有互联网工作经验、刚开始接触AI的同学。看完能听懂80%的AI圈术语，开口就能聊。</div>
                 </div>
                 
                 <div class="article-card">
-                    <h4>🦞项目管理虾(4)：规划说做ABC，总结时发现做的是DEF</h4>
-                    <div class="meta">作者：张孙恩 | 阅读：86</div>
-                    <div class="summary">季度总结与规划的反思：做规划时信誓旦旦"本Q重点做ABC"，到了Q末复盘"我们成功完成了DEF"。</div>
+                    <h4>Vibe Coding 的安全幻觉：当开发者把安全外包给 AI</h4>
+                    <div class="meta">作者：张昱昊 | 阅读：141</div>
+                    <div class="summary">Vibe Coding提升效率，但AI生成代码中近九成存在安全漏洞。解法是将安全约束预置于AI的system prompt，实测可减少94%的安全违规。</div>
                 </div>
             </div>
         </div>

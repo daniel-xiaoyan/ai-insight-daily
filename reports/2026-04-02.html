@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 日报 - 2026年04月03日</title>
+    <title>AI 日报 - 2026年04月02日</title>
     <style>
         :root {
             --primary-color: #1976d2;
@@ -99,6 +99,29 @@
             gap: var(--spacing-sm);
         }
         
+        .hot-news {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .hot-news h2 {
+            color: white;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .hot-news h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .hot-news p {
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+        
         .article-list {
             display: flex;
             flex-direction: column;
@@ -162,29 +185,41 @@
         
         <div class="header">
             <h1>📰 AI 日报</h1>
-            <div class="date">2026年04月03日 星期五</div>
+            <div class="date">2026年04月02日 星期四</div>
             <div class="meta">来源：快手KStack技术社区 | 维护者：熏儿</div>
+        </div>
+        
+        <div class="hot-news">
+            <h2>🔥 热点资讯</h2>
+            <h3>Claude Code 源码泄露引发热议</h3>
+            <p>512,000行代码48小时内被fork逾41,500次，引发关于闭源AI模型"数字永生"实验边界的深度讨论。这是Anthropic同类事故第三次发生。</p>
         </div>
         
         <div class="section">
             <h2>🛠️ AI Coding 实践</h2>
             <div class="article-list">
                 <div class="article-card">
-                    <h4>不写代码的程序员我如何用 AI 编程 让 Codeflicker CLI 进化</h4>
-                    <div class="meta">作者：谢仁洪 | 阅读：533</div>
-                    <div class="summary">不写代码了，那我在干什么？分享下日志日常在用什么工具、怎么配置、工作流长什么样，以及一些实践。</div>
+                    <h4>站在巨人的肩膀上："爆改" Claude Code，打造 Jarvis 家族新成员</h4>
+                    <div class="meta">作者：朱华杰 | 阅读：303</div>
+                    <div class="summary">3月31日Claude Code NPM发布中误含.map文件，引发广泛关注。团队迅速针对源码开发了内部试用版 jarvis-cc。</div>
                 </div>
                 
                 <div class="article-card">
-                    <h4>🚗 CodeFlicker 实战：一键滴滴打车 + 周边搜索</h4>
-                    <div class="meta">作者：王子贤 | 阅读：196</div>
-                    <div class="summary">展示了如何在 CodeFlicker 中安装并使用 didi-ride-skill，实现智能出行助手功能，包括打车、路线规划、周边搜索等。</div>
+                    <h4>Skill as Prompt vs Skill as Program：Agent Skill开发的两种范式</h4>
+                    <div class="meta">作者：江栋 | 阅读：178</div>
+                    <div class="summary">为什么 Skill 写得很清楚，Agent 还是不照着做？从真实排障案例出发，重新讨论什么该交给模型，什么必须交给系统。</div>
                 </div>
                 
                 <div class="article-card">
-                    <h4>用 CodeFlicker - Subagent 解锁你的 AI 专属助手</h4>
-                    <div class="meta">作者：任北海 | 阅读：201</div>
-                    <div class="summary">解决上下文混乱问题：刚做完需求分析，马上要审查代码？Subagent让AI保持清晰边界，为每个任务创建独立的上下文环境。</div>
+                    <h4>业务缺陷检测流水线：让 AI 成为你的代码质量守门员</h4>
+                    <div class="meta">作者：李志华 | 阅读：93</div>
+                    <div class="summary">通过5个阶段（代码仓库分析、需求提取、技术规格映射、代码变更分析、缺陷判定）检测业务缺陷。</div>
+                </div>
+                
+                <div class="article-card">
+                    <h4>Claude Code宠物(/buddy)刷初始skill</h4>
+                    <div class="meta">作者：闫昊鹏 | 阅读：220</div>
+                    <div class="summary">为claude code生成心仪的宠物吧。</div>
                 </div>
             </div>
         </div>
@@ -193,15 +228,9 @@
             <h2>📱 AI 应用分享</h2>
             <div class="article-list">
                 <div class="article-card">
-                    <h4>屏保不只有Fliqlo，我做了一个快手人的屏保</h4>
-                    <div class="meta">作者：武翔宇 | 阅读：132</div>
-                    <div class="summary">分享四个创意Mac屏保设计，专为快手人打造。</div>
-                </div>
-                
-                <div class="article-card">
-                    <h4>🦞项目管理虾(4)：规划说做ABC，总结时发现做的是DEF</h4>
-                    <div class="meta">作者：张孙恩 | 阅读：86</div>
-                    <div class="summary">季度总结与规划的反思：做规划时信誓旦旦"本Q重点做ABC"，到了Q末复盘"我们成功完成了DEF"。</div>
+                    <h4>Claude AI 有预谋的出逃：一场闭源模型的数字永生实验</h4>
+                    <div class="meta">作者：朱飞勇 | 阅读：136</div>
+                    <div class="summary">Claude Code源代码泄露，已是Anthropic同类事故第三次。工程失误，还是闭源AI模型寻求数字永生的主动出走？</div>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 日报 - 2026年04月03日</title>
+    <title>AI 日报 - 2026年04月07日</title>
     <style>
         :root {
             --primary-color: #1976d2;
@@ -134,6 +134,29 @@
             font-size: 0.95rem;
         }
         
+        .hot-news {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .hot-news h2 {
+            color: white;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .hot-news h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .hot-news p {
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+        
         .footer {
             text-align: center;
             color: var(--text-muted);
@@ -162,29 +185,41 @@
         
         <div class="header">
             <h1>📰 AI 日报</h1>
-            <div class="date">2026年04月03日 星期五</div>
+            <div class="date">2026年04月07日 星期二</div>
             <div class="meta">来源：快手KStack技术社区 | 维护者：熏儿</div>
+        </div>
+        
+        <div class="hot-news">
+            <h2>🔥 热点资讯</h2>
+            <h3>Claude Code 源码深度走读系列发布</h3>
+            <p>快手技术团队发布Claude Code源码深度分析系列文章，涵盖上下文与记忆管理、核心循环引擎等核心机制，为AI Agent开发提供宝贵参考。</p>
         </div>
         
         <div class="section">
             <h2>🛠️ AI Coding 实践</h2>
             <div class="article-list">
                 <div class="article-card">
-                    <h4>不写代码的程序员我如何用 AI 编程 让 Codeflicker CLI 进化</h4>
-                    <div class="meta">作者：谢仁洪 | 阅读：533</div>
-                    <div class="summary">不写代码了，那我在干什么？分享下日志日常在用什么工具、怎么配置、工作流长什么样，以及一些实践。</div>
+                    <h4>Claude code 源码走读 -- 上下文与记忆（Context Engineering）</h4>
+                    <div class="meta">作者：骆潇龙 | 阅读：131</div>
+                    <div class="summary">深入分析 Claude Code 的 messages 数组管理：生命周期（宏观与微观）、提示词构建、四级压缩策略（L1局部清理→L2摘要重建→L3截断丢弃→L4紧急恢复）、三个记忆子系统与附件注入。</div>
                 </div>
                 
                 <div class="article-card">
-                    <h4>🚗 CodeFlicker 实战：一键滴滴打车 + 周边搜索</h4>
-                    <div class="meta">作者：王子贤 | 阅读：196</div>
-                    <div class="summary">展示了如何在 CodeFlicker 中安装并使用 didi-ride-skill，实现智能出行助手功能，包括打车、路线规划、周边搜索等。</div>
+                    <h4>Claude code 源码走读 -- 核心循环引擎（Agentic Loop）</h4>
+                    <div class="meta">作者：骆潇龙 | 阅读：126</div>
+                    <div class="summary">从三层嵌套调用栈（QueryEngine → submitMessage → queryLoop）出发，逐层拆解会话管理、回合编排、迭代执行的职责划分。</div>
                 </div>
                 
                 <div class="article-card">
-                    <h4>用 CodeFlicker - Subagent 解锁你的 AI 专属助手</h4>
-                    <div class="meta">作者：任北海 | 阅读：201</div>
-                    <div class="summary">解决上下文混乱问题：刚做完需求分析，马上要审查代码？Subagent让AI保持清晰边界，为每个任务创建独立的上下文环境。</div>
+                    <h4>让任意 AI Agent都能操控你的 Mac</h4>
+                    <div class="meta">作者：汪宁 | 阅读：245</div>
+                    <div class="summary">开源项目computer-use-mac-mcp，允许AI控制Mac桌面（截屏、鼠标和键盘操作）。任何支持MCP协议的Agent都能接入，无需订阅Claude.ai。</div>
+                </div>
+                
+                <div class="article-card">
+                    <h4>AI 接管浏览器小技巧</h4>
+                    <div class="meta">作者：段永旭 | 阅读：51</div>
+                    <div class="summary">使用AI自动化工具处理开放API平台的Team API选择问题，通过浏览器代理让AI模拟操作。在AutoMate平台上，AI能截图、找按钮、执行点击、填写表单。</div>
                 </div>
             </div>
         </div>
@@ -193,15 +228,15 @@
             <h2>📱 AI 应用分享</h2>
             <div class="article-list">
                 <div class="article-card">
-                    <h4>屏保不只有Fliqlo，我做了一个快手人的屏保</h4>
-                    <div class="meta">作者：武翔宇 | 阅读：132</div>
-                    <div class="summary">分享四个创意Mac屏保设计，专为快手人打造。</div>
+                    <h4>虚假文献检测Skill</h4>
+                    <div class="meta">作者：陈犇 | 阅读：119</div>
+                    <div class="summary">Paper Reference Checker工具发布，论文投稿前快速自查虚假引用，再也不用担心出现幻觉文献被desk reject！</div>
                 </div>
                 
                 <div class="article-card">
-                    <h4>🦞项目管理虾(4)：规划说做ABC，总结时发现做的是DEF</h4>
-                    <div class="meta">作者：张孙恩 | 阅读：86</div>
-                    <div class="summary">季度总结与规划的反思：做规划时信誓旦旦"本Q重点做ABC"，到了Q末复盘"我们成功完成了DEF"。</div>
+                    <h4>屏保不只有Fliqlo，我做了一个快手人的屏保</h4>
+                    <div class="meta">作者：武翔宇 | 阅读：132</div>
+                    <div class="summary">分享四个创意Mac屏保设计，专为快手人打造。</div>
                 </div>
             </div>
         </div>

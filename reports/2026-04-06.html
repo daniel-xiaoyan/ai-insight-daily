@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 日报 - 2026年04月03日</title>
+    <title>AI 日报 - 2026年04月06日</title>
     <style>
         :root {
             --primary-color: #1976d2;
@@ -99,39 +99,15 @@
             gap: var(--spacing-sm);
         }
         
-        .article-list {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-md);
-        }
-        
-        .article-card {
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: var(--spacing-md);
-            transition: all 0.2s;
-        }
-        
-        .article-card:hover {
-            box-shadow: var(--shadow-hover);
-            border-color: var(--primary-color);
-        }
-        
-        .article-card h4 {
-            color: var(--primary-color);
-            font-size: 1.1rem;
-            margin-bottom: var(--spacing-xs);
-        }
-        
-        .article-card .meta {
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl);
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: var(--spacing-sm);
         }
         
-        .article-card .summary {
-            color: var(--text-color);
-            font-size: 0.95rem;
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
         }
         
         .footer {
@@ -162,47 +138,15 @@
         
         <div class="header">
             <h1>📰 AI 日报</h1>
-            <div class="date">2026年04月03日 星期五</div>
+            <div class="date">2026年04月06日 星期一</div>
             <div class="meta">来源：快手KStack技术社区 | 维护者：熏儿</div>
         </div>
         
         <div class="section">
-            <h2>🛠️ AI Coding 实践</h2>
-            <div class="article-list">
-                <div class="article-card">
-                    <h4>不写代码的程序员我如何用 AI 编程 让 Codeflicker CLI 进化</h4>
-                    <div class="meta">作者：谢仁洪 | 阅读：533</div>
-                    <div class="summary">不写代码了，那我在干什么？分享下日志日常在用什么工具、怎么配置、工作流长什么样，以及一些实践。</div>
-                </div>
-                
-                <div class="article-card">
-                    <h4>🚗 CodeFlicker 实战：一键滴滴打车 + 周边搜索</h4>
-                    <div class="meta">作者：王子贤 | 阅读：196</div>
-                    <div class="summary">展示了如何在 CodeFlicker 中安装并使用 didi-ride-skill，实现智能出行助手功能，包括打车、路线规划、周边搜索等。</div>
-                </div>
-                
-                <div class="article-card">
-                    <h4>用 CodeFlicker - Subagent 解锁你的 AI 专属助手</h4>
-                    <div class="meta">作者：任北海 | 阅读：201</div>
-                    <div class="summary">解决上下文混乱问题：刚做完需求分析，马上要审查代码？Subagent让AI保持清晰边界，为每个任务创建独立的上下文环境。</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>📱 AI 应用分享</h2>
-            <div class="article-list">
-                <div class="article-card">
-                    <h4>屏保不只有Fliqlo，我做了一个快手人的屏保</h4>
-                    <div class="meta">作者：武翔宇 | 阅读：132</div>
-                    <div class="summary">分享四个创意Mac屏保设计，专为快手人打造。</div>
-                </div>
-                
-                <div class="article-card">
-                    <h4>🦞项目管理虾(4)：规划说做ABC，总结时发现做的是DEF</h4>
-                    <div class="meta">作者：张孙恩 | 阅读：86</div>
-                    <div class="summary">季度总结与规划的反思：做规划时信誓旦旦"本Q重点做ABC"，到了Q末复盘"我们成功完成了DEF"。</div>
-                </div>
+            <div class="empty-state">
+                <div class="icon">📭</div>
+                <h3>今日暂无新文章</h3>
+                <p>清明节假期期间社区更新较少，建议查看4月7日的日报获取最新内容</p>
             </div>
         </div>
         
