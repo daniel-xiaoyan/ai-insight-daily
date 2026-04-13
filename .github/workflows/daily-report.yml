@@ -34,18 +34,32 @@ jobs:
         
     - name: Collect AI news
       run: |
+        echo "🔍 开始采集AI资讯..."
         python scripts/collect_news.py
         
-    - name: Generate daily report structure
+    - name: Analyze news
       run: |
-        python scripts/generate_report.py
+        echo "📊 分析资讯内容..."
+        python scripts/analyze_news.py
+        
+    - name: Generate rich daily report
+      run: |
+        echo "📝 生成丰富版日报..."
+        python scripts/generate_rich_report.py
         
     - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add -A
-        git commit -m "📰 Auto-generate daily AI report for $(date +%Y-%m-%d)" || echo "No changes to commit"
+        git commit -m "📰 Auto-generate daily AI report for $(date +%Y-%m-%d)
+
+🤖 自动化流程:
+- 采集AI行业资讯
+- 分析整理内容
+- 生成丰富版日报
+
+📅 $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
         git push
         
   deploy:
