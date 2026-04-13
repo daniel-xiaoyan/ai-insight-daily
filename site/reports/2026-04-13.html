@@ -6,383 +6,491 @@
     <title>2026-04-13 AI洞察日报</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: #1a1a25;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --accent-pink: #ec4899;
+            --accent-cyan: #06b6d4;
+            --accent-orange: #f97316;
+            --bg-dark: #0f0f1a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #252545;
             --text-primary: #ffffff;
-            --text-secondary: #a0a0b0;
-            --accent: #6366f1;
-            --accent-light: #818cf8;
-            --border: #2a2a3a;
+            --text-secondary: #a0a0b8;
+            --border: #2a2a45;
         }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+            background: var(--bg-dark);
             color: var(--text-primary);
-            line-height: 1.8;
+            line-height: 1.6;
         }
+        
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 40px 20px;
-        }
-        header {
-            text-align: center;
-            padding: 40px 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 40px;
-        }
-        h1 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-        .meta {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        .summary {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
             padding: 20px;
-            margin-bottom: 30px;
-            color: var(--text-secondary);
         }
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--accent);
-            text-decoration: none;
-            margin-bottom: 20px;
+        
+        /* 头部Banner */
+        .header-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
         }
-        .section {
-            margin-bottom: 30px;
+        
+        .header-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
         }
-        .section h2 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--accent);
-            display: inline-block;
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
         }
-        .news-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-        .news-item:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent);
-        }
-        .news-title {
-            font-size: 1.1rem;
-            font-weight: 600;
+        
+        .header-title {
+            font-size: 2rem;
+            font-weight: 700;
             margin-bottom: 8px;
         }
-        .news-title a {
-            color: var(--text-primary);
-            text-decoration: none;
+        
+        .header-date {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 16px;
         }
-        .news-title a:hover {
-            color: var(--accent-light);
-        }
-        .news-summary {
-            color: var(--text-secondary);
+        
+        .header-summary {
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 16px 20px;
             font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        
+        /* 板块标题 */
+        .section {
+            margin-bottom: 32px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .section-icon {
+            font-size: 1.4rem;
+        }
+        
+        /* 今日要点 */
+        .highlights {
+            display: grid;
+            gap: 16px;
+        }
+        
+        .highlight-card {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(238, 90, 111, 0.3);
+        }
+        
+        .highlight-card:nth-child(2) {
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, #0891b2 100%);
+        }
+        
+        .highlight-card:nth-child(2):hover {
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+        }
+        
+        .highlight-card:nth-child(3) {
+            background: linear-gradient(135deg, var(--accent-orange) 0%, #ea580c 100%);
+        }
+        
+        .highlight-card:nth-child(3):hover {
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3);
+        }
+        
+        .highlight-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
             margin-bottom: 10px;
         }
-        .news-meta {
-            display: flex;
-            gap: 15px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+        
+        .highlight-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
         }
-        .tag {
-            background: var(--accent);
+        
+        .highlight-card p {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+        
+        /* 新闻卡片 */
+        .news-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+        
+        .news-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--primary);
+        }
+        
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .news-card h4 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .news-source {
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.15);
+            padding: 4px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        
+        .company-badge {
+            font-size: 0.75rem;
+            color: var(--accent-pink);
+            background: rgba(236, 72, 153, 0.15);
+            padding: 4px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        
+        .news-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        /* 汇总表格 */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .summary-table th {
+            background: var(--primary);
             color: white;
-            padding: 2px 10px;
-            border-radius: 4px;
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        
+        .summary-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+        
+        .summary-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .summary-table tr:hover td {
+            background: rgba(99, 102, 241, 0.1);
+        }
+        
+        .type-tag {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
             font-size: 0.75rem;
         }
-        .stats {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .stat-item {
+        
+        .center {
             text-align: center;
-            padding: 15px 25px;
-            background: var(--bg-card);
-            border-radius: 10px;
         }
-        .stat-number {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent);
-        }
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-        footer {
+        
+        /* 页脚 */
+        .footer {
             text-align: center;
-            padding: 30px 0;
+            padding: 30px;
             color: var(--text-secondary);
             border-top: 1px solid var(--border);
             margin-top: 40px;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary);
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .back-link:hover {
+            color: var(--accent-cyan);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <a href="../index.html" class="back-link">← 返回首页</a>
-        <header>
-            <h1>2026-04-13 AI洞察日报</h1>
-            <div class="meta">生成于 2026-04-13 · 自动采集</div>
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-number">24</div>
-                    <div class="stat-label">总资讯</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">7</div>
-                    <div class="stat-label">海外</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">12</div>
-                    <div class="stat-label">国内</div>
+        
+        <!-- 头部Banner -->
+        <div class="header-banner">
+            <div class="header-content">
+                <h1 class="header-title">🤖 AI 洞察日报</h1>
+                <div class="header-date">2026-04-13 | 自动采集 · AI整理</div>
+                <div class="header-summary">
+                    今日共采集 21 条AI行业资讯，
+                    国内大厂密集更新：百度文心5.0、月之暗面Kimi K2、智谱GLM-5.1、MiniMax 2.7开源等重大动态值得关注。
                 </div>
             </div>
-        </header>
-        
-        <div class="summary">
-            📋 今日共采集 24 条AI行业资讯，海外大模型动态 7 条，国内大厂更新 12 条，值得关注。
         </div>
         
-        <div class="content">
-            
-            <div class="section">
-                <h2>海外大模型</h2>
+        <!-- 今日要点 -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-icon">🎯</span> 今日要点</h2>
+            <div class="highlights">
                 
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://www.forbes.com/sites/zakdoffman/2026/04/10/googles-gmail-upgrade-decision-2-billion-users-must-act-now/" target="_blank">Google&#x27;s Gmail Upgrade Decision—2 Billion Users Must Act Now - Forbes</a>
-                    </div>
-                    <div class="news-summary"></div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://www.digitaltrends.com/computing/notebooklm-arrives-inside-gemini-notebooks-starting-today/" target="_blank">NotebookLM arrives inside Gemini notebooks starting today</a>
-                    </div>
-                    <div class="news-summary"></div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://duckduckgo.com/y.js?ad_domain=brainhoster.com&amp;ad_provider=bingv7aa&amp;ad_type=txad&amp;click_metadata=zjz0DXAGze_ubUKFAbAHaG9Yc3BnQ7pKhbx5%2D_jtBAHV4ah08fDa9L4gt40oO1gPc3HDaiGFFo0kiOcqnOdRCSI8fK3kcryfUSLUFqLBJ9sCp7mZPkHJWA3wwGIQMjJO%2DkLq1LNNglhSu4oTE_v4ekaptQZZT7yKRFDZH3qtz9c.MOhVhLwjBdsk7CdzwS7n4Q&amp;rut=d14b5fb50f3b9b679be2ef502e6a14900b8b61f3d65c2ab39d05f1e148c98131&amp;u3=https%3A%2F%2Fwww.bing.com%2Faclick%3Fld%3De8b0ac2CmkB1jEhSu68t3RozVUCUwjhyoIGFdRNOVIzadtIgX81tt51BzwNql6jkGOc5jMsOusV2ggQTdY%2DmKV%2DosCCa7gUD2Aw6uoooamMT%2Do9WBEwKLoDAypAQoymlKI8iEc6twtSfY9ayF%2Dxc62VfpNjwiATzdUO_MIU9Z3Q%2DLykDSisc_B9uFbg8LwqUYgZxxG2zEa67n3b%2DKpdVWqhpr32SM%26u%3DaHR0cHMlM2ElMmYlMmZ3d3cuYnJhaW5ob3N0ZXIuY29tJTNmbXNjbGtpZCUzZGYyNzFlNGM4ZGU2YzFjZDQ1NGNiOGQxNDFiMDAwMmU5%26rlid%3Df271e4c8de6c1cd454cb8d141b0002e9&amp;vqd=4-319925987404310389558680252050126689048&amp;iurl=%7B1%7DIG%3D599312D0523D43ED86E3DA4E89B5FFC1%26CID%3D222AD70E9A2E61B40F69C0349BB260D9%26ID%3DDevEx%2C5046.1" target="_blank">Mistral - Buy Mistral</a>
-                    </div>
-                    <div class="news-summary">Host your LLMs without GPU costs! Enjoy powerful performance at a fraction of the price. Optimize your budget with our efficient CPU-powered VPS for LLMs, no GPU needed!</div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://mistral.ai/news/mistral-3" target="_blank">Introducing Mistral 3 | Mistral AI</a>
-                    </div>
-                    <div class="news-summary"></div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://www.cnbc.com/2025/12/02/mistral-unveils-new-ai-models-in-bid-to-compete-with-openai-google.html" target="_blank">Mistral unveils new AI models in bid to compete with OpenAI, Google - CNBC</a>
-                    </div>
-                    <div class="news-summary"></div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-            </div>
-            
-            <div class="section">
-                <h2>国内大厂</h2>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://yiyan.baidu.com/" target="_blank">Baidu - 文心一言</a>
-                    </div>
-                    <div class="news-summary">文心一言既是你的智能伙伴，可以陪你聊天、回答问题、画图识图；也是你的AI助手，可以提供灵感、撰写文案、阅读文档、智能翻译，帮你高效完成工作和学习任务。</div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://www.ithome.com/0/894/189.htm" target="_blank">百度文小言（原文心一言）5.0 版本再次更名为&quot;文心&quot;，升级魔法漫画、全形式 Ai 搜索等功能 - It之家</a>
-                    </div>
-                    <div class="news-summary">百度AI助手&quot;文心一言&quot;历经两次更名，最终回归&quot;文心&quot;品牌。5.0版本新增魔法漫画、创意修图、视频生成等多项AI功能，覆盖搜索、创作、视频通话等场景。#百度文心# #AI助手#</div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://www.msn.com/zh-cn/news/other/%E7%99%BE%E5%BA%A6-%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80-app%E5%86%8D%E5%8D%87%E7%BA%A7-5-0%E7%89%88%E6%9C%AC%E6%9B%B4%E5%90%8D-%E6%96%87%E5%BF%83-%E5%B9%B6%E6%96%B0%E5%A2%9E%E5%A4%9A%E9%A1%B9ai%E5%8A%9F%E8%83%BD/ar-AA1PDYxO" target="_blank">百度&quot;文心一言&quot;App再升级：5.0版本更名&quot;文心&quot;并新增多项AI功能</a>
-                    </div>
-                    <div class="news-summary">百度旗下AI应用近期迎来重要更新，其发展历程中经历了两次关键迭代。2023年7月4日，该应用以&quot;文心一言&quot;之名正式登陆苹果应用商店，此后于2024 ...</div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://zhuanlan.zhihu.com/p/2025223606200726612" target="_blank">Kimi K2.5 API 完全指南：月之暗面新旗舰实测与接入教程（2026）</a>
-                    </div>
-                    <div class="news-summary">9月5日，月之暗面发布Kimi K2模型的最新版本0905，扩展上下文长度至256K，支持高达60-100 Token/s的输出速度。Kimi应用和网页版中的K2模型已全量升级到0905最新版。</div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://www.moonshot.cn/" target="_blank">Moonshot AI</a>
-                    </div>
-                    <div class="news-summary">每经AI快讯，9月5日，月之暗面发布Kimi K2模型的最新版本0905，扩展上下文长度至256K，支持高达60-100 Token/s的输出速度。Kimi应用和网页版中的K2模型已 ...</div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-            </div>
-            
-            <div class="section">
-                <h2>AI应用</h2>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://duckduckgo.com/y.js?ad_domain=chatbotai.co&amp;ad_provider=bingv7aa&amp;ad_type=txad&amp;click_metadata=pHxW6SUAIrt3eKkN29gei7nbRzQnECmA_GRQCZyJAdc2EHan8yABmO4Vva6Y8t0XTCYgR86dvIUtOYYRukMsWNBm1fYNPnTTkqaecvF6aeFEiBmOzzVys04y7LxY1if5M%2D1yDLpd_ClLx8AZdKO6ZCDxVa3%2D2tvlDHZSyUQuLro.oQpLWGwI65_4TN_K1hordw&amp;rut=45e0bb072a2487b4768da4c3b24bd450f4bebf10fc7459e866b3050fc2d05b68&amp;u3=https%3A%2F%2Fwww.bing.com%2Faclick%3Fld%3De8rJqeNbtRfuiuWrw__5PN8zVUCUweVeSklLXM2MQhLzVmfU64SpCoEALV4AHOz1wrvvjtRJ8SOY0HCetXzh25J_M1iW%2Dv0AV6iIjZH6WA0m8cLSfaO3xK_45WyeVKoxqIU6D7EwJiNN2ktkohmOrRM9R6seXzyY1mY3mgQJZYkSpt2q09bOT88ZscOunmvbBzNlYFxpZ24xC44FuWsv7sQcl0R78VL1n66V6YZCkkXD9GfYUV%26u%3DaHR0cHMlM2ElMmYlMmZjaGF0Ym90YWkuY28lMmZvbmJvYXJkaW5nJTJmbXVsdGktbW9kZWwtdG9vbHMlMmZnZW1pbmklM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2R3ZWIlMjZ1dG1fY2FtcGFpZ24lM2RjaGF0Ym90YWlfd2ViX2JuZ19zZWFyY2hfd29fZW5fcHVyY2hhc2VfZ2VtaW5pXzA5MDQyNiUyNnV0bV9jb250ZW50JTNkY2hhdGJvdGFpX3dlYl9ibmdfc2VhcmNoX3dvX2VuX3B1cmNoYXNlX2dlbWluaV8wOTA0MjYlMjZ1dG1fdGVybSUzZGdlbWluaSUyNm1hdGNodHlwZSUzZHAlMjZkZXZpY2UlM2RjJTI2bmV0d29yayUzZHMlMjZwbGFjZW1lbnQlM2QlMjZjcmVhdGl2ZSUzZDgyNjY5OTU2Mjg1MDYxJTI2Y2FtcGFpZ25faWQlM2Q1MjQwODg2ODIlMjZhZGdyb3VwX2lkJTNkMTMyMjcxNTI5ODIxODA1NyUyNmxvY19pbnRlcmVzdF9tcyUzZCU3YkxvY0ludGVyZXN0TXMlN2QlMjZsb2NfcGh5c2ljYWxfbXMlM2QlN2JMb2NQaHlzaWNhbE1zJTdkJTI2bXNjbGtpZCUzZDYyMmJjZThjZmNmYjE4ZjJlMTE5YTc1MDM5OWU5ZjYxJTI2Z2VvJTNkJTdibXNsb2NwaHklN2QlMjZsYW5nJTNkJTdiTGFuZ3VhZ2UlN2Q%26rlid%3D622bce8cfcfb18f2e119a750399e9f61&amp;vqd=4-259294065863338694465390987241241406243&amp;iurl=%7B1%7DIG%3DE217558A403D479B8A59194CFBBC2C4B%26CID%3D3D22FBEF21F262783885ECD5206E63A9%26ID%3DDevEx%2C5045.1" target="_blank">All the Latest AI Models - Chatbot AI</a>
-                    </div>
-                    <div class="news-summary"></div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://www.nxcode.io/resources/news/grok-5-release-date-6t-parameters-agi-xai-complete-guide-2026" target="_blank">Grok 5: Release Date, Features &amp; Everything We Know So Far (2026)</a>
-                    </div>
-                    <div class="news-summary"></div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://llm-stats.com/ai-news" target="_blank">LLM News Today (April 2026) - AI Model Releases</a>
-                    </div>
-                    <div class="news-summary"></div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://thenewstack.io/llm/" target="_blank">Large Language Model News, Analysis and Resources</a>
-                    </div>
-                    <div class="news-summary"></div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://aibusiness.com/nlp/language-models" target="_blank">Language models recent news | AI Business</a>
-                    </div>
-                    <div class="news-summary"></div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-            </div>
-            
-            <div class="section">
-                <h2>产品发布</h2>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://www.nxcode.io/resources/news/grok-5-release-date-6t-parameters-agi-xai-complete-guide-2026" target="_blank">Grok 5: Release Date, Features &amp; Everything We Know So Far (2026)</a>
-                    </div>
-                    <div class="news-summary"></div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://www.ithome.com/0/880/609.htm" target="_blank">月之暗面 Kimi K2 宣布更新：上下文长度扩展至 256K，带来更快的 API - IT之家</a>
-                    </div>
-                    <div class="news-summary">凤凰网科技讯 9月5日，月之暗面官方宣布推出Kimi K2模型的最新版本，进一步提升其在真实编程任务中的表现。 其中，Agentic Coding能力提升，在公开 ...</div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://platform.minimaxi.com/docs/release-notes/models" target="_blank">模型发布 - MiniMax 开放平台文档中心</a>
-                    </div>
-                    <div class="news-summary">4月12日，国产人工智能大模型领域再迎重要动态，稀宇科技正式宣布开源其最新大模型——Minimax 2.7。尤其是DeepSeek V4即将发布的背景下，国产AI大模型如何在多模态支持、编程能力和硬件兼容性方…</div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-                <div class="news-item">
-                    <div class="news-title">
-                        <a href="https://llm-stats.com/ai-news" target="_blank">LLM News Today (April 2026) - AI Model Releases</a>
-                    </div>
-                    <div class="news-summary"></div>
-                    <div class="news-meta">
-                        <span class="tag">DuckDuckGo</span>
-                    </div>
-                </div>
-                
-            </div>
-            
+        <div class="highlight-card" onclick="window.open('https://www.ithome.com/0/894/189.htm', '_blank')">
+            <div class="highlight-tag">产品升级</div>
+            <h3>百度文心5.0发布</h3>
+            <p>文心一言App升级至5.0版本并更名为「文心」，新增魔法漫画、全形式AI搜索、创意修图、视频生成等功能，覆盖搜索、创作、视频通话等多场景。</p>
         </div>
         
-        <footer>
+        <div class="highlight-card" onclick="window.open('https://www.ithome.com/0/880/609.htm', '_blank')">
+            <div class="highlight-tag">模型升级</div>
+            <h3>月之暗面Kimi K2更新</h3>
+            <p>Kimi K2模型上下文长度扩展至256K，API输出速度提升至60-100 Token/s，Agentic Coding能力在真实编程任务中表现进一步提升。</p>
+        </div>
+        
+        <div class="highlight-card" onclick="window.open('https://docs.bigmodel.cn/cn/guide/models/text/glm-5.1', '_blank')">
+            <div class="highlight-tag">新模型</div>
+            <h3>智谱GLM-5.1发布</h3>
+            <p>智谱最新旗舰模型GLM-5.1代码能力大幅增强，长程任务显著提升，可单次持续自主工作长达8小时，综合能力对齐Claude Opus 4.6。</p>
+        </div>
+        
+        <div class="highlight-card" onclick="window.open('https://platform.minimaxi.com/docs/release-notes/models', '_blank')">
+            <div class="highlight-tag">开源模型</div>
+            <h3>MiniMax 2.7开源</h3>
+            <p>稀宇科技开源最新大模型MiniMax 2.7/M2.7，号称全球首个带自我进化能力的大模型，仅10B激活参数（总参230B）在Artificial Analysis榜单表现优异。</p>
+        </div>
+        
+        <div class="highlight-card" onclick="window.open('https://www.digitaltrends.com/computing/notebooklm-arrives-inside-gemini-notebooks-starting-today/', '_blank')">
+            <div class="highlight-tag">产品整合</div>
+            <h3>Google NotebookLM整合Gemini</h3>
+            <p>Google将NotebookLM功能整合进Gemini notebooks，20亿Gmail用户将陆续获得AI升级体验。</p>
+        </div>
+        
+            </div>
+        </div>
+        
+        <!-- AI Coding 动态 -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-icon">💻</span> AI Coding 动态</h2>
+            
+        <div class="news-card">
+            <div class="news-header">
+                <h4>智谱GLM-5.1：工程级代码能力</h4>
+                <span class="news-source">智谱AI</span>
+            </div>
+            <p class="news-desc">GLM-5.1在真实开发场景中表现优异，能够完成从规划、执行到迭代优化的完整闭环，交付工程级成果。</p>
+        </div>
+        
+        <div class="news-card">
+            <div class="news-header">
+                <h4>Kimi K2：Agentic Coding能力提升</h4>
+                <span class="news-source">月之暗面</span>
+            </div>
+            <p class="news-desc">月之暗面优化Kimi K2在真实编程任务中的Agentic Coding能力，支持更复杂的代码理解和生成任务。</p>
+        </div>
+        
+        </div>
+        
+        <!-- 大模型发布 -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-icon">🚀</span> 大模型发布/更新</h2>
+            
+        <div class="news-card">
+            <div class="news-header">
+                <h4>百度文心5.0</h4>
+                <span class="company-badge">百度</span>
+            </div>
+            <p class="news-desc">品牌回归「文心」，新增魔法漫画、全形式AI搜索、视频生成、创意修图等多模态功能。</p>
+        </div>
+        
+        <div class="news-card">
+            <div class="news-header">
+                <h4>智谱GLM-5.1</h4>
+                <span class="company-badge">智谱AI</span>
+            </div>
+            <p class="news-desc">745B大模型，200K上下文，代码能力对齐Claude Opus 4.6，支持8小时长程自主执行。</p>
+        </div>
+        
+        <div class="news-card">
+            <div class="news-header">
+                <h4>MiniMax-M2.7</h4>
+                <span class="company-badge">MiniMax</span>
+            </div>
+            <p class="news-desc">10B激活参数（总参230B），全球首个带自我进化能力，正式开源。</p>
+        </div>
+        
+        <div class="news-card">
+            <div class="news-header">
+                <h4>Mistral 3</h4>
+                <span class="company-badge">Mistral AI</span>
+            </div>
+            <p class="news-desc">Mistral最新一代模型发布，持续挑战OpenAI和Google的市场地位。</p>
+        </div>
+        
+        <div class="news-card">
+            <div class="news-header">
+                <h4>Grok 5（预览）</h4>
+                <span class="company-badge">xAI</span>
+            </div>
+            <p class="news-desc">xAI Grok 5预计6T参数规模，向AGI目标迈进，具体发布时间待定。</p>
+        </div>
+        
+        </div>
+        
+        <!-- AI产品与应用 -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-icon">✨</span> AI 产品与应用</h2>
+            
+        <div class="news-card">
+            <h4>百度「文心」App全面升级</h4>
+            <p class="news-desc">新增魔法漫画生成、全形式AI搜索、创意修图、视频生成、视频通话等功能，覆盖更多使用场景。</p>
+        </div>
+        
+        <div class="news-card">
+            <h4>NotebookLM入驻Gemini</h4>
+            <p class="news-desc">Google将NotebookLM功能整合进Gemini notebooks，提升笔记和知识管理能力。</p>
+        </div>
+        
+        <div class="news-card">
+            <h4>Gmail 20亿用户AI升级</h4>
+            <p class="news-desc">Google为Gmail带来AI升级，所有用户将陆续获得新功能体验。</p>
+        </div>
+        
+        </div>
+        
+        <!-- 汇总表格 -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-icon">📊</span> 今日动态汇总</h2>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>公司/产品</th>
+                        <th>动态类型</th>
+                        <th>要点简述</th>
+                        <th class="center">重要度</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td><strong>百度</strong></td>
+            <td><span class="type-tag">产品升级</span></td>
+            <td>文心5.0发布，新增魔法漫画、AI搜索</td>
+            <td class="center">⭐⭐⭐⭐</td>
+        </tr>
+        
+        <tr>
+            <td><strong>月之暗面</strong></td>
+            <td><span class="type-tag">模型更新</span></td>
+            <td>Kimi K2上下文扩展至256K</td>
+            <td class="center">⭐⭐⭐⭐</td>
+        </tr>
+        
+        <tr>
+            <td><strong>智谱AI</strong></td>
+            <td><span class="type-tag">新模型</span></td>
+            <td>GLM-5.1发布，8小时长程自主执行</td>
+            <td class="center">⭐⭐⭐⭐⭐</td>
+        </tr>
+        
+        <tr>
+            <td><strong>MiniMax</strong></td>
+            <td><span class="type-tag">开源</span></td>
+            <td>M2.7开源，首个自我进化大模型</td>
+            <td class="center">⭐⭐⭐⭐</td>
+        </tr>
+        
+        <tr>
+            <td><strong>Mistral</strong></td>
+            <td><span class="type-tag">新模型</span></td>
+            <td>Mistral 3发布</td>
+            <td class="center">⭐⭐⭐</td>
+        </tr>
+        
+        <tr>
+            <td><strong>Google</strong></td>
+            <td><span class="type-tag">产品整合</span></td>
+            <td>NotebookLM整合Gemini</td>
+            <td class="center">⭐⭐⭐</td>
+        </tr>
+        
+        <tr>
+            <td><strong>xAI</strong></td>
+            <td><span class="type-tag">预告</span></td>
+            <td>Grok 5参数规模将达6T</td>
+            <td class="center">⭐⭐⭐</td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="footer">
             <p>🤖 萧炎的AI洞察 · 自动追踪 · 每日洞察</p>
-            <p style="font-size: 0.8rem; margin-top: 10px;">数据采集于 2026-04-13T18:29:39</p>
-        </footer>
+            <p style="font-size: 0.8rem; margin-top: 8px; opacity: 0.7;">生成于 2026-04-13 18:55</p>
+        </div>
     </div>
 </body>
 </html>
