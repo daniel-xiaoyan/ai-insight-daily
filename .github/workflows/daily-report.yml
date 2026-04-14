@@ -1,8 +1,8 @@
-name: Generate Daily AI Report
+name: Daily AI Report
 
 on:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 2 * * *'  # 每天北京时间10点
   workflow_dispatch:
 
 permissions:
@@ -11,59 +11,47 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
-  generate-report:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       
-      - name: Install dependencies
+      - name: Install deps
         run: pip install requests beautifulsoup4
       
-      - name: Collect AI news
-        run: python scripts/collect_news.py
+      - name: Generate report
+        run: python scripts/generate_v2.py
       
-      - name: Analyze news
-        run: python scripts/analyze_news.py
+      - name: Copy index
+        run: cp index.html site/
       
-      - name: Generate rich daily report
-        run: python scripts/generate_rich_report.py
-      
-      - name: Commit and push changes
+      - name: Commit changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
           git add -A
-          git commit -m "Auto-generate daily AI report for $(date +%Y-%m-%d)" || echo "No changes to commit"
+          git commit -m "Daily report $(date +%Y-%m-%d)" || echo "No changes"
           git push
   
   deploy:
-    needs: generate-report
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: './site'
-      
-      - name: Deploy to GitHub Pages
-        id: deployment
+          path: site
+      - id: deployment
         uses: actions/deploy-pages@v4
