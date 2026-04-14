@@ -2,9 +2,8 @@ name: Generate Daily AI Report
 
 on:
   schedule:
-    # 每天北京时间上午10点运行 (UTC 02:00)
     - cron: '0 2 * * *'
-  workflow_dispatch:  # 支持手动触发
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -18,69 +17,60 @@ concurrency:
 jobs:
   generate-report:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
       
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-        
-    - name: Install dependencies
-      run: |
-        pip install requests beautifulsoup4
-        
-    - name: Collect AI news
-      run: |
-        echo "🔍 开始采集AI资讯..."
-        python scripts/collect_news.py
-        
-    - name: Analyze news
-      run: |
-        echo "📊 分析资讯内容..."
-        python scripts/analyze_news.py
-        
-    - name: Generate rich daily report
-      run: |
-        echo "📝 生成丰富版日报..."
-        python scripts/generate_rich_report.py
-        
-    - name: Commit and push changes
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add -A
-        git commit -m "📰 Auto-generate daily AI report for $(date +%Y-%m-%d)
-
-🤖 自动化流程:
-- 采集AI行业资讯
-- 分析整理内容
-- 生成丰富版日报
-
-📅 $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
-        git push
-        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+      
+      - name: Collect AI news
+        run: |
+          echo "🔍 开始采集AI资讯..."
+          python scripts/collect_news.py
+      
+      - name: Analyze news
+        run: |
+          echo "📊 分析资讯内容..."
+          python scripts/analyze_news.py
+      
+      - name: Generate rich daily report
+        run: |
+          echo "📝 生成丰富版日报..."
+          python scripts/generate_rich_report.py
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "📰 Auto-generate daily AI report for $(date +%Y-%m-%d)" || echo "No changes to commit"
+          git push
+  
   deploy:
     needs: generate-report
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
       
-    - name: Setup Pages
-      uses: actions/configure-pages@v5
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
       
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: './site'
-        
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './site'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
