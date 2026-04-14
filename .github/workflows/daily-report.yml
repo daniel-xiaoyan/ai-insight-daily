@@ -24,14 +24,8 @@ jobs:
         with:
           python-version: '3.11'
       
-      - name: Install deps
-        run: pip install requests beautifulsoup4
-      
-      - name: Generate report
-        run: python scripts/generate_v2.py
-      
-      - name: Copy index
-        run: cp index.html site/
+      - name: Generate daily report
+        run: python scripts/generate_daily.py
       
       - name: Commit changes
         run: |
@@ -52,6 +46,6 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: .  # 根目录
       - id: deployment
         uses: actions/deploy-pages@v4
