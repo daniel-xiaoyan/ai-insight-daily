@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深度调研 - 萧炎的AI洞察</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #10b981; --bg: #f8fafc; --card: #fff; --text: #1e293b; --text2: #64748b; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        
+        /* Header */
+        .header { background: linear-gradient(135deg, var(--primary) 0%, #34d399 100%); border-radius: 16px; padding: 50px 40px; text-align: center; color: white; margin-bottom: 32px; }
+        .header h1 { font-size: 2rem; margin-bottom: 8px; }
+        .header p { opacity: 0.9; }
+        
+        /* Stats */
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+        .stat-card { background: var(--card); border-radius: 12px; padding: 24px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .stat-number { font-size: 2rem; font-weight: bold; color: var(--primary); }
+        .stat-label { font-size: 0.85rem; color: var(--text2); margin-top: 4px; }
+        
+        /* Section */
+        .section { background: var(--card); border-radius: 16px; padding: 32px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .section-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
+        
+        /* Research Cards */
+        .research-grid { display: grid; gap: 16px; }
+        .research-card { 
+            display: flex; align-items: flex-start; gap: 16px; padding: 24px; 
+            background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--primary);
+            text-decoration: none; color: var(--text); transition: all 0.2s;
+        }
+        .research-card:hover { transform: translateX(4px); background: #f0fdf4; }
+        .research-icon { font-size: 2rem; }
+        .research-content { flex: 1; }
+        .research-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+        .research-desc { font-size: 0.9rem; color: var(--text2); margin-bottom: 12px; }
+        .research-meta { display: flex; gap: 16px; font-size: 0.8rem; color: var(--text2); }
+        .research-meta span { display: flex; align-items: center; gap: 4px; }
+        .research-arrow { font-size: 1.5rem; color: var(--primary); }
+        
+        /* Footer */
+        .footer { text-align: center; padding: 40px 20px; color: var(--text2); }
+        
+        @media (max-width: 768px) { 
+            .stats { grid-template-columns: repeat(2, 1fr); } 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔬 深度调研</h1>
+            <p>系统化研究AI行业关键议题 · 每月更新</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">调研主题</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">12</div>
+                <div class="stat-label">典型案例</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">90</div>
+                <div class="stat-label">天行动方案</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2026</div>
+                <div class="stat-label">研究年份</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">📚 调研报告</h2>
+            <div class="research-grid">
+                <a href="topics/ai-native-org-transform.html" class="research-card">
+                    <div class="research-icon">🏢</div>
+                    <div class="research-content">
+                        <div class="research-title">AI-Native组织转型深度调研</div>
+                        <div class="research-desc">从"人驱动流程"升级为"人机协同系统"：四层联动框架、典型案例拆解、90天落地路径</div>
+                        <div class="research-meta">
+                            <span>📅 2026-04</span>
+                            <span>📊 6个章节</span>
+                            <span>✅ 执行清单</span>
+                        </div>
+                    </div>
+                    <div class="research-arrow">→</div>
+                </a>
+                
+                <a href="topics/ai-coding-tool-selection.html" class="research-card">
+                    <div class="research-icon">⌨️</div>
+                    <div class="research-content">
+                        <div class="research-title">AI Coding工具选型指南</div>
+                        <div class="research-desc">Cursor、Claude Code、Windsurf、GitHub Copilot深度对比：场景适配、成本分析、团队落地策略</div>
+                        <div class="research-meta">
+                            <span>📅 2026-04</span>
+                            <span>📊 5大维度</span>
+                            <span>💡 选型决策树</span>
+                        </div>
+                    </div>
+                    <div class="research-arrow">→</div>
+                </a>
+                
+                <a href="topics/enterprise-ai-adoption.html" class="research-card">
+                    <div class="research-icon">🚀</div>
+                    <div class="research-content">
+                        <div class="research-title">企业AI应用落地路径</div>
+                        <div class="research-desc">从试点到规模化：场景选择、组织变革、治理框架、ROI评估方法论</div>
+                        <div class="research-meta">
+                            <span>📅 2026-04</span>
+                            <span>📊 4阶段路径</span>
+                            <span>📈 ROI模型</span>
+                        </div>
+                    </div>
+                    <div class="research-arrow">→</div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🤖 萧炎的AI洞察 · 深度调研 · 每月更新</p>
+            <p style="font-size: 0.8rem; margin-top: 8px;"><a href="../index.html">← 返回首页</a></p>
+        </div>
+    </div>
+</body>
+</html>
