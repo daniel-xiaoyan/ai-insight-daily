@@ -1,324 +1,266 @@
-</div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">Dario Amodei</div>
-                        <div class="item-title">Anthropic CEO</div>
-                        <div class="item-tags">
-                            <span class="item-tag">Claude</span>
-                            <span class="item-tag">AI安全</span>
-                            <span class="item-tag">Constitutional AI</span>
-                        </div>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>追踪体系 | AI洞察</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-success: #059669; --color-success-light: #10B981;
+            --color-text-primary: #1C1917; --color-text-secondary: #57534E;
+            --color-text-muted: #78716C; --color-border: #E7E5E4;
+            --color-bg: #F8FAFB; --color-bg-card: #FFFFFF;
+            --gradient-hero: linear-gradient(135deg, #059669 0%, #2563EB 50%, #7C3AED 100%);
+            --shadow-card: 0 2px 8px rgba(0,0,0,0.06); --radius-lg: 16px;
+            --font-family: "DM Sans", -apple-system, "Noto Sans SC", sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-family); font-size: 15px; line-height: 1.65; color: var(--color-text-secondary); background: var(--color-bg); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        
+        .header { text-align: center; padding: 50px 40px; margin-bottom: 32px; border-radius: 16px; background: var(--color-bg-card); border: 1px solid var(--color-border); box-shadow: var(--shadow-card); position: relative; overflow: hidden; }
+        .header::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient-hero); }
+        .header-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: linear-gradient(135deg, #ECFDF5 0%, #EFF6FF 100%); color: #2563EB; border-radius: 9999px; font-size: 12px; font-weight: 600; margin-bottom: 16px; }
+        .header-title { font-size: 32px; font-weight: 800; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; }
+        
+        .section { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 20px; box-shadow: var(--shadow-card); }
+        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--color-border); cursor: pointer; }
+        .section-icon { width: 40px; height: 40px; background: var(--gradient-hero); color: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .section-title { font-size: 20px; font-weight: 700; color: var(--color-text-primary); flex: 1; }
+        .section-count { background: rgba(5,150,105,0.1); color: var(--color-success); padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+        .section-arrow { font-size: 20px; transition: transform 0.3s; }
+        .section.expanded .section-arrow { transform: rotate(180deg); }
+        
+        .section-content { display: none; }
+        .section.expanded .section-content { display: block; animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .tracking-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+        .tracking-card { padding: 16px; background: var(--color-bg); border-radius: 12px; border: 1px solid var(--color-border); transition: all 0.2s; }
+        .tracking-card:hover { border-color: var(--color-success); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(5,150,105,0.15); }
+        .tracking-name { font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px; }
+        .tracking-role { font-size: 13px; color: var(--color-text-muted); }
+        .tracking-company { display: inline-block; background: rgba(5,150,105,0.1); color: var(--color-success); padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-top: 8px; }
+        
+        .source-list { display: flex; flex-direction: column; gap: 8px; }
+        .source-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--color-bg); border-radius: 8px; border: 1px solid var(--color-border); }
+        .source-icon { width: 32px; height: 32px; background: var(--gradient-hero); color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+        .source-info { flex: 1; }
+        .source-name { font-weight: 600; color: var(--color-text-primary); }
+        .source-desc { font-size: 13px; color: var(--color-text-muted); }
+        
+        .footer { text-align: center; padding: 40px 20px; color: var(--color-text-muted); font-size: 13px; margin-top: 40px; border-top: 1px solid var(--color-border); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-badge">📊 追踪体系</div>
+            <h1 class="header-title">AI行业持续追踪</h1>
+            <p style="color: var(--color-text-secondary);">人物 · 公司 · 信息源 · 系统化追踪AI行业关键节点</p>
+        </header>
+
+        <!-- 人物追踪 -->
+        <div class="section expanded" onclick="toggleSection(this)">
+            <div class="section-header">
+                <div class="section-icon">👤</div>
+                <div class="section-title">人物追踪</div>
+                <div class="section-count">100+</div>
+                <div class="section-arrow">▼</div>
+            </div>
+            <div class="section-content">
+                <div class="tracking-grid">
+                    <div class="tracking-card">
+                        <div class="tracking-name">Sam Altman</div>
+                        <div class="tracking-role">OpenAI CEO</div>
+                        <div class="tracking-company">OpenAI</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">李彦宏</div>
-                        <div class="item-title">百度创始人</div>
-                        <div class="item-tags">
-                            <span class="item-tag">文心一言</span>
-                            <span class="item-tag">百度AI</span>
-                            <span class="item-tag">中文大模型</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Dario Amodei</div>
+                        <div class="tracking-role">Anthropic CEO</div>
+                        <div class="tracking-company">Anthropic</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">Demis Hassabis</div>
-                        <div class="item-title">Google DeepMind CEO</div>
-                        <div class="item-tags">
-                            <span class="item-tag">AlphaGo</span>
-                            <span class="item-tag">Gemini</span>
-                            <span class="item-tag">AGI研究</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Sundar Pichai</div>
+                        <div class="tracking-role">Google CEO</div>
+                        <div class="tracking-company">Google</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">李开复</div>
-                        <div class="item-title">创新工场CEO，零一万物创始人</div>
-                        <div class="item-tags">
-                            <span class="item-tag">Yi模型</span>
-                            <span class="item-tag">AI投资</span>
-                            <span class="item-tag">华人AI</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Satya Nadella</div>
+                        <div class="tracking-role">Microsoft CEO</div>
+                        <div class="tracking-company">Microsoft</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">杨植麟</div>
-                        <div class="item-title">月之暗面创始人</div>
-                        <div class="item-tags">
-                            <span class="item-tag">Kimi</span>
-                            <span class="item-tag">长文本</span>
-                            <span class="item-tag">国产大模型</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">李彦宏</div>
+                        <div class="tracking-role">百度创始人</div>
+                        <div class="tracking-company">百度</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">Elon Musk</div>
-                        <div class="item-title">xAI创始人，特斯拉CEO</div>
-                        <div class="item-tags">
-                            <span class="item-tag">Grok</span>
-                            <span class="item-tag">AI监管</span>
-                            <span class="item-tag">具身智能</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">李开复</div>
+                        <div class="tracking-role">创新工场董事长</div>
+                        <div class="tracking-company">创新工场</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">张鹏</div>
-                        <div class="item-title">智谱AI CEO</div>
-                        <div class="item-tags">
-                            <span class="item-tag">ChatGLM</span>
-                            <span class="item-tag">GLM模型</span>
-                            <span class="item-tag">清华系</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Elon Musk</div>
+                        <div class="tracking-role">xAI创始人</div>
+                        <div class="tracking-company">xAI</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">闫俊杰</div>
-                        <div class="item-title">MiniMax创始人</div>
-                        <div class="item-tags">
-                            <span class="item-tag">海螺AI</span>
-                            <span class="item-tag">多模态</span>
-                            <span class="item-tag">AI社交</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Demis Hassabis</div>
+                        <div class="tracking-role">DeepMind CEO</div>
+                        <div class="tracking-company">Google DeepMind</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">王小川</div>
+                        <div class="tracking-role">百川智能CEO</div>
+                        <div class="tracking-company">百川智能</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">杨植麟</div>
+                        <div class="tracking-role">月之暗面CEO</div>
+                        <div class="tracking-company">月之暗面</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">闫俊杰</div>
+                        <div class="tracking-role">MiniMax创始人</div>
+                        <div class="tracking-company">MiniMax</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">张鹏</div>
+                        <div class="tracking-role">智谱AI CEO</div>
+                        <div class="tracking-company">智谱AI</div>
                     </div>
                 </div>
-                
-                <p style="text-align: center; margin-top: 20px; color: var(--color-text-muted);">
-                    共追踪 <strong style="color: var(--color-success);">135位</strong> 核心人物，
-                    <a href="#" style="color: var(--color-info);">查看完整列表 →</a>
-                </p>
+                <p style="text-align: center; margin-top: 16px; color: var(--color-text-muted);">共追踪 100+ 位AI行业关键人物...</p>
             </div>
         </div>
-        
+
         <!-- 公司追踪 -->
-        <div class="accordion">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-                <div class="accordion-title">
-                    <span class="accordion-icon">🏢</span>
-                    <span>公司追踪</span>
-                    <span class="accordion-count">145家</span>
-                </div>
-                <span class="accordion-arrow">▼</span>
+        <div class="section" onclick="toggleSection(this)">
+            <div class="section-header">
+                <div class="section-icon">🏢</div>
+                <div class="section-title">公司追踪</div>
+                <div class="section-count">50+</div>
+                <div class="section-arrow">▼</div>
             </div>
-            <div class="accordion-content">
-                <div class="category-tabs">
-                    <span class="category-tab active">大模型厂商</span>
-                    <span class="category-tab">AI应用公司</span>
-                    <span class="category-tab">AI芯片</span>
-                    <span class="category-tab">AI基础设施</span>
-                    <span class="category-tab">开源社区</span>
-                </div>
-                
-                <div class="item-grid">
-                    <div class="item-card">
-                        <div class="item-name">OpenAI</div>
-                        <div class="item-title">美国大模型公司 · 估值$1500亿</div>
-                        <div class="item-tags">
-                            <span class="item-tag">GPT</span>
-                            <span class="item-tag">ChatGPT</span>
-                            <span class="item-tag">行业领导者</span>
-                        </div>
+            <div class="section-content">
+                <div class="tracking-grid">
+                    <div class="tracking-card">
+                        <div class="tracking-name">OpenAI</div>
+                        <div class="tracking-role">GPT系列模型</div>
+                        <div class="tracking-company">美国</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">Anthropic</div>
-                        <div class="item-title">AI安全研究公司 · 估值$600亿</div>
-                        <div class="item-tags">
-                            <span class="item-tag">Claude</span>
-                            <span class="item-tag">AI安全</span>
-                            <span class="item-tag">Constitutional AI</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Anthropic</div>
+                        <div class="tracking-role">Claude系列模型</div>
+                        <div class="tracking-company">美国</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">百度</div>
-                        <div class="item-title">中国AI领导者 · 纳斯达克上市</div>
-                        <div class="item-tags">
-                            <span class="item-tag">文心一言</span>
-                            <span class="item-tag">飞桨</span>
-                            <span class="item-tag">Apollo</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Google DeepMind</div>
+                        <div class="tracking-role">Gemini系列模型</div>
+                        <div class="tracking-company">美国</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">字节跳动</div>
-                        <div class="item-title">中国最大互联网公司之一 · 抖音母公司</div>
-                        <div class="item-tags">
-                            <span class="item-tag">豆包</span>
-                            <span class="item-tag">云雀模型</span>
-                            <span class="item-tag">AI推荐</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Meta AI</div>
+                        <div class="tracking-role">Llama开源模型</div>
+                        <div class="tracking-company">美国</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">阿里巴巴</div>
-                        <div class="item-title">中国电商巨头 · 纽交所上市</div>
-                        <div class="item-tags">
-                            <span class="item-tag">通义千问</span>
-                            <span class="item-tag">阿里云</span>
-                            <span class="item-tag">AI电商</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">百度</div>
+                        <div class="tracking-role">文心一言</div>
+                        <div class="tracking-company">中国</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">NVIDIA</div>
-                        <div class="item-title">AI芯片领导者 · 纳斯达克上市</div>
-                        <div class="item-tags">
-                            <span class="item-tag">GPU</span>
-                            <span class="item-tag">CUDA</span>
-                            <span class="item-tag">AI算力</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">阿里巴巴</div>
+                        <div class="tracking-role">通义千问</div>
+                        <div class="tracking-company">中国</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">月之暗面</div>
-                        <div class="item-title">中国大模型独角兽 · 估值$30亿</div>
-                        <div class="item-tags">
-                            <span class="item-tag">Kimi</span>
-                            <span class="item-tag">长文本</span>
-                            <span class="item-tag">清华系</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">字节跳动</div>
+                        <div class="tracking-role">豆包大模型</div>
+                        <div class="tracking-company">中国</div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">智谱AI</div>
-                        <div class="item-title">中国大模型公司 · 估值$25亿</div>
-                        <div class="item-tags">
-                            <span class="item-tag">ChatGLM</span>
-                            <span class="item-tag">GLM-4</span>
-                            <span class="item-tag">清华系</span>
-                        </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">月之暗面</div>
+                        <div class="tracking-role">Kimi大模型</div>
+                        <div class="tracking-company">中国</div>
                     </div>
                 </div>
-                
-                <p style="text-align: center; margin-top: 20px; color: var(--color-text-muted);">
-                    共追踪 <strong style="color: var(--color-success);">145家</strong> 核心公司，
-                    <a href="#" style="color: var(--color-info);">查看完整列表 →</a>
-                </p>
+                <p style="text-align: center; margin-top: 16px; color: var(--color-text-muted);">共追踪 50+ 家AI核心公司...</p>
             </div>
         </div>
-        
+
         <!-- 信息源 -->
-        <div class="accordion">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-                <div class="accordion-title">
-                    <span class="accordion-icon">📡</span>
-                    <span>信息源</span>
-                    <span class="accordion-count">280个</span>
-                </div>
-                <span class="accordion-arrow">▼</span>
+        <div class="section" onclick="toggleSection(this)">
+            <div class="section-header">
+                <div class="section-icon">📡</div>
+                <div class="section-title">信息源</div>
+                <div class="section-count">30+</div>
+                <div class="section-arrow">▼</div>
             </div>
-            <div class="accordion-content">
-                <div class="category-tabs">
-                    <span class="category-tab active">实践者</span>
-                    <span class="category-tab">观察者</span>
-                    <span class="category-tab">决策者</span>
-                    <span class="category-tab">Newsletter</span>
-                    <span class="category-tab">播客</span>
-                </div>
-                
-                <div class="item-grid">
-                    <div class="item-card">
-                        <div class="item-name">X/Twitter</div>
-                        <div class="item-title">AI从业者一手分享主阵地</div>
-                        <div class="item-tags">
-                            <span class="item-tag">实时</span>
-                            <span class="item-tag">一手信息</span>
-                            <span class="item-tag">社区</span>
+            <div class="section-content">
+                <div class="source-list">
+                    <div class="source-item">
+                        <div class="source-icon">🐦</div>
+                        <div class="source-info">
+                            <div class="source-name">Twitter/X</div>
+                            <div class="source-desc">AI领袖官方账号、行业动态第一时间发布</div>
                         </div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">Import AI</div>
-                        <div class="item-title">Jack Clark的AI行业通讯</div>
-                        <div class="item-tags">
-                            <span class="item-tag">Newsletter</span>
-                            <span class="item-tag">政策</span>
-                            <span class="item-tag">深度分析</span>
+                    <div class="source-item">
+                        <div class="source-icon">📰</div>
+                        <div class="source-info">
+                            <div class="source-name">TechCrunch / The Verge</div>
+                            <div class="source-desc">科技媒体深度报道、产品发布资讯</div>
                         </div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">The Batch</div>
-                        <div class="item-title">吴恩达的AI周报</div>
-                        <div class="item-tags">
-                            <span class="item-tag">Newsletter</span>
-                            <span class="item-tag">教育</span>
-                            <span class="item-tag">商业应用</span>
+                    <div class="source-item">
+                        <div class="source-icon">📄</div>
+                        <div class="source-info">
+                            <div class="source-name">arXiv / Papers With Code</div>
+                            <div class="source-desc">学术论文、技术突破、开源项目</div>
                         </div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">机器之心</div>
-                        <div class="item-title">中文AI媒体领导者</div>
-                        <div class="item-tags">
-                            <span class="item-tag">中文</span>
-                            <span class="item-tag">资讯</span>
-                            <span class="item-tag">深度</span>
+                    <div class="source-item">
+                        <div class="source-icon">💼</div>
+                        <div class="source-info">
+                            <div class="source-name">公司官方博客</div>
+                            <div class="source-desc">OpenAI Blog、Anthropic News、Google AI Blog</div>
                         </div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">量子位</div>
-                        <div class="item-title">前沿科技资讯平台</div>
-                        <div class="item-tags">
-                            <span class="item-tag">中文</span>
-                            <span class="item-tag">AI</span>
-                            <span class="item-tag">快讯</span>
+                    <div class="source-item">
+                        <div class="source-icon">🎥</div>
+                        <div class="source-info">
+                            <div class="source-name">YouTube / 播客</div>
+                            <div class="source-desc">AI领袖访谈、技术分享、行业会议</div>
                         </div>
                     </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">InfoQ</div>
-                        <div class="item-title">技术社区与媒体</div>
-                        <div class="item-tags">
-                            <span class="item-tag">技术</span>
-                            <span class="item-tag">架构</span>
-                            <span class="item-tag">实践</span>
-                        </div>
-                    </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">Latent Space</div>
-                        <div class="item-title">AI工程师播客</div>
-                        <div class="item-tags">
-                            <span class="item-tag">播客</span>
-                            <span class="item-tag">技术</span>
-                            <span class="item-tag">深度访谈</span>
-                        </div>
-                    </div>
-                    
-                    <div class="item-card">
-                        <div class="item-name">Google AI Blog</div>
-                        <div class="item-title">Google AI官方博客</div>
-                        <div class="item-tags">
-                            <span class="item-tag">官方</span>
-                            <span class="item-tag">研究</span>
-                            <span class="item-tag">论文</span>
+                    <div class="source-item">
+                        <div class="source-icon">📊</div>
+                        <div class="source-info">
+                            <div class="source-name">投资数据平台</div>
+                            <div class="source-desc">Crunchbase、PitchBook、IT桔子</div>
                         </div>
                     </div>
                 </div>
-                
-                <p style="text-align: center; margin-top: 20px; color: var(--color-text-muted);">
-                    共追踪 <strong style="color: var(--color-success);">280个</strong> 信息源，
-                    <a href="#" style="color: var(--color-info);">查看完整列表 →</a>
-                </p>
+                <p style="text-align: center; margin-top: 16px; color: var(--color-text-muted);">共追踪 30+ 个高质量信息源...</p>
             </div>
         </div>
-        
-        <script>
-            function toggleAccordion(header) {
-                const content = header.nextElementSibling;
-                const arrow = header.querySelector('.accordion-arrow');
-                
-                header.classList.toggle('active');
-                content.classList.toggle('open');
-                arrow.classList.toggle('open');
-            }
-        </script>
-        
-        <div class="footer">
+
+        <footer class="footer">
             <p>🤖 我是熏儿，这是萧炎让我负责的AI洞察项目</p>
-            <p style="margin-top: 8px;"><a href="../index.html">← 返回首页</a></p>
-        </div>
+            <p style="margin-top: 8px; font-size: 12px;">系统化追踪AI行业动态 · 每日/每周输出调研洞察</p>
+            <p style="margin-top: 16px;"><a href="../index.html" style="color: var(--color-success);">← 返回首页</a></p>
+        </footer>
     </div>
+
+    <script>
+        function toggleSection(element) {
+            element.classList.toggle('expanded');
+        }
+    </script>
 </body>
 </html>
