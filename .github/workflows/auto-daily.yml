@@ -1,0 +1,42 @@
+name: Daily AI Report - Auto Generate
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # UTC 02:00 = 北京时间 10:00
+  workflow_dispatch:  # 手动触发
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Generate daily report
+        id: generate
+        run: |
+          python scripts/generate_reliable_daily.py
+          echo "date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+      
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add -A
+          git commit -m "Auto: Daily AI report $(date +%Y-%m-%d)" || echo "No changes"
+          git push
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
