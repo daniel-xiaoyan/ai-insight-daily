@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI洞察日报 · 2026-04-14</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #10b981;
+            --primary-light: #34d399;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+            margin-bottom: 24px;
+        }
+        .header-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 8px; }
+        .header-meta { opacity: 0.9; font-size: 0.95rem; }
+        
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .stat-number { font-size: 1.8rem; font-weight: bold; color: var(--primary); }
+        .stat-label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+        
+        /* Nav */
+        .nav {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .nav a {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .nav a:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Section */
+        .section {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Overview */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .overview-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        .overview-icon { font-size: 1.5rem; margin-bottom: 8px; }
+        .overview-section { font-weight: 600; margin-bottom: 4px; }
+        .overview-summary { font-size: 0.9rem; color: var(--text-secondary); }
+        
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        th {
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 500;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        tr:hover td { background: #f8fafc; }
+        
+        /* News Items */
+        .region-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .region-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+        .news-item {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .tag-new {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        .news-title {
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .news-title:hover { color: var(--primary); }
+        .news-source {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        .news-content {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .no-data {
+            color: var(--text-secondary);
+            font-style: italic;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .stats { grid-template-columns: 1fr; }
+            .overview-grid { grid-template-columns: 1fr; }
+            .region-tabs { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-badge">AI INSIGHT · DAILY REPORT</div>
+            <h1>AI 洞察日报</h1>
+            <div class="header-meta">📅 2026-04-14 | 🌐 海外 28 条 · 国内 22 条</div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">50</div>
+                <div class="stat-label">总资讯</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">28</div>
+                <div class="stat-label">海外动态</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">22</div>
+                <div class="stat-label">国内动态</div>
+            </div>
+        </div>
+        
+        <nav class="nav"><a href="#overview">📋 全文概览</a><a href="#heat">🔥 热度趋势</a><a href="#llm">🧠 大模型</a><a href="#coding">⌨️ AI Coding</a><a href="#app">📱 AI应用</a><a href="#industry">🏭 AI行业</a><a href="#data">📊 数据速览</a></nav>
+        
+        <section class="section" id="overview">
+            <h2 class="section-title">📋 全文概览</h2>
+            <div class="overview-grid"><div class="overview-card">
+            <div class="overview-icon">🧠</div>
+            <div class="overview-section">大模型</div>
+            <div class="overview-summary">Introducing GPT‑5.4 、OpenAI: GPT-5.4 Revi...</div>
+        </div><div class="overview-card">
+            <div class="overview-icon">⌨️</div>
+            <div class="overview-section">AI Coding</div>
+            <div class="overview-summary">Cursor、Claude Code等工具持续更新</div>
+        </div><div class="overview-card">
+            <div class="overview-icon">📱</div>
+            <div class="overview-section">AI应用</div>
+            <div class="overview-summary">企业级AI Agent部署门槛持续降低</div>
+        </div><div class="overview-card">
+            <div class="overview-icon">🏭</div>
+            <div class="overview-section">AI行业</div>
+            <div class="overview-summary">AI初创公司融资热度不减</div>
+        </div></div>
+        </section>
+        
+        <section class="section" id="heat">
+            <h2 class="section-title">🔥 热度趋势</h2>
+            <table>
+                <thead>
+                    <tr><th>排名</th><th>话题</th><th>热度</th><th>天数</th><th>趋势</th></tr>
+                </thead>
+                <tbody><tr>
+            <td>🥇</td>
+            <td><strong>大模型竞争</strong></td>
+            <td>🔥🔥🔥🔥🔥🔥🔥🔥🔥</td>
+            <td>5天</td>
+            <td>🔥 热门</td>
+        </tr><tr>
+            <td>🥈</td>
+            <td><strong>AI编程工具</strong></td>
+            <td>🔥🔥🔥🔥🔥🔥🔥🔥</td>
+            <td>3天</td>
+            <td>📈 上升</td>
+        </tr><tr>
+            <td>🥉</td>
+            <td><strong>企业AI转型</strong></td>
+            <td>🔥🔥🔥🔥🔥🔥🔥</td>
+            <td>2天</td>
+            <td>➡️ 稳定</td>
+        </tr></tbody>
+            </table>
+        </section>
+        
+        <section class="section" id="llm">
+            <h2 class="section-title">🧠 大模型</h2>
+            
+    <div class="region-tabs">
+        <div class="region-section">
+            <div class="region-title">🌏 海外</div>
+            <div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fopenai.com%2Findex%2Fintroducing%2Dgpt%2D5%2D4%2F&amp;rut=fc39e88dd243de9bf8a68912da9d9622df817e71e0303073890b2a4d6c3bf7c8" class="news-title" target="_blank">Introducing GPT‑5.4 - OpenAI</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，Introducing GPT‑5.4 - OpenAI...</p>
+                </div>
+            </div><div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fdesignforonline.com%2Fai%2Dmodels%2Fopenai%2Dgpt%2D5%2D4%2F&amp;rut=cb40d7492a340ed5c2f5413a2ae990c68c7e8bc7aad52c509d735bd9d7ec737c" class="news-title" target="_blank">OpenAI: GPT-5.4 Review — Pricing, Benchmarks &amp; Capabilities (2026 ...</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，OpenAI: GPT-5.4 Review — Pricing, Benchmarks &amp;...</p>
+                </div>
+            </div><div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.anthropic.com%2Fnews&amp;rut=e69bfe939d043bfd3756ef82d5ff3c645816ed39e6f4405f2ec596f67caceefc" class="news-title" target="_blank">Newsroom &#92; Anthropic</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，Newsroom &#92; Anthropic...</p>
+                </div>
+            </div>
+        </div>
+        <div class="region-section">
+            <div class="region-title">🇨🇳 国内</div>
+            <div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fyiyan.baidu.com%2Fwelcome&amp;rut=3d7e019cd8f3f611c8e9f18c02d96667b56aa8fef0b9b6339fb10851bf017740" class="news-title" target="_blank">文心一言 - Baidu</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，文心一言 - Baidu...</p>
+                </div>
+            </div><div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.msn.com%2Fzh%2Dcn%2Fnews%2Fother%2F%25E7%2599%25BE%25E5%25BA%25A6%2D%25E6%2596%2587%25E5%25BF%2583%25E4%25B8%2580%25E8%25A8%2580%2Dapp%25E5%2586%258D%25E5%258D%2587%25E7%25BA%25A7%2D5%2D0%25E7%2589%2588%25E6%259C%25AC%25E6%259B%25B4%25E5%2590%258D%2D%25E6%2596%2587%25E5%25BF%2583%2D%25E5%25B9%25B6%25E6%2596%25B0%25E5%25A2%259E%25E5%25A4%259A%25E9%25A1%25B9ai%25E5%258A%259F%25E8%2583%25BD%2Far%2DAA1PDYxO&amp;rut=0ce1105987d1d5e32db5b9d726147e1941b98d7432fbeea1759dd5852f467575" class="news-title" target="_blank">百度"文心一言"App再升级：5.0版本更名"文心"并新增多项AI功能</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，百度"文心一言"App再升级：5.0版本更名"文心"并新增多项AI功能...</p>
+                </div>
+            </div><div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.aliyun.com%2Fproduct%2Ftongyi&amp;rut=d3883cc3c55f3f8966225e6c2f9489efaf29520aa73c659f05439454f1e65b43" class="news-title" target="_blank">千问大模型_ai大模型_一站式大模型推理和部署服务-阿里云</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，千问大模型_ai大模型_一站式大模型推理和部署服务-阿里云...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        </section>
+        
+        <section class="section" id="coding">
+            <h2 class="section-title">⌨️ AI Coding</h2>
+            
+    <div class="region-tabs">
+        <div class="region-section">
+            <div class="region-title">🌏 海外</div>
+            <div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fcursor.com%2F&amp;rut=9e74b4a916b1886e4ec54b72ca1da3968dece4e913ebc13908d30100ec208109" class="news-title" target="_blank">Cursor: The best way to code with AI</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，Cursor: The best way to code with AI...</p>
+                </div>
+            </div><div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fcursor.gr.com%2F&amp;rut=40933c95f3985b65a22f227e8f713999d207c85096013c3e436f83a06f10a3b3" class="news-title" target="_blank">Cursor | AI Code Editor — Download Cursor IDE Free</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，Cursor | AI Code Editor — Download Cursor IDE Free...</p>
+                </div>
+            </div>
+        </div>
+        <div class="region-section">
+            <div class="region-title">🇨🇳 国内</div>
+            <div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F2025589657207881943&amp;rut=2fa2d9f4cab1a8b44e5f7e53adb7271a1dddd877fd9b00ba69263723d4f3632e" class="news-title" target="_blank">2026国产ai编程工具横评：五款主流工具深度对比 - 知乎</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，2026国产ai编程工具横评：五款主流工具深度对比 - 知乎...</p>
+                </div>
+            </div><div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fk.sina.cn%2Farticle_7879848900_1d5acf3c401902wt3u.html&amp;rut=1b3c4b28079ad8536d674f544e6a1b5f762df97693eb1f26d11a3ab30a31e135" class="news-title" target="_blank">国内AI编程工具排行榜 - CSDN文库|开发者|微软|Kimi|DeepSeek|AI代码生成_新浪新闻</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，国内AI编程工具排行榜 - CSDN文库|开发者|微软|Kimi|DeepSeek|AI代码生成_新...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        </section>
+        
+        <section class="section" id="app">
+            <h2 class="section-title">📱 AI应用</h2>
+            
+    <div class="region-tabs">
+        <div class="region-section">
+            <div class="region-title">🌏 海外</div>
+            <div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.kore.ai%2Fblog%2F7%2Dbest%2Dagentic%2Dai%2Dplatforms&amp;rut=af8b3b31b7777b5980af10c0bd9a0108fa8ad5d332755ce011a5c80225ad4301" class="news-title" target="_blank">7 best agentic AI platforms in 2026 | Tested and reviewed</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，7 best agentic AI platforms in 2026 | Tested and r...</p>
+                </div>
+            </div><div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fwizr.ai%2Fblog%2Fenterprise%2Dai%2Dagent%2Dplatforms%2F&amp;rut=ec845b330bf3e38983d1ec9a63a6f59b48e2b9e8bc83361cdcb98c13702d55a9" class="news-title" target="_blank">Top 9 Enterprise AI Agent Platforms in 2026 [CIOs &amp; CTOs Trust]</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，Top 9 Enterprise AI Agent Platforms in 2026 [CIOs ...</p>
+                </div>
+            </div>
+        </div>
+        <div class="region-section">
+            <div class="region-title">🇨🇳 国内</div>
+            <div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fnews.qq.com%2Frain%2Fa%2F20251121A03U3H00&amp;rut=cccf38ab57c36009fb3524d105c0f1e7791484f3b0e014b3d9f1fa205d05388a" class="news-title" target="_blank">2025 China Ai 100 榜单正式发布｜谁在定义中国 Ai 新一线？</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，2025 China Ai 100 榜单正式发布｜谁在定义中国 Ai 新一线？...</p>
+                </div>
+            </div><div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.aicpb.com%2Fzh%2Fai%2Drankings%2Fproducts%2Fchina%2Dai%2Drankings&amp;rut=f5ee2f5cfbc5b5d83d1bae363323c89c823dab4f915496b40d907a4e724e2f28" class="news-title" target="_blank">Ai产品榜·国内总榜 — 2026年2月版｜Ai产品榜（Aicpb）</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，Ai产品榜·国内总榜 — 2026年2月版｜Ai产品榜（Aicpb）...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        </section>
+        
+        <section class="section" id="industry">
+            <h2 class="section-title">🏭 AI行业</h2>
+            
+    <div class="region-tabs">
+        <div class="region-section">
+            <div class="region-title">🌏 海外</div>
+            <div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Faifundingtracker.com%2F&amp;rut=707ff49a42574ffd54eddafc6323433e70a93297a3d3953fda998c3409215c0c" class="news-title" target="_blank">AI Funding Tracker | AI Startup Investment Roundups 2026</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，AI Funding Tracker | AI Startup Investment Roundup...</p>
+                </div>
+            </div><div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Ffundraiseinsider.com%2Fblog%2Fai%2Dstartups%2F&amp;rut=0df5fbdc1d2a816596264b54469dcb0bc441f0e7b704009b93003832ea71a9fa" class="news-title" target="_blank">List of Funded AI Startups in 2026 - Fundraise Insider</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，List of Funded AI Startups in 2026 - Fundraise Ins...</p>
+                </div>
+            </div>
+        </div>
+        <div class="region-section">
+            <div class="region-title">🇨🇳 国内</div>
+            <div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.36kr.com%2Fp%2F3546815118159749&amp;rut=be81828f75548d52283e0ba75430347287d2d746670538667299c50c211ba033" class="news-title" target="_blank">139笔过亿融资，超600亿真金白银，砸向这些ai公司 - 36氪</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，139笔过亿融资，超600亿真金白银，砸向这些ai公司 - 36氪...</p>
+                </div>
+            </div><div class="news-item">
+                <span class="tag-new">NEW</span>
+                <a href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.thepaper.cn%2FnewsDetail_forward_30239612&amp;rut=729274fb9a06269b685c28b6e15d7bea574c6ec6625dae578b65df130ff1c1b8" class="news-title" target="_blank">2024年人工智能行业融资超1000亿元，有一半AI公司成立三年内获投｜IT桔子报告_澎湃号·湃客_澎湃新闻-The Paper</a>
+                <div class="news-source">来源</div>
+                <div class="news-content">
+                    <p><strong>核心发现：</strong>根据相关报道，2024年人工智能行业融资超1000亿元，有一半AI公司成立三年内获投｜IT桔子报告_澎湃号·湃客_...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        </section>
+        
+        <section class="section" id="data">
+            <h2 class="section-title">📊 数据速览</h2>
+            <table>
+                <thead>
+                    <tr><th>指标</th><th>数值</th><th>说明</th></tr>
+                </thead>
+                <tbody>
+    <tr><td>总采集资讯</td><td><strong>50</strong></td><td>海外+国内</td></tr>
+    <tr><td>海外资讯</td><td><strong>28</strong></td><td>OpenAI、Anthropic等</td></tr>
+    <tr><td>国内资讯</td><td><strong>22</strong></td><td>百度、阿里、月之暗面等</td></tr>
+    </tbody>
+            </table>
+        </section>
+        
+        <div class="footer">
+            <p>🤖 萧炎的AI洞察 · 自动追踪 · 每日更新</p>
+            <p style="font-size: 0.8rem; margin-top: 8px;">生成于 2026-04-14 19:33</p>
+        </div>
+    </div>
+</body>
+</html>
