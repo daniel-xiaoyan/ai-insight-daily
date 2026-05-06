@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>追踪体系 | AI洞察</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-success: #059669; --color-success-light: #10B981;
+            --color-text-primary: #1C1917; --color-text-secondary: #57534E;
+            --color-text-muted: #78716C; --color-border: #E7E5E4;
+            --color-bg: #F8FAFB; --color-bg-card: #FFFFFF;
+            --gradient-hero: linear-gradient(135deg, #059669 0%, #2563EB 50%, #7C3AED 100%);
+            --shadow-card: 0 2px 8px rgba(0,0,0,0.06); --radius-lg: 16px;
+            --font-family: "DM Sans", -apple-system, "Noto Sans SC", sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-family); font-size: 15px; line-height: 1.65; color: var(--color-text-secondary); background: var(--color-bg); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        
+        .header { text-align: center; padding: 50px 40px; margin-bottom: 32px; border-radius: 16px; background: var(--color-bg-card); border: 1px solid var(--color-border); box-shadow: var(--shadow-card); position: relative; overflow: hidden; }
+        .header::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient-hero); }
+        .header-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: linear-gradient(135deg, #ECFDF5 0%, #EFF6FF 100%); color: #2563EB; border-radius: 9999px; font-size: 12px; font-weight: 600; margin-bottom: 16px; }
+        .header-title { font-size: 32px; font-weight: 800; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; }
+        
+        .section { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 20px; box-shadow: var(--shadow-card); }
+        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--color-border); cursor: pointer; }
+        .section-icon { width: 40px; height: 40px; background: var(--gradient-hero); color: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .section-title { font-size: 20px; font-weight: 700; color: var(--color-text-primary); flex: 1; }
+        .section-count { background: rgba(5,150,105,0.1); color: var(--color-success); padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+        .section-arrow { font-size: 20px; transition: transform 0.3s; }
+        .section.expanded .section-arrow { transform: rotate(180deg); }
+        
+        .section-content { display: none; }
+        .section.expanded .section-content { display: block; animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .tracking-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+        .tracking-card { padding: 16px; background: var(--color-bg); border-radius: 12px; border: 1px solid var(--color-border); transition: all 0.2s; }
+        .tracking-card:hover { border-color: var(--color-success); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(5,150,105,0.15); }
+        .tracking-name { font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px; }
+        .tracking-role { font-size: 13px; color: var(--color-text-muted); }
+        .tracking-company { display: inline-block; background: rgba(5,150,105,0.1); color: var(--color-success); padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-top: 8px; }
+        
+        .source-list { display: flex; flex-direction: column; gap: 8px; }
+        .source-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--color-bg); border-radius: 8px; border: 1px solid var(--color-border); }
+        .source-icon { width: 32px; height: 32px; background: var(--gradient-hero); color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+        .source-info { flex: 1; }
+        .source-name { font-weight: 600; color: var(--color-text-primary); }
+        .source-desc { font-size: 13px; color: var(--color-text-muted); }
+        
+        .footer { text-align: center; padding: 40px 20px; color: var(--color-text-muted); font-size: 13px; margin-top: 40px; border-top: 1px solid var(--color-border); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-badge">📊 追踪体系</div>
+            <h1 class="header-title">AI行业持续追踪</h1>
+            <p style="color: var(--color-text-secondary);">人物 · 公司 · 信息源 · 系统化追踪AI行业关键节点</p>
+        </header>
+
+        <!-- 人物追踪 -->
+        <div class="section expanded" onclick="toggleSection(this)">
+            <div class="section-header">
+                <div class="section-icon">👤</div>
+                <div class="section-title">人物追踪</div>
+                <div class="section-count">100+</div>
+                <div class="section-arrow">▼</div>
+            </div>
+            <div class="section-content">
+                <div class="tracking-grid">
+                    <div class="tracking-card">
+                        <div class="tracking-name">Sam Altman</div>
+                        <div class="tracking-role">OpenAI CEO</div>
+                        <div class="tracking-company">OpenAI</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Dario Amodei</div>
+                        <div class="tracking-role">Anthropic CEO</div>
+                        <div class="tracking-company">Anthropic</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Sundar Pichai</div>
+                        <div class="tracking-role">Google CEO</div>
+                        <div class="tracking-company">Google</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Satya Nadella</div>
+                        <div class="tracking-role">Microsoft CEO</div>
+                        <div class="tracking-company">Microsoft</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">李彦宏</div>
+                        <div class="tracking-role">百度创始人</div>
+                        <div class="tracking-company">百度</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">李开复</div>
+                        <div class="tracking-role">创新工场董事长</div>
+                        <div class="tracking-company">创新工场</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Elon Musk</div>
+                        <div class="tracking-role">xAI创始人</div>
+                        <div class="tracking-company">xAI</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Demis Hassabis</div>
+                        <div class="tracking-role">DeepMind CEO</div>
+                        <div class="tracking-company">Google DeepMind</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">王小川</div>
+                        <div class="tracking-role">百川智能CEO</div>
+                        <div class="tracking-company">百川智能</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">杨植麟</div>
+                        <div class="tracking-role">月之暗面CEO</div>
+                        <div class="tracking-company">月之暗面</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">闫俊杰</div>
+                        <div class="tracking-role">MiniMax创始人</div>
+                        <div class="tracking-company">MiniMax</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">张鹏</div>
+                        <div class="tracking-role">智谱AI CEO</div>
+                        <div class="tracking-company">智谱AI</div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 16px; color: var(--color-text-muted);">共追踪 100+ 位AI行业关键人物...</p>
+            </div>
+        </div>
+
+        <!-- 公司追踪 -->
+        <div class="section" onclick="toggleSection(this)">
+            <div class="section-header">
+                <div class="section-icon">🏢</div>
+                <div class="section-title">公司追踪</div>
+                <div class="section-count">50+</div>
+                <div class="section-arrow">▼</div>
+            </div>
+            <div class="section-content">
+                <div class="tracking-grid">
+                    <div class="tracking-card">
+                        <div class="tracking-name">OpenAI</div>
+                        <div class="tracking-role">GPT系列模型</div>
+                        <div class="tracking-company">美国</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Anthropic</div>
+                        <div class="tracking-role">Claude系列模型</div>
+                        <div class="tracking-company">美国</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Google DeepMind</div>
+                        <div class="tracking-role">Gemini系列模型</div>
+                        <div class="tracking-company">美国</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">Meta AI</div>
+                        <div class="tracking-role">Llama开源模型</div>
+                        <div class="tracking-company">美国</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">百度</div>
+                        <div class="tracking-role">文心一言</div>
+                        <div class="tracking-company">中国</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">阿里巴巴</div>
+                        <div class="tracking-role">通义千问</div>
+                        <div class="tracking-company">中国</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">字节跳动</div>
+                        <div class="tracking-role">豆包大模型</div>
+                        <div class="tracking-company">中国</div>
+                    </div>
+                    <div class="tracking-card">
+                        <div class="tracking-name">月之暗面</div>
+                        <div class="tracking-role">Kimi大模型</div>
+                        <div class="tracking-company">中国</div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 16px; color: var(--color-text-muted);">共追踪 50+ 家AI核心公司...</p>
+            </div>
+        </div>
+
+        <!-- 信息源 -->
+        <div class="section" onclick="toggleSection(this)">
+            <div class="section-header">
+                <div class="section-icon">📡</div>
+                <div class="section-title">信息源</div>
+                <div class="section-count">30+</div>
+                <div class="section-arrow">▼</div>
+            </div>
+            <div class="section-content">
+                <div class="source-list">
+                    <div class="source-item">
+                        <div class="source-icon">🐦</div>
+                        <div class="source-info">
+                            <div class="source-name">Twitter/X</div>
+                            <div class="source-desc">AI领袖官方账号、行业动态第一时间发布</div>
+                        </div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-icon">📰</div>
+                        <div class="source-info">
+                            <div class="source-name">TechCrunch / The Verge</div>
+                            <div class="source-desc">科技媒体深度报道、产品发布资讯</div>
+                        </div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-icon">📄</div>
+                        <div class="source-info">
+                            <div class="source-name">arXiv / Papers With Code</div>
+                            <div class="source-desc">学术论文、技术突破、开源项目</div>
+                        </div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-icon">💼</div>
+                        <div class="source-info">
+                            <div class="source-name">公司官方博客</div>
+                            <div class="source-desc">OpenAI Blog、Anthropic News、Google AI Blog</div>
+                        </div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-icon">🎥</div>
+                        <div class="source-info">
+                            <div class="source-name">YouTube / 播客</div>
+                            <div class="source-desc">AI领袖访谈、技术分享、行业会议</div>
+                        </div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-icon">📊</div>
+                        <div class="source-info">
+                            <div class="source-name">投资数据平台</div>
+                            <div class="source-desc">Crunchbase、PitchBook、IT桔子</div>
+                        </div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 16px; color: var(--color-text-muted);">共追踪 30+ 个高质量信息源...</p>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>🤖 我是熏儿，这是萧炎让我负责的AI洞察项目</p>
+            <p style="margin-top: 8px; font-size: 12px;">系统化追踪AI行业动态 · 每日/每周输出调研洞察</p>
+            <p style="margin-top: 16px;"><a href="../index.html" style="color: var(--color-success);">← 返回首页</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleSection(element) {
+            element.classList.toggle('expanded');
+        }
+    </script>
+</body>
+</html>
