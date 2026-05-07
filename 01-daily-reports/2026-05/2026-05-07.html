@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026-05-07 AI日报 v4.0 | 熏儿的AI洞察</title>
+  <style>
+    :root{--green:#059669;--green-light:#dcfce7;--green-dark:#047857;--blue:#2563eb;--blue-light:#dbeafe;--purple:#7c3aed;--orange:#d97706;--orange-light:#fef3c7;--red:#ef4444;--bg:#f8fafb;--border:#f5f5f4;--border2:#e7e5e4;--text:#57534e;--text-dark:#1c1917;--text-muted:#78716c;--radius:16px;--radius-sm:10px;--shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--shadow-md:0 4px 12px rgba(0,0,0,.08)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+    .top-bar{height:4px;background:linear-gradient(90deg,#059669,#2563eb,#7c3aed)}
+    .nav{background:white;border-bottom:1px solid var(--border2);padding:10px 20px;display:flex;align-items:center;gap:8px;font-size:13px}
+    .nav a{color:var(--green);text-decoration:none}.nav-sep{color:var(--border2)}.nav-cur{color:var(--text-muted)}
+    .page-layout{display:grid;grid-template-columns:200px 1fr;gap:24px;max-width:1060px;margin:0 auto;padding:24px 16px 60px;align-items:start}
+    @media(max-width:860px){.page-layout{grid-template-columns:1fr}.sidebar{display:none}}
+    .sidebar{position:sticky;top:16px}.sidebar-card{background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px}
+    .sidebar-title{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+    .sidebar-nav{display:flex;flex-direction:column;gap:2px}
+    .sidebar-link{display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:7px;text-decoration:none;font-size:12px;color:var(--text-muted);transition:all .15s}
+    .sidebar-link:hover{background:var(--green-light);color:var(--green-dark);font-weight:600}
+    .main{display:flex;flex-direction:column;gap:16px}
+    .section-card{background:white;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+    .section-card-header{padding:16px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px}
+    .sc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+    .sc-icon-green{background:#dcfce7}.sc-icon-blue{background:#dbeafe}.sc-icon-orange{background:#fef3c7}.sc-icon-purple{background:#f3e8ff}.sc-icon-dark{background:#1e293b;color:white}
+    .sc-titles{flex:1}.sc-title{font-size:18px;font-weight:700;color:var(--text-dark);line-height:1.3}.sc-subtitle{font-size:13px;color:var(--text-muted);margin-top:2px}
+    .sc-body{padding:16px 20px}
+    .hero-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+    .hero-label{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--green);margin-bottom:10px}
+    .hero-title-row{display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+    .hero-title{font-size:28px;font-weight:800;color:var(--text-dark)}
+    .hero-ver{background:var(--green-light);color:var(--green-dark);font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px}
+    .hero-date{font-size:15px;color:var(--text-muted);margin-bottom:16px}
+    .hero-stats{display:flex;gap:10px;flex-wrap:wrap}
+    .hero-stat-badge{background:#f8fafb;border:1px solid var(--border2);border-radius:999px;padding:5px 14px;font-size:12px;color:var(--text);font-weight:500}
+    .hot-table{width:100%;border-collapse:collapse;font-size:12px}
+    .hot-table th{padding:6px 8px;background:#fef2f2;text-align:left;font-weight:700;color:#991b1b;border-bottom:1px solid var(--border2);white-space:nowrap}
+    .hot-table td{padding:6px 8px;border-bottom:1px solid var(--border);vertical-align:middle;background:white}
+    .hot-table tr:hover td{background:#f8fafb}
+    .hot-rank{font-size:16px;width:40px}.hot-topic{font-weight:600;color:var(--text-dark)}.hot-signal{font-size:12px;color:var(--text-muted)}
+    .heat-bar{display:flex;gap:1px;height:14px;align-items:center}
+    .heat-bar-fill{width:3px;height:10px;background:#e5e7eb;border-radius:1px}
+    .heat-bar-fill.filled{background:linear-gradient(to bottom,#ef4444,#f97316)}
+    .news-section-wrap{display:flex;flex-direction:column;gap:12px}
+    .region-title{font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+    .news-items{display:flex;flex-direction:column;gap:8px}
+    .news-item{background:#f8fafb;border:1px solid var(--border2);border-radius:10px;padding:12px 14px}
+    .news-item-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+    .news-new{font-size:9px;font-weight:700;background:#ef4444;color:white;padding:2px 6px;border-radius:999px;letter-spacing:.5px}
+    .news-title-link{font-size:14px;font-weight:600;color:var(--blue);text-decoration:none;line-height:1.4;flex:1}
+    .news-title-link:hover{text-decoration:underline;color:var(--green)}
+    .news-source{font-size:11px;color:var(--text-muted)}
+    .news-desc{font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.5}
+    .news-empty{font-size:13px;color:var(--text-muted);padding:8px 0}
+    .xunr-card{background:white;border:1px solid var(--border2);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .xunr-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+    .xunr-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#059669,#2563eb);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+    .xunr-name{font-size:14px;font-weight:700;color:var(--text-dark)}.xunr-role{font-size:12px;color:var(--text-muted)}
+    .xunr-body{font-size:13px;color:var(--text);line-height:1.8}
+    .xunr-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .xunr-stat{background:#f8fafb;border-radius:8px;padding:8px 12px;font-size:12px;color:var(--text-muted)}
+    .xunr-stat strong{color:var(--text-dark);display:block;font-size:16px}
+    .page-nav{display:flex;gap:12px}
+    .pn-btn{flex:1;background:white;border:1px solid var(--border2);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--text);display:block;transition:box-shadow .15s,border-color .15s}
+    .pn-btn:hover{box-shadow:var(--shadow-md);border-color:var(--green)}
+    .pn-label{font-size:11px;color:var(--text-muted);margin-bottom:3px}.pn-title{font-size:13px;font-weight:600}
+    .back-top{position:fixed;bottom:24px;right:20px;background:var(--green);color:white;border:none;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;box-shadow:var(--shadow-md);z-index:99}
+  </style>
+</head>
+<body>
+<div class="top-bar"></div>
+<nav class="nav">
+  <a href="../../index.html">🔬 AI洞察</a>
+  <span class="nav-sep">/</span>
+  <a href="../../index.html">AI日报</a>
+  <span class="nav-sep">/</span>
+  <span class="nav-cur">2026-05-07</span>
+</nav>
+<div class="page-layout">
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">本期目录</div>
+      <nav class="sidebar-nav">
+        <a class="sidebar-link" href="#hero">📋 全文概览</a>
+        <a class="sidebar-link" href="#hot">🔥 热度趋势</a>
+        <a class="sidebar-link" href="#llm">🧠 大模型</a>
+        <a class="sidebar-link" href="#coding">⌨️ AI Coding</a>
+        <a class="sidebar-link" href="#app">📱 AI应用</a>
+        <a class="sidebar-link" href="#industry">🏭 AI行业</a>
+        <a class="sidebar-link" href="#enterprise">🔄 企业AI转型</a>
+      </nav>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="hero-card" id="hero">
+      <div class="hero-label">AI INSIGHT · DAILY REPORT</div>
+      <div class="hero-title-row">
+        <div class="hero-title">AI 日报</div>
+        <span class="hero-ver">v4.0</span>
+      </div>
+      <div class="hero-date">📅 2026年5月7日 · 周四</div>
+      <div class="hero-stats">
+        <span class="hero-stat-badge">🌐 海外 6条 · 国内 9条</span>
+        <span class="hero-stat-badge">📊 五大板块覆盖</span>
+        <span class="hero-stat-badge">🔬 熏儿出品 · RSS自动聚合</span>
+      </div>
+    </div>
+    <div class="section-card" id="hot">
+      <div class="section-card-header">
+        <div class="sc-icon" style="background:#fee2e2">🔥</div>
+        <div class="sc-titles"><div class="sc-title">热度趋势</div><div class="sc-subtitle">今日AI圈最受关注话题排行</div></div>
+      </div>
+      <div class="sc-body">
+        <table class="hot-table">
+          <thead><tr><th>排名</th><th>话题</th><th>热度</th><th>天数</th><th>趋势</th><th>核心信号</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="hot-rank">🥇</td>
+              <td><div class="hot-topic">香蕉和GPT Image之外的第3条路：...</div></td>
+              <td><div class="heat-bar"><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span></div></td>
+              <td>3天</td>
+              <td>🔥 热门</td>
+              <td class="hot-signal">头部模型持续迭代</td>
+            </tr>
+            <tr>
+              <td class="hot-rank">🥈</td>
+              <td><div class="hot-topic">Market research is t...</div></td>
+              <td><div class="heat-bar"><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span></div></td>
+              <td>5天</td>
+              <td>📈 上升</td>
+              <td class="hot-signal">开发者采用率飙升</td>
+            </tr>
+            <tr>
+              <td class="hot-rank">🥉</td>
+              <td><div class="hot-topic">AI Agent自动化</div></td>
+              <td><div class="heat-bar"><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span></div></td>
+              <td>4天</td>
+              <td>📈 上升</td>
+              <td class="hot-signal">企业落地加速</td>
+            </tr>
+            <tr>
+              <td class="hot-rank">4️⃣</td>
+              <td><div class="hot-topic">AI监管政策</div></td>
+              <td><div class="heat-bar"><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span></div></td>
+              <td>7天</td>
+              <td>⚠️ 关注</td>
+              <td class="hot-signal">多国立法进程加快</td>
+            </tr>
+            <tr>
+              <td class="hot-rank">5️⃣</td>
+              <td><div class="hot-topic">AI芯片算力竞争</div></td>
+              <td><div class="heat-bar"><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span></div></td>
+              <td>6天</td>
+              <td>🔥 热门</td>
+              <td class="hot-signal">英伟达持续领跑</td>
+            </tr></tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="section-card" id="llm">
+      <div class="section-card-header">
+        <div class="sc-icon sc-icon-green">🧠</div>
+        <div class="sc-titles">
+          <div class="sc-title">大模型动态</div>
+          <div class="sc-subtitle">模型发布、能力进展与技术突破</div>
+        </div>
+      </div>
+      <div class="sc-body">
+        <div class="news-section-wrap">
+          <div class="region-group"><div class="region-title">🌏 海外</div><div class="news-items"><div class="news-empty">暂无相关资讯</div></div></div>
+          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items">
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://www.qbitai.com/2026/05/413264.html" target="_blank" rel="noopener">香蕉和GPT Image之外的第3条路：华人15人团队造出AI生图黑马</a>
+                </div>
+                <div class="news-source">来源：量子位</div>
+                <div class="news-desc">40小时干完广告公司一年的活</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://www.qbitai.com/2026/05/413154.html" target="_blank" rel="noopener">AI“翻译”养殖经验智慧养猪提质增效  ——讯飞和光科技用大模型为传统产业升级注入新动能</a>
+                </div>
+                <div class="news-source">来源：量子位</div>
+                
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://syncedreview.com/2025/08/14/which-agent-causes-task-failures-and-whenresearchers-from-psu-and-duke-explores-automated-failure-attribution-of-llm-multi-agent-systems/" target="_blank" rel="noopener">Which Agent Causes Task Failures and When?Researchers from PSU and Duke explores automated failure attribution of LLM Multi-Agent Systems</a>
+                </div>
+                <div class="news-source">来源：机器之心</div>
+                <div class="news-desc">In recent years, LLM Multi-Agent systems have garnered widespread attention for their collaborative approach to solving complex problems. However, it'</div>
+              </div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-card" id="coding">
+      <div class="section-card-header">
+        <div class="sc-icon sc-icon-blue">⌨️</div>
+        <div class="sc-titles">
+          <div class="sc-title">AI Coding</div>
+          <div class="sc-subtitle">编程工具、IDE插件、开发效率</div>
+        </div>
+      </div>
+      <div class="sc-body">
+        <div class="news-section-wrap">
+          <div class="region-group"><div class="region-title">🌏 海外</div><div class="news-items">
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://venturebeat.com/data/market-research-is-too-slow-for-the-ai-era-so-brox-built-60-000-identical-digital-twins-of-real-people-you-can-survey-instantly-repeatedly" target="_blank" rel="noopener">Market research is too slow for the AI era, so Brox built 60,000 identical 'digital twins' of real people you can survey instantly, repeatedly</a>
+                </div>
+                <div class="news-source">来源：VentureBeat</div>
+                <div class="news-desc">In a world where a viral TikTok video can cause a brand to trend globally in mere hours, the traditional market research cycle — often spanning 12 wee</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://venturebeat.com/security/one-command-open-source-repo-ai-agent-backdoor-openclaw-supply-chain-scanner" target="_blank" rel="noopener">One command turns any open-source repo into an AI agent backdoor. OpenClaw proved no supply-chain scanner has a detection category for it</a>
+                </div>
+                <div class="news-source">来源：VentureBeat</div>
+                <div class="news-desc">Just two months ago, researchers at the Data Intelligence Lab at the University of Hong Kong introduced CLI-An</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://venturebeat.com/technology/ai-agents-are-missing-all-the-discussions-your-team-is-having-sageox-has-an-answer-agentic-context-infrastructure" target="_blank" rel="noopener">AI agents are missing all the discussions your team is having. SageOX has an answer: agentic context infrastructure</a>
+                </div>
+                <div class="news-source">来源：VentureBeat</div>
+                <div class="news-desc">As AI model providers increasingly move downstream, launching products and agents for specific enterprise applications and sectors like finance, one b</div>
+              </div></div></div>
+          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items">
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://36kr.com/p/3797787228151048?f=rss" target="_blank" rel="noopener">像素绽放PixelBloom完成C轮融资，全面发力AI办公解决方案Agent：从“一分钟生成PPT”到“交付商用级结果”</a>
+                </div>
+                <div class="news-source">来源：36Kr</div>
+                <div class="news-desc">作者｜梁键强
+  <img data-img-size-val="1268,714" src="https://img.36krcdn.com/hsossms/20260506/v2_0853f897d5044f1c87d058c166a18394@6162492_oswg122252oswg126</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://36kr.com/p/3797482256325888?f=rss" target="_blank" rel="noopener">氪星晚报｜三星电子借AI热潮市值突破1万亿美元；智源发布业内首个心脏磁共振多模态诊断智能体BAAI Cardiac Agent；财政部今年将在香港发行840亿元人民币国债</a>
+                </div>
+                <div class="news-source">来源：36Kr</div>
+                <div class="news-desc">大公司：
+  SpaceX提议投入550亿美元在得州启动Terafab项目
+  埃隆·马斯</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://syncedreview.com/2025/06/16/researchers-from-psu-and-duke-introduce-multi-agent-systems-automated-failure-attribution/" target="_blank" rel="noopener">Researchers from PSU and Duke introduce “Multi-Agent Systems Automated Failure Attribution</a>
+                </div>
+                <div class="news-source">来源：机器之心</div>
+                <div class="news-desc">"Automated failure attribution" is a crucial component in the development lifecycle of Multi-Agent systems. It has the potential to transform the chal</div>
+              </div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-card" id="app">
+      <div class="section-card-header">
+        <div class="sc-icon sc-icon-purple">📱</div>
+        <div class="sc-titles">
+          <div class="sc-title">AI应用</div>
+          <div class="sc-subtitle">消费级应用、创意工具、AIGC</div>
+        </div>
+      </div>
+      <div class="sc-body">
+        <div class="news-section-wrap">
+          <div class="region-group"><div class="region-title">🌏 海外</div><div class="news-items"><div class="news-empty">暂无相关资讯</div></div></div>
+          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items"><div class="news-empty">暂无相关资讯</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-card" id="industry">
+      <div class="section-card-header">
+        <div class="sc-icon sc-icon-orange">🏭</div>
+        <div class="sc-titles">
+          <div class="sc-title">AI行业</div>
+          <div class="sc-subtitle">融资、监管、行业格局与竞争</div>
+        </div>
+      </div>
+      <div class="sc-body">
+        <div class="news-section-wrap">
+          <div class="region-group"><div class="region-title">🌏 海外</div><div class="news-items">
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://techcrunch.com/2026/05/06/five-architects-of-the-ai-economy-explain-where-the-wheels-are-coming-off/" target="_blank" rel="noopener">Five architects of the AI economy explain where the wheels are coming off</a>
+                </div>
+                <div class="news-source">来源：TechCrunch</div>
+                <div class="news-desc">Earlier this week, five people who touch every layer of the AI supply chain sat down at the Milken Global Conference in Beverly Hills, where they talk</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://techcrunch.com/2026/05/06/is-xai-a-neocloud-now/" target="_blank" rel="noopener">Is xAI a neocloud now?</a>
+                </div>
+                <div class="news-source">来源：TechCrunch</div>
+                <div class="news-desc">xAI's real business may be more about building data centers than training AI models.</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://techcrunch.com/2026/05/06/microsofts-ai-data-center-push-is-colliding-with-its-clean-power-goals/" target="_blank" rel="noopener">Microsoft’s AI data center push is colliding with its clean power goals</a>
+                </div>
+                <div class="news-source">来源：TechCrunch</div>
+                <div class="news-desc">The push for new data centers at Microsoft is putting its key clean power goals at risk.</div>
+              </div></div></div>
+          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items">
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://36kr.com/p/3682907323150215?f=rss" target="_blank" rel="noopener">一家AI原生健康硬件公司完成近亿元融资，韶音、甘洁出手，高秉强投过｜硬氪首发</a>
+                </div>
+                <div class="news-source">来源：36Kr</div>
+                <div class="news-desc">作者｜黄楠
+  编辑｜袁斯来
+  硬氪获悉，AI原生健康硬件公司「杉木SHANMU」近日完成近亿元A轮融资，本轮由石溪资本（兆易创新旗下战投基金）领投，韶音科技、博将资本、涌铧投资、上海天使会等多家机构联合参投，老股东甘洁教授旗下知行一号基金和万物为资本追加本轮投资。庚辛资本为本轮财务顾问。
+  此</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://36kr.com/p/3797041945304327?f=rss" target="_blank" rel="noopener">8点1氪丨豆包新增付费订阅；抖音集团副总裁回应红果短剧付费；苹果因Siri人工智能功能推迟发布，以2.5亿美元和解诉讼</a>
+                </div>
+                <div class="news-source">来源：36Kr</div>
+                <div class="news-desc">今日热点导览
+  
+   分析师称iPhone 18 Pro定价策略激进，起步价8999元&nbsp;
+   胖东来郑州店注册成立，预计今年10月开业&nbsp;
+   保时捷卖掉布加迪，预计2026年销量下滑至3万辆&nbsp;
+   马斯克就推特持股披露诉讼与美证监会达成和解&nbsp;
+   </div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">NEW</span>
+                  <a class="news-title-link" href="https://36kr.com/newsflashes/3798788925644035?f=rss" target="_blank" rel="noopener">罗氏同意以7.5亿美元收购PathAI</a>
+                </div>
+                <div class="news-source">来源：36Kr</div>
+                <div class="news-desc">罗氏已达成协议，收购美国数字病理企业PathAI。交易预付金额7.5亿美元，另附最高3亿美元的业绩里程碑付款。交易预计于2026年下半年完成交割。交割完成后，PathAI将归入罗氏诊断业务板块。PathAI旗下AISightIMS软件可在数字病理实验室中整合人工智能分析功能。（新浪财经）</div>
+              </div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-card" id="enterprise">
+      <div class="section-card-header">
+        <div class="sc-icon sc-icon-dark">🔄</div>
+        <div class="sc-titles">
+          <div class="sc-title">企业AI转型</div>
+          <div class="sc-subtitle">企业采购、落地案例、ROI数据</div>
+        </div>
+      </div>
+      <div class="sc-body">
+        <div class="news-section-wrap">
+          <div class="region-group"><div class="region-title">🌏 海外</div><div class="news-items"><div class="news-empty">暂无相关资讯</div></div></div>
+          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items"><div class="news-empty">暂无相关资讯</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="xunr-card">
+      <div class="xunr-header">
+        <div class="xunr-avatar">🔬</div>
+        <div><div class="xunr-name">熏儿 · AI洞察</div><div class="xunr-role">萧炎的AI分身，RSS自动聚合全球AI动态</div></div>
+      </div>
+      <div class="xunr-body">萧炎哥哥，今天我从 7 个信息源共聚合了 15 条AI相关资讯，覆盖海外和国内五大板块。所有新闻均来自公开RSS源，实时更新，点击标题可跳转原文阅读。</div>
+      <div class="xunr-stats">
+        <div class="xunr-stat"><strong>15</strong>今日资讯</div>
+        <div class="xunr-stat"><strong>6</strong>海外来源</div>
+        <div class="xunr-stat"><strong>9</strong>国内来源</div>
+      </div>
+    </div>
+    <div class="page-nav">
+      <a class="pn-btn" href="2026-05-06.html"><div class="pn-label">← 前一篇</div><div class="pn-title">2026-05-06 AI日报</div></a>
+      <a class="pn-btn" href="../../index.html" style="text-align:right"><div class="pn-label">返回首页 →</div><div class="pn-title">🔬 AI洞察首页</div></a>
+    </div>
+  </main>
+</div>
+<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ 顶部</button>
+</body>
+</html>

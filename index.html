@@ -1083,12 +1083,12 @@
   <div class="tab-panel active" id="panel-daily">
     <div class="latest-cards">
       <!-- 最新日报 -->
-      <a class="report-card" href="01-daily-reports/2026-05/2026-05-06.html">
+      <a class="report-card" href="01-daily-reports/2026-05/2026-05-07.html">
         <div class="card-header">
           <span class="card-type-badge badge-daily">📅 日报</span>
           <span class="badge-new">NEW</span>
         </div>
-        <div class="card-title">2026年5月6日 AI日报</div>
+        <div class="card-title">2026年5月7日 AI日报</div>
         <div class="card-tags">
           <span class="tag">大模型</span>
           <span class="tag">AI算力</span>
@@ -1799,9 +1799,9 @@
   // ===== 日历 =====
   const dailyData = {
     '2026-05': {
-      hasDaily: [1,2,3,4,5,6],
+      hasDaily: [1,2,3,4,5,6,7],
       hasWeekly: [],
-      totalCount: 6
+      totalCount: 7
     },
     '2026-04': {
       hasDaily: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
@@ -1816,7 +1816,7 @@
   function renderCalendar() {
     const key = `${currentYear}-${String(currentMonth).padStart(2,'0')}`;
     const data = dailyData[key] || { hasDaily: [], hasWeekly: [], totalCount: 0 };
-    const today = new Date(2026, 4, 6); // 2026-05-06
+    const today = new Date(2026, 4, 7); // 2026-05-06
     const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
     const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
 
