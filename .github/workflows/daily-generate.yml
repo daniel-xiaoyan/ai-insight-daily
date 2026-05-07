@@ -40,7 +40,7 @@ jobs:
             python scripts/generate_daily.py "$DATE"
           fi
 
-      - name: 检查是否有变更
+      - name: 检查是否有新文件需要提交
         id: check_changes
         run: |
           git diff --quiet && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
@@ -59,13 +59,11 @@ jobs:
           git commit -m "feat: 自动生成 ${DATE_STR} AI日报 [skip ci]"
           git push
 
-      - name: 上传 Pages 构建产物
-        if: steps.check_changes.outputs.changed == 'true'
+      - name: 上传 Pages 构建产物（每次都部署，确保最新内容上线）
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
 
       - name: 部署到 GitHub Pages
-        if: steps.check_changes.outputs.changed == 'true'
         uses: actions/deploy-pages@v4
         id: deployment
