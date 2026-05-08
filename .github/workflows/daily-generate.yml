@@ -43,19 +43,19 @@ jobs:
       - name: 检查是否有新文件需要提交
         id: check_changes
         run: |
-          git diff --quiet && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+          git add -A
+          git diff --cached --quiet && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: 提交并推送日报
         if: steps.check_changes.outputs.changed == 'true'
         run: |
           git config user.name "熏儿-Bot"
           git config user.email "xunr-bot@ai-insight.daily"
-          git add .
           DATE_STR=$(python -c "
-          import datetime
-          utc = datetime.datetime.utcnow() + datetime.timedelta(hours=8)
-          print(utc.strftime('%Y-%m-%d'))
-          ")
+import datetime
+utc = datetime.datetime.utcnow() + datetime.timedelta(hours=8)
+print(utc.strftime('%Y-%m-%d'))
+")
           git commit -m "feat: 自动生成 ${DATE_STR} AI日报 [skip ci]"
           git push
 
