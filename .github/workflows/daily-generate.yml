@@ -51,11 +51,7 @@ jobs:
         run: |
           git config user.name "熏儿-Bot"
           git config user.email "xunr-bot@ai-insight.daily"
-          DATE_STR=$(python -c "
-import datetime
-utc = datetime.datetime.utcnow() + datetime.timedelta(hours=8)
-print(utc.strftime('%Y-%m-%d'))
-")
+          DATE_STR=$(python -c "import datetime; utc = datetime.datetime.utcnow() + datetime.timedelta(hours=8); print(utc.strftime('%Y-%m-%d'))")
           git commit -m "feat: 自动生成 ${DATE_STR} AI日报"
           git push
 
