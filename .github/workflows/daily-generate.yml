@@ -56,7 +56,7 @@ import datetime
 utc = datetime.datetime.utcnow() + datetime.timedelta(hours=8)
 print(utc.strftime('%Y-%m-%d'))
 ")
-          git commit -m "feat: 自动生成 ${DATE_STR} AI日报 [skip ci]"
+          git commit -m "feat: 自动生成 ${DATE_STR} AI日报"
           git push
 
       - name: 上传 Pages 构建产物（每次都部署，确保最新内容上线）
