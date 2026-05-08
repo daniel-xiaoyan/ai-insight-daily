@@ -21,7 +21,7 @@ RSS_SOURCES = [
     # 海外
     {"url": "https://techcrunch.com/feed/", "name": "TechCrunch", "region": "海外", "tags": ["AI","OpenAI","Anthropic","Claude","GPT","LLM","Gemini"]},
     {"url": "https://www.theverge.com/rss/index.xml", "name": "The Verge", "region": "海外", "tags": ["AI","OpenAI","Google","Microsoft","Meta"]},
-    {"url": "https://venturebeat.com/feed/", "name": "VentureBeat", "region": "海外", "tags": ["AI","machine learning","LLM","agent","model"]},
+    {"url": "https://feeds.feedburner.com/venturebeat/SZYF", "name": "VentureBeat", "region": "海外", "tags": ["AI","machine learning","LLM","agent","model"]},
     {"url": "https://www.wired.com/feed/rss", "name": "WIRED", "region": "海外", "tags": ["AI","artificial intelligence","OpenAI","tech"]},
     # 国内
     {"url": "https://www.36kr.com/feed", "name": "36Kr", "region": "国内", "tags": ["AI","大模型","人工智能","ChatGPT","文心","通义","Kimi"]},
