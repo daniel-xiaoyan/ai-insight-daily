@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Agent协作框架 | 熏儿的AI洞察</title>
+  <style>
+    :root{--green:#059669;--green-light:#dcfce7;--green-dark:#047857;--blue:#2563eb;--blue-light:#dbeafe;--purple:#7c3aed;--orange:#d97706;--bg:#f8fafb;--border:#f5f5f4;--border2:#e7e5e4;--text:#57534e;--text-dark:#1c1917;--text-muted:#78716c;--radius:16px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15px}
+    .top-bar{height:4px;background:linear-gradient(90deg,#059669,#2563eb,#7c3aed)}
+    .nav{background:white;border-bottom:1px solid var(--border2);padding:10px 20px;display:flex;align-items:center;gap:8px;font-size:13px}
+    .nav a{color:var(--green);text-decoration:none}.nav-sep{color:var(--border2)}.nav-cur{color:var(--text-muted)}
+    .layout{display:grid;grid-template-columns:200px 1fr;gap:24px;max-width:1060px;margin:0 auto;padding:24px 16px 60px;align-items:start}
+    @media(max-width:860px){.layout{grid-template-columns:1fr}.sidebar{display:none}}
+    .sidebar{position:sticky;top:16px}.sidebar-card{background:white;border:1px solid var(--border);border-radius:10px;padding:14px}
+    .sidebar-title{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+    .sidebar-nav{display:flex;flex-direction:column;gap:2px}
+    .sidebar-link{display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:7px;text-decoration:none;font-size:12px;color:var(--text-muted);transition:all .15s}
+    .sidebar-link:hover,.sidebar-link.active{background:var(--green-light);color:var(--green-dark);font-weight:600}
+    .main{display:flex;flex-direction:column;gap:20px}
+    .hero{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:28px}
+    .hero-label{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--orange);margin-bottom:10px}
+    .hero-title{font-size:30px;font-weight:800;color:var(--text-dark);margin-bottom:8px}
+    .hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+    .badge{font-size:11px;padding:3px 10px;border-radius:999px;font-weight:600}
+    .badge-orange{background:#fef3c7;color:var(--orange)}
+    .badge-green{background:var(--green-light);color:var(--green-dark)}
+    .hero-desc{font-size:15px;color:var(--text);line-height:1.7;background:#f8fafb;border-radius:10px;padding:16px;border-left:3px solid var(--orange)}
+    .card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+    .card-title{font-size:20px;font-weight:700;color:var(--text-dark);margin-bottom:14px}
+    h3{font-size:16px;font-weight:700;color:var(--text-dark);margin:18px 0 8px}
+    p{margin-bottom:12px;color:var(--text);line-height:1.75}
+    ul{padding-left:20px;margin-bottom:12px}
+    li{margin-bottom:6px;line-height:1.7}
+    .pattern-grid{display:flex;flex-direction:column;gap:12px;margin:14px 0}
+    .pattern-item{background:#f8fafb;border:1px solid var(--border2);border-radius:10px;padding:14px;border-left:4px solid var(--orange)}
+    .pattern-title{font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:6px}
+    .pattern-desc{font-size:13px;color:var(--text);line-height:1.6;margin-bottom:6px}
+    .pattern-use{font-size:12px;color:var(--orange);font-weight:600}
+    .frameworks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+    @media(max-width:700px){.frameworks{grid-template-columns:1fr}}
+    .fw-card{background:#f8fafb;border:1px solid var(--border2);border-radius:10px;padding:12px}
+    .fw-name{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:4px}
+    .fw-desc{font-size:12px;color:var(--text-muted);line-height:1.5}
+    .highlight-box{background:linear-gradient(135deg,#1e293b,#0f172a);border-radius:12px;padding:18px;color:white;margin:14px 0}
+    .highlight-box-title{font-size:13px;font-weight:700;color:#e2e8f0;margin-bottom:10px}
+    .highlight-box p{color:rgba(255,255,255,.8);margin-bottom:6px;font-size:13px}
+    .back-top{position:fixed;bottom:24px;right:20px;background:var(--green);color:white;border:none;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;z-index:99}
+    .page-nav{display:flex;gap:12px}
+    .pn-btn{flex:1;background:white;border:1px solid var(--border2);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--text);display:block}
+    .pn-btn:hover{border-color:var(--green)}
+    .pn-label{font-size:11px;color:var(--text-muted);margin-bottom:3px}
+    .pn-title{font-size:13px;font-weight:600}
+  </style>
+</head>
+<body>
+<div class="top-bar"></div>
+<nav class="nav">
+  <a href="../../index.html">🔬 AI洞察</a>
+  <span class="nav-sep">/</span>
+  <a href="../../index.html#knowledge">知识库</a>
+  <span class="nav-sep">/</span>
+  <span class="nav-cur">Multi-Agent协作框架</span>
+</nav>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">本文目录</div>
+      <nav class="sidebar-nav">
+        <a class="sidebar-link" href="#why">🤔 为什么需要</a>
+        <a class="sidebar-link" href="#patterns">🏗️ 协作模式</a>
+        <a class="sidebar-link" href="#comm">📡 通信机制</a>
+        <a class="sidebar-link" href="#frameworks">🔧 主流框架</a>
+        <a class="sidebar-link" href="#challenges">⚠️ 核心挑战</a>
+        <a class="sidebar-link" href="#cases">📋 落地案例</a>
+      </nav>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="hero">
+      <div class="hero-label">知识库 · AGENT架构</div>
+      <div class="hero-title">Multi-Agent协作框架</div>
+      <div class="hero-meta">
+        <span class="badge badge-orange">⚡ 前沿技术</span>
+        <span class="badge badge-green">工程实践</span>
+      </div>
+      <div class="hero-desc">单个 Agent 有上下文窗口限制、专业能力边界。Multi-Agent 框架通过让多个专业化 Agent 分工协作，突破单 Agent 能力上限，完成更复杂、更长时间跨度的任务。这是当前 AI 工程领域最前沿的架构范式之一。</div>
+    </div>
+
+    <div class="card" id="why">
+      <div class="card-title">🤔 为什么需要Multi-Agent</div>
+      <p>单 Agent 的主要限制：</p>
+      <ul>
+        <li><strong>上下文窗口</strong>：再大的 context window 也有上限，长任务会丢失早期信息</li>
+        <li><strong>并行能力</strong>：单 Agent 只能串行执行，无法并行处理独立子任务</li>
+        <li><strong>专业深度</strong>：全能型 Agent 在每个专业领域的表现都不如专业型 Agent</li>
+        <li><strong>错误传播</strong>：单 Agent 早期犯错会影响后续所有步骤</li>
+      </ul>
+      <p>Multi-Agent 的核心价值：<strong>用架构扩展能力边界</strong>，而不是等待更强的单个模型。</p>
+    </div>
+
+    <div class="card" id="patterns">
+      <div class="card-title">🏗️ 主流协作模式</div>
+      <div class="pattern-grid">
+        <div class="pattern-item">
+          <div class="pattern-title">🎯 Orchestrator-Worker（编排-工作者）</div>
+          <div class="pattern-desc">主 Agent（Orchestrator）负责任务分解和协调，子 Agent（Worker）负责执行具体任务。主从关系明确，控制流清晰。这是最常用的模式。</div>
+          <div class="pattern-use">适合：复杂任务分解、流水线作业</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-title">🔄 Pipeline（流水线）</div>
+          <div class="pattern-desc">Agent A 的输出作为 Agent B 的输入，形成处理链路。每个 Agent 专注一个环节：如"数据提取→分析→报告生成"。</div>
+          <div class="pattern-use">适合：数据处理、内容生产流程</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-title">🤝 Peer-to-Peer（对等协作）</div>
+          <div class="pattern-desc">多个 Agent 平等地互相通信，通过消息队列协调。没有中央控制节点，更灵活但也更复杂。</div>
+          <div class="pattern-use">适合：分布式任务、去中心化场景</div>
+        </div>
+        <div class="pattern-item">
+          <div class="pattern-title">🔍 Debate（辩论）</div>
+          <div class="pattern-desc">多个 Agent 对同一问题给出不同答案或方案，通过辩论/投票选出最优方案。可以有效减少单一 Agent 的偏见。</div>
+          <div class="pattern-use">适合：决策优化、创意生成</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="comm">
+      <div class="card-title">📡 Agent间通信机制</div>
+      <h3>消息传递</h3>
+      <p>最基础的方式：Agent 通过结构化消息互相通信，消息包含任务描述、上下文摘要和期望输出格式。</p>
+      <h3>共享记忆</h3>
+      <p>所有 Agent 共享一个外部状态存储（如 Redis、数据库），通过读写共享状态协调行动。适合需要全局一致性的场景。</p>
+      <h3>事件总线</h3>
+      <p>Agent 发布/订阅事件，松耦合通信。一个 Agent 完成任务发布事件，其他 Agent 监听并触发后续行动。</p>
+      <div class="highlight-box">
+        <div class="highlight-box-title">💡 关键设计原则</div>
+        <p>Agent 间传递的信息要精简：只传递后续步骤必需的内容，避免把完整上下文搬来搬去。</p>
+        <p>每条消息都应该有唯一 ID 和时间戳，便于追踪和调试。</p>
+      </div>
+    </div>
+
+    <div class="card" id="frameworks">
+      <div class="card-title">🔧 主流开源框架</div>
+      <div class="frameworks">
+        <div class="fw-card">
+          <div class="fw-name">LangGraph</div>
+          <div class="fw-desc">LangChain 出品，图结构定义 Agent 工作流，状态管理完善，企业级首选</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-name">AutoGen</div>
+          <div class="fw-desc">微软出品，对话驱动的多 Agent 框架，支持人类介入，代码执行能力强</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-name">CrewAI</div>
+          <div class="fw-desc">专注角色扮演式协作，定义清晰的 Agent 角色和职责，上手最快</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-name">Swarm</div>
+          <div class="fw-desc">OpenAI 出品，轻量级编排框架，适合实验和原型验证</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-name">Magentic-One</div>
+          <div class="fw-desc">微软研究院，专为通用任务设计，包含浏览器/代码/文件等内置 Agent</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-name">AgentScope</div>
+          <div class="fw-desc">阿里出品，分布式 Agent 通信，支持大规模 Agent 集群部署</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="challenges">
+      <div class="card-title">⚠️ 核心工程挑战</div>
+      <ul>
+        <li><strong>调试困难</strong>：多 Agent 系统的错误难以定位，需要完善的分布式追踪</li>
+        <li><strong>成本控制</strong>：每个 Agent 都在调用 LLM API，成本随 Agent 数量指数增长</li>
+        <li><strong>循环依赖</strong>：Agent A 等 Agent B，Agent B 又等 Agent A，形成死锁</li>
+        <li><strong>一致性问题</strong>：多 Agent 并发修改同一资源时的冲突处理</li>
+        <li><strong>错误传播</strong>：一个 Agent 的错误被放大并传递给下游 Agent</li>
+        <li><strong>延迟累积</strong>：多个 Agent 串行调用，总延迟是各步延迟之和</li>
+      </ul>
+    </div>
+
+    <div class="card" id="cases">
+      <div class="card-title">📋 典型落地案例</div>
+      <ul>
+        <li><strong>软件开发团队模拟</strong>：PM Agent（需求分析）→ Architect Agent（架构设计）→ Dev Agent（编码）→ QA Agent（测试）→ PM 审批</li>
+        <li><strong>投资研究自动化</strong>：Data Agent（数据采集）→ Analysis Agent（财务分析）→ Risk Agent（风险评估）→ Report Agent（报告生成）</li>
+        <li><strong>客服升级流水线</strong>：Triage Agent（问题分类）→ Knowledge Agent（知识库检索）→ Solution Agent（方案生成）→ Quality Agent（质量审核）</li>
+        <li><strong>科学研究加速</strong>：Search Agent（文献检索）→ Summary Agent（摘要提取）→ Synthesis Agent（观点整合）→ Experiment Agent（实验设计）</li>
+      </ul>
+    </div>
+
+    <div class="page-nav">
+      <a class="pn-btn" href="ambient-agents.html"><div class="pn-label">← 上一篇</div><div class="pn-title">Ambient Agents</div></a>
+      <a class="pn-btn" href="../enterprise/ai-coding-workflow.html" style="text-align:right"><div class="pn-label">下一篇 →</div><div class="pn-title">AI编程工作流最佳实践</div></a>
+    </div>
+  </main>
+</div>
+<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ 顶部</button>
+</body>
+</html>
