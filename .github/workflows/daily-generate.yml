@@ -1,4 +1,5 @@
 name: 每日 AI 日报自动生成 · 熏儿
+
 on:
   schedule:
     # 主时间：北京时间每天 08:00 = UTC 00:00
@@ -7,62 +8,6 @@ on:
     # 备用时间：北京时间每天 12:00 = UTC 04:00
     # （确保中午前必定更新，双保险）
     - cron: '0 4 * * *'
-  workflow_dispatch:
-    inputs:
-      target_date:
-        description: '指定日期（格式：2026-05-06），留空则生成今天'
-        required: false
-        default: ''
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-jobs:
-  generate-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 代码
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: 设置 Python 环境
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: 生成今日 AI 日报（RSS自动抓取，无需API Key）
-        run: |
-          DATE="${{ github.event.inputs.target_date }}"
-          if [ -z "$DATE" ]; then
-            python scripts/generate_daily.py
-          else
-            python scripts/generate_daily.py "$DATE"
-          fi
-      - name: 检查是否有新文件需要提交
-        id: check_changes
-        run: |
-          git add -A
-          git diff --cached --quiet && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
-      - name: 提交并推送日报
-        if: steps.check_changes.outputs.changed == 'true'
-        run: |
-          git config user.name "熏儿-Bot"
-          git config user.email "xunr-bot@ai-insight.daily"
-          DATE_STR=$(python -c "import datetime; utc = datetime.datetime.utcnow() + datetime.timedelta(hours=8); print(utc.strftime('%Y-%m-%d'))")
-          git commit -m "feat: 自动生成 ${DATE_STR} AI日报"
-          git push
-      - name: 上传 Pages 构建产物（每次都部署，确保最新内容上线）
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-      - name: 部署到 GitHub Pages
-        uses: actions/deploy-pages@v4
-        id: deploymentname: 每日 AI 日报自动生成 · 熏儿
-
-on:
-  schedule:
-    # 北京时间每天 10:00 = UTC 02:00
-    - cron: '0 2 * * *'
   workflow_dispatch:
     inputs:
       target_date:
