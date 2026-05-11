@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent团队落地指南：从场景到实践 | 熏儿的AI洞察</title>
+  <style>
+    :root{--green:#059669;--green-light:#dcfce7;--blue:#2563eb;--blue-light:#dbeafe;--purple:#7c3aed;--purple-light:#f3e8ff;--orange:#d97706;--orange-light:#fef3c7;--bg:#f8fafb;--border:#e7e5e4;--text:#57534e;--text-dark:#1c1917;--text-muted:#78716c;--radius:16px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15px;max-width:900px;margin:0 auto;padding:24px 16px 60px}
+    .top-bar{height:4px;background:linear-gradient(90deg,#059669,#2563eb,#7c3aed);margin:0 -16px 24px}
+    h1{font-size:32px;font-weight:800;color:var(--text-dark);margin-bottom:8px;line-height:1.3}
+    .meta{font-size:13px;color:var(--text-muted);margin-bottom:32px}
+    .toc{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:32px}
+    .toc-title{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:12px}
+    .toc-list{display:grid;gap:6px;font-size:13px;grid-template-columns:repeat(2,1fr)}
+    .toc-list a{color:var(--blue);text-decoration:none}
+    .toc-list a:hover{text-decoration:underline}
+    h2{font-size:24px;font-weight:700;color:var(--text-dark);margin:40px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--green-light)}
+    h3{font-size:18px;font-weight:700;color:var(--text-dark);margin:28px 0 12px}
+    h4{font-size:16px;font-weight:600;color:var(--text-dark);margin:20px 0 8px}
+    p{margin-bottom:16px;text-align:justify}
+    .quote{border-left:4px solid var(--green);background:var(--green-light);padding:16px 20px;margin:20px 0;border-radius:0 12px 12px 0;font-style:italic}
+    .data-box{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:20px 0}
+    .data-box-title{font-size:14px;font-weight:700;color:var(--green);margin-bottom:10px}
+    .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+    .stat-item{background:#f8fafb;border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+    .stat-num{font-size:28px;font-weight:800;color:var(--green)}
+    .stat-label{font-size:11px;color:var(--text-muted);margin-top:4px}
+    ul,ol{margin:16px 0;padding-left:24px}
+    li{margin-bottom:8px}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+    th,td{padding:12px;text-align:left;border-bottom:1px solid var(--border)}
+    th{background:var(--green-light);font-weight:700;color:var(--text-dark)}
+    tr:hover td{background:#f8fafb}
+    .key-point{background:var(--orange-light);border-left:4px solid var(--orange);padding:12px 16px;margin:16px 0;border-radius:0 8px 8px 0;font-weight:600}
+    .back{display:inline-block;background:var(--green);color:white;padding:10px 24px;border-radius:999px;text-decoration:none;font-weight:600;margin-top:32px;font-size:14px}
+    hr{margin:40px 0;border:none;border-top:1px solid var(--border)}
+    .center{text-align:center;color:var(--text-muted);font-size:13px}
+  </style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<h1>AI Agent团队落地指南：从场景到实践</h1>
+<div class="meta">📅 2026年3月深度调研报告 · 熏儿出品 · 预计阅读时间：45分钟</div>
+
+<div class="toc">
+  <div class="toc-title">📋 报告目录</div>
+  <div class="toc-list">
+    <a href="#summary">一、执行摘要</a>
+    <a href="#chapter1">二、场景识别</a>
+    <a href="#chapter2">三、工具选型</a>
+    <a href="#chapter3">四、团队协作</a>
+    <a href="#chapter4">五、效果评估</a>
+    <a href="#chapter5">六、落地路径</a>
+  </div>
+</div>
+
+<div class="data-box">
+  <div class="data-box-title">📊 落地数据参考</div>
+  <div class="stat-grid">
+    <div class="stat-item"><div class="stat-num">60%</div><div class="stat-label">重复工作可替代</div></div>
+    <div class="stat-item"><div class="stat-num">35%</div><div class="stat-label">效率提升</div></div>
+    <div class="stat-item"><div class="stat-num">3个月</div><div class="stat-label">典型落地周期</div></div>
+    <div class="stat-item"><div class="stat-num">10人</div><div class="stat-label">最小团队规模</div></div>
+  </div>
+</div>
+
+<h2 id="summary">一、执行摘要</h2>
+
+<p>AI Agent正在从技术概念走向企业落地。本报告面向产品经理和团队负责人，提供从场景识别到效果评估的完整落地指南。</p>
+
+<p>核心发现：</p>
+
+<ul>
+  <li><strong>场景选择</strong>：规则明确、数据结构化、边界清晰的任务最适合Agent落地</li>
+  <li><strong>工具选型</strong>：Claude Code适合复杂项目，Cursor适合日常开发</li>
+  <li><strong>团队协作</strong>：人机协作模式需要重新设计角色分工</li>
+  <li><strong>效果评估</strong>：效率、质量、满意度三维评估体系</li>
+</ul>
+
+<div class="quote">
+  "AI Agent落地的关键不是技术，而是找到对的场景、设计好的人机协作流程。"
+  <br>—— 某企业AI负责人，2026年3月
+</div>
+
+<h2 id="chapter1">二、场景识别</h2>
+
+<h3>2.1 适合Agent的场景特征</h3>
+
+<table>
+  <thead>
+    <tr><th>特征</th><th>说明</th><th>示例</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>规则明确</strong></td><td>任务有清晰的执行标准</td><td>数据处理、格式转换</td></tr>
+    <tr><td><strong>数据结构化</strong></td><td>输入输出有明确格式</td><td>报表生成、文档撰写</td></tr>
+    <tr><td><strong>边界清晰</strong></td><td>知道何时完成、何时失败</td><td>测试执行、代码审查</td></tr>
+    <tr><td><strong>容错可接受</strong></td><td>失败可以重试或人工介入</td><td>信息检索、客服问答</td></tr>
+  </tbody>
+</table>
+
+<h3>2.2 不适合Agent的场景</h3>
+
+<ul>
+  <li><strong>创意性任务</strong>：需要高度创意和审美判断</li>
+  <li><strong>高风险决策</strong>：错误成本极高，需要人工确认</li>
+  <li><strong>数据极不完整</strong>：信息缺失导致无法推理</li>
+  <li><strong>需要物理操作</strong>：超出AI Agent的执行范围</li>
+</ul>
+
+<h2 id="chapter2">三、工具选型</h2>
+
+<h3>3.1 开发场景工具对比</h3>
+
+<table>
+  <thead>
+    <tr><th>工具</th><th>定位</th><th>适用场景</th><th>价格</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Cursor</strong></td><td>AI IDE</td><td>日常开发、代码重构</td><td>$20/月</td></tr>
+    <tr><td><strong>Claude Code</strong></td><td>编程Agent</td><td>复杂项目、架构设计</td><td>免费</td></tr>
+    <tr><td><strong>Devin</strong></td><td>自主Agent</td><td>端到端项目交付</td><td>$500/月</td></tr>
+  </tbody>
+</table>
+
+<h3>3.2 选型决策树</h3>
+
+<ol>
+  <li><strong>日常开发</strong>：Cursor，最佳的开发体验</li>
+  <li><strong>复杂项目</strong>：Claude Code，理解能力强</li>
+  <li><strong>标准任务</strong>：Devin，自主执行端到端</li>
+  <li><strong>预算有限</strong>：Claude Code免费或Trae免费</li>
+</ol>
+
+<h2 id="chapter3">四、团队协作</h2>
+
+<h3>4.1 角色重新定义</h3>
+
+<table>
+  <thead>
+    <tr><th>原角色</th><th>新角色</th><th>核心能力变化</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>程序员</td><td>架构设计师</td><td>从写代码到设计系统</td></tr>
+    <tr><td>测试工程师</td><td>质量分析师</td><td>从写用例到设计策略</td></tr>
+    <tr><td>产品经理</td><td>需求架构师</td><td>从写PRD到定义边界</td></tr>
+  </tbody>
+</table>
+
+<h3>4.2 人机协作模式</h3>
+
+<ul>
+  <li><strong>AI先行</strong>：AI完成初版，人工审核优化</li>
+  <li><strong>人工主导</strong>：人工设计框架，AI填充细节</li>
+  <li><strong>并行协作</strong>：人工和AI各司其职，定期同步</li>
+</ul>
+
+<h2 id="chapter4">五、效果评估</h2>
+
+<h3>5.1 三维评估体系</h3>
+
+<div class="data-box">
+  <div class="data-box-title">📊 评估指标</div>
+  <table>
+    <thead>
+      <tr><th>维度</th><th>指标</th><th>测量方法</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>效率</strong></td><td>任务完成时间</td><td>对比Agent与人工耗时</td></tr>
+      <tr><td><strong>质量</strong></td><td>错误率、返工率</td><td>统计Agent输出质量</td></tr>
+      <tr><td><strong>满意度</strong></td><td>团队使用意愿</td><td>问卷调研</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="chapter5">六、落地路径</h2>
+
+<h3>6.1 四阶段落地</h3>
+
+<table>
+  <thead>
+    <tr><th>阶段</th><th>周期</th><th>目标</th><th>关键动作</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>试点</td><td>1个月</td><td>验证可行性</td><td>选择场景、试用工具、收集反馈</td></tr>
+    <tr><td>推广</td><td>2个月</td><td>团队覆盖</td><td>全员培训、建立规范、推广使用</td></tr>
+    <tr><td>深化</td><td>3个月</td><td>流程改造</td><td>重构工作流、定制化开发</td></tr>
+    <tr><td>优化</td><td>持续</td><td>效果最大化</td><td>持续改进、最佳实践沉淀</td></tr>
+  </tbody>
+</table>
+
+<div class="key-point">💡 核心建议：从最小可行场景开始，快速验证，逐步扩展。不要试图一步到位，而是迭代优化。</div>
+
+<hr>
+
+<p class="center">📌 本报告由熏儿出品 · 数据截至2026年3月<br>如需引用或转载，请注明来源：熏儿的AI洞察</p>
+
+<a href="../../index.html#research" class="back">← 返回首页</a>
+</body>
+</html>

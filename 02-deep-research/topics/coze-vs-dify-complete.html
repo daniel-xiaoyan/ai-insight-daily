@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coze vs Dify vs FastGPT：AI Agent平台深度对比 | 熏儿的AI洞察</title>
+  <style>
+    :root{--green:#059669;--green-light:#dcfce7;--blue:#2563eb;--blue-light:#dbeafe;--purple:#7c3aed;--purple-light:#f3e8ff;--orange:#d97706;--orange-light:#fef3c7;--bg:#f8fafb;--border:#e7e5e4;--text:#57534e;--text-dark:#1c1917;--text-muted:#78716c;--radius:16px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15px;max-width:900px;margin:0 auto;padding:24px 16px 60px}
+    .top-bar{height:4px;background:linear-gradient(90deg,#7c3aed,#059669,#2563eb);margin:0 -16px 24px}
+    h1{font-size:32px;font-weight:800;color:var(--text-dark);margin-bottom:8px;line-height:1.3}
+    .meta{font-size:13px;color:var(--text-muted);margin-bottom:32px}
+    .toc{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:32px}
+    .toc-title{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:12px}
+    .toc-list{display:grid;gap:6px;font-size:13px;grid-template-columns:repeat(2,1fr)}
+    .toc-list a{color:var(--purple);text-decoration:none}
+    .toc-list a:hover{text-decoration:underline}
+    h2{font-size:24px;font-weight:700;color:var(--text-dark);margin:40px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--purple-light)}
+    h3{font-size:18px;font-weight:700;color:var(--text-dark);margin:28px 0 12px}
+    p{margin-bottom:16px;text-align:justify}
+    .quote{border-left:4px solid var(--purple);background:var(--purple-light);padding:16px 20px;margin:20px 0;border-radius:0 12px 12px 0;font-style:italic}
+    .data-box{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:20px 0}
+    .data-box-title{font-size:14px;font-weight:700;color:var(--purple);margin-bottom:10px}
+    .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+    .stat-item{background:#f8fafb;border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+    .stat-num{font-size:28px;font-weight:800;color:var(--purple)}
+    .stat-label{font-size:11px;color:var(--text-muted);margin-top:4px}
+    ul,ol{margin:16px 0;padding-left:24px}
+    li{margin-bottom:8px}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+    th,td{padding:12px;text-align:left;border-bottom:1px solid var(--border)}
+    th{background:var(--purple-light);font-weight:700;color:var(--text-dark)}
+    tr:hover td{background:#f8fafb}
+    .key-point{background:var(--orange-light);border-left:4px solid var(--orange);padding:12px 16px;margin:16px 0;border-radius:0 8px 8px 0;font-weight:600}
+    .back{display:inline-block;background:var(--purple);color:white;padding:10px 24px;border-radius:999px;text-decoration:none;font-weight:600;margin-top:32px;font-size:14px}
+    hr{margin:40px 0;border:none;border-top:1px solid var(--border)}
+    .center{text-align:center;color:var(--text-muted);font-size:13px}
+  </style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<h1>Coze vs Dify vs FastGPT：AI Agent平台深度对比</h1>
+<div class="meta">📅 2026年2月深度调研报告 · 熏儿出品 · 预计阅读时间：40分钟</div>
+
+<div class="toc">
+  <div class="toc-title">📋 报告目录</div>
+  <div class="toc-list">
+    <a href="#summary">一、执行摘要</a>
+    <a href="#chapter1">二、平台概览</a>
+    <a href="#chapter2">三、核心能力对比</a>
+    <a href="#chapter3">四、技术架构分析</a>
+    <a href="#chapter4">五、商业化对比</a>
+    <a href="#chapter5">六、选型建议</a>
+  </div>
+</div>
+
+<div class="data-box">
+  <div class="data-box-title">📊 三大平台数据对比</div>
+  <div class="stat-grid">
+    <div class="stat-item"><div class="stat-num">Coze</div><div class="stat-label">字节出品</div></div>
+    <div class="stat-item"><div class="stat-num">Dify</div><div class="stat-label">开源领先</div></div>
+    <div class="stat-item"><div class="stat-num">FastGPT</div><div class="stat-label">知识库强</div></div>
+    <div class="stat-item"><div class="stat-num">50万+</div><div class="stat-label">总开发者数</div></div>
+  </div>
+</div>
+
+<h2 id="summary">一、执行摘要</h2>
+
+<p>AI Agent平台是2025年最热门的赛道之一。Coze（字节）、Dify（开源）、FastGPT三款产品代表了三种不同的路径：巨头产品、开源社区、垂直场景。</p>
+
+<p>本报告深度对比三大平台的核心能力、技术架构、商业化策略，为企业和开发者提供选型参考。</p>
+
+<ul>
+  <li><strong>Coze</strong>：字节出品，产品体验最好，与豆包生态深度集成</li>
+  <li><strong>Dify</strong>：开源社区最强，可私有化部署，定制能力强</li>
+  <li><strong>FastGPT</strong>：知识库能力强，适合RAG场景</li>
+</ul>
+
+<div class="quote">
+  "选择Agent平台，本质是选择你的生态依赖：是依赖字节、依赖开源社区、还是自己掌控？"
+  <br>—— 某企业AI负责人，2026年2月
+</div>
+
+<h2 id="chapter1">二、平台概览</h2>
+
+<h3>2.1 基本信息</h3>
+
+<table>
+  <thead>
+    <tr><th>维度</th><th>Coze</th><th>Dify</th><th>FastGPT</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>出品方</strong></td><td>字节跳动</td><td>LangGenius</td><td>Lab</td></tr>
+    <tr><td><strong>开源</strong></td><td>否</td><td>是（MIT）</td><td>是（Apache）</td></tr>
+    <tr><td><strong>部署方式</strong></td><td>SaaS</td><td>SaaS+私有化</td><td>SaaS+私有化</td></tr>
+    <tr><td><strong>底层模型</strong></td><td>豆包系列</td><td>多模型支持</td><td>多模型支持</td></tr>
+    <tr><td><strong>定价</strong></td><td>免费</td><td>免费+付费</td><td>免费+付费</td></tr>
+  </tbody>
+</table>
+
+<h2 id="chapter2">三、核心能力对比</h2>
+
+<h3>3.1 功能矩阵</h3>
+
+<table>
+  <thead>
+    <tr><th>功能</th><th>Coze</th><th>Dify</th><th>FastGPT</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>可视化编排</strong></td><td>★★★★★</td><td>★★★★☆</td><td>★★★★☆</td></tr>
+    <tr><td><strong>插件生态</strong></td><td>★★★★★</td><td>★★★☆☆</td><td>★★★☆☆</td></tr>
+    <tr><td><strong>知识库</strong></td><td>★★★★☆</td><td>★★★★☆</td><td>★★★★★</td></tr>
+    <tr><td><strong>多Agent</strong></td><td>★★★☆☆</td><td>★★★★☆</td><td>★★★☆☆</td></tr>
+    <tr><td><strong>API能力</strong></td><td>★★★★☆</td><td>★★★★★</td><td>★★★★☆</td></tr>
+  </tbody>
+</table>
+
+<h3>3.2 各平台优势</h3>
+
+<h4>Coze优势</h4>
+<ul>
+  <li>产品体验最好，上手快</li>
+  <li>插件生态丰富，与抖音等平台深度集成</li>
+  <li>免费使用，无成本压力</li>
+  <li>持续快速迭代</li>
+</ul>
+
+<h4>Dify优势</h4>
+<ul>
+  <li>开源免费，可私有化部署</li>
+  <li>多模型支持，不绑定单一模型</li>
+  <li>社区活跃，文档完善</li>
+  <li>定制能力强</li>
+</ul>
+
+<h4>FastGPT优势</h4>
+<ul>
+  <li>知识库能力最强，RAG效果好</li>
+  <li>开箱即用的问答模板</li>
+  <li>私有化部署简单</li>
+</ul>
+
+<h2 id="chapter3">四、技术架构分析</h2>
+
+<h3>4.1 架构对比</h3>
+
+<table>
+  <thead>
+    <tr><th>维度</th><th>Coze</th><th>Dify</th><th>FastGPT</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>编排引擎</strong></td><td>字节自研</td><td>LangChain</td><td>自研</td></tr>
+    <tr><td><strong>向量数据库</strong></td><td>未知</td><td>Weaviate</td><td>Milvus</td></tr>
+    <tr><td><strong>部署复杂度</strong></td><td>SaaS无部署</td><td>中等</td><td>简单</td></tr>
+  </tbody>
+</table>
+
+<div class="key-point">💡 核心洞察：Coze适合快速验证，Dify适合深度定制，FastGPT适合知识库场景。</div>
+
+<h2 id="chapter4">五、商业化对比</h2>
+
+<h3>5.1 商业模式</h3>
+
+<table>
+  <thead>
+    <tr><th>平台</th><th>商业模式</th><th>收入来源</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Coze</strong></td><td>生态引流</td><td>豆包模型API、企业服务</td></tr>
+    <tr><td><strong>Dify</strong></td><td>开源+SaaS</td><td>云服务、企业支持</td></tr>
+    <tr><td><strong>FastGPT</strong></td><td>开源+SaaS</td><td>云服务、企业定制</td></tr>
+  </tbody>
+</table>
+
+<h2 id="chapter5">六、选型建议</h2>
+
+<h3>6.1 决策矩阵</h3>
+
+<table>
+  <thead>
+    <tr><th>场景</th><th>推荐平台</th><th>理由</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>快速验证</td><td>Coze</td><td>体验好、免费、上手快</td></tr>
+    <tr><td>企业部署</td><td>Dify</td><td>开源、私有化、定制强</td></tr>
+    <tr><td>知识问答</td><td>FastGPT</td><td>知识库能力最强</td></tr>
+    <tr><td>个人学习</td><td>Dify</td><td>开源、免费、学习价值高</td></tr>
+    <tr><td>生产环境</td><td>根据需求</td><td>评估数据安全、成本、功能</td></tr>
+  </tbody>
+</table>
+
+<h3>6.2 选型决策树</h3>
+
+<ol>
+  <li><strong>需要私有化部署？</strong> → Dify或FastGPT</li>
+  <li><strong>数据安全要求高？</strong> → 开源方案私有化</li>
+  <li><strong>快速验证想法？</strong> → Coze</li>
+  <li><strong>知识库是核心？</strong> → FastGPT</li>
+  <li><strong>需要深度定制？</strong> → Dify</li>
+</ol>
+
+<hr>
+
+<p class="center">📌 本报告由熏儿出品 · 数据截至2026年2月<br>如需引用或转载，请注明来源：熏儿的AI洞察</p>
+
+<a href="../../index.html#research" class="back">← 返回首页</a>
+</body>
+</html>
