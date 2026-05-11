@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiniMax 深度追踪 | 熏儿的AI洞察</title>
+<style>:root{--green:#059669;--green-light:#dcfce7;--blue:#2563eb;--blue-light:#dbeafe;--purple:#7c3aed;--purple-light:#f3e8ff;--bg:#f8fafb;--border:#e7e5e4;--text:#57534e;--text-dark:#1c1917;--text-muted:#78716c;--radius:16px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15px;max-width:900px;margin:0 auto;padding:24px 16px 60px}
+.top-bar{height:4px;background:linear-gradient(90deg,#ec4899,#8b5cf6,#059669);margin:0 -16px 24px}
+h1{font-size:32px;font-weight:800;color:var(--text-dark);margin-bottom:8px;line-height:1.3}
+.meta{font-size:13px;color:var(--text-muted);margin-bottom:24px}
+.badge{display:inline-block;background:#ec4899;color:white;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;margin-right:8px}
+h2{font-size:24px;font-weight:700;color:var(--text-dark);margin:32px 0 16px;padding-bottom:8px;border-bottom:2px solid #fce7f3}
+h3{font-size:18px;font-weight:700;color:var(--text-dark);margin:24px 0 12px}
+p{margin-bottom:16px;text-align:justify}
+.quote{border-left:4px solid #ec4899;background:#fce7f3;padding:16px 20px;margin:20px 0;border-radius:0 12px 12px 0;font-style:italic}
+.data-box{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:20px 0}
+.data-box-title{font-size:14px;font-weight:700;color:#ec4899;margin-bottom:10px}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat-item{background:#f8fafb;border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.stat-num{font-size:26px;font-weight:800;color:#ec4899}
+.stat-label{font-size:11px;color:var(--text-muted);margin-top:4px}
+ul{margin:16px 0;padding-left:24px}
+li{margin-bottom:8px}
+.back{display:inline-block;background:#ec4899;color:white;padding:10px 24px;border-radius:999px;text-decoration:none;font-weight:600;margin-top:32px;font-size:14px}
+hr{margin:40px 0;border:none;border-top:1px solid var(--border)}
+.center{text-align:center;color:var(--text-muted);font-size:13px}</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<h1>MiniMax 深度追踪</h1>
+<div class="meta"><span class="badge">🏢 公司追踪</span><span class="badge" style="background:var(--green-light);color:var(--green)">国内大模型</span></div>
+<div class="meta">📅 更新时间：2026年5月11日 · 熏儿出品</div>
+
+<h2>公司概况</h2>
+
+<p><strong>MiniMax</strong>是中国领先的AI大模型公司之一，成立于2023年，以多模态能力著称。公司专注于开发通用人工智能，在图像、视频、语音生成方面具有独特优势。</p>
+
+<div class="data-box">
+<div class="data-box-title">📊 核心数据</div>
+<div class="stat-grid">
+<div class="stat-item"><div class="stat-num">2023</div><div class="stat-label">创立年份</div></div>
+<div class="stat-item"><div class="stat-num">MiniMax V2</div><div class="stat-label">最新版本</div></div>
+<div class="stat-item"><div class="stat-num">$25亿</div><div class="stat-label">估值</div></div>
+<div class="stat-item"><div class="stat-num">500万+</div><div class="stat-label">用户数</div></div>
+</div>
+</div>
+
+<h2>核心产品</h2>
+
+<h3>MiniMax大模型系列</h3>
+
+<ul>
+<li><strong>MiniMax V2</strong>：旗舰版，深度推理、多模态能力强</li>
+<li><strong>海螺AI</strong>：C端对话产品，主打语音视频生成</li>
+<li><strong>视频生成模型</strong>：支持高质量视频内容生成</li>
+<li><strong>语音合成</strong>：业界领先的语音克隆能力</li>
+</ul>
+
+<h2>竞争优势</h2>
+
+<ul>
+<li><strong>多模态领先</strong>：图像、视频、语音生成能力强</li>
+<li><strong>开源策略</strong>：部分模型开源，社区影响力大</li>
+<li><strong>技术积累</strong>：核心团队来自国内顶级AI实验室</li>
+<li><strong>应用落地</strong>：海螺AI用户增长迅速</li>
+</ul>
+
+<h2>追踪重点</h2>
+
+<div class="data-box">
+<div class="data-box-title">🔍 重点关注</div>
+<ul>
+<li><strong>模型迭代</strong>：新版本能力提升、评测数据</li>
+<li><strong>商业化进展</strong>：API服务、企业客户拓展</li>
+<li><strong>用户增长</strong>：海螺AI用户数据、留存</li>
+<li><strong>融资动态</strong>：新一轮融资、投资方变化</li>
+</ul>
+</div>
+
+<h2>近期动态（2026年5月）</h2>
+
+<ul>
+<li>✅ MiniMax V2发布，多模态能力提升</li>
+<li>✅ 海螺AI月活突破500万</li>
+<li>✅ 视频生成模型对标Sora</li>
+<li>🔄 与阿里达成战略合作</li>
+</ul>
+
+<div class="quote">"多模态是AI的下一个战场，MiniMax已经准备好了。"</div>
+
+<hr>
+
+<p class="center">📌 本页面由熏儿出品 · 数据截至2026年5月11日<br>每月月初更新追踪信息</p>
+
+<a href="../../index.html#tracking" class="back">← 返回追踪体系</a>
+</body>
+</html>
