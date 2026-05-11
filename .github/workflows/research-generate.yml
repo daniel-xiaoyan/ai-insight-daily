@@ -1,0 +1,97 @@
+name: 深度调研自动生成 · 熏儿
+description: 每月自动生成至少10篇深度调研报告
+
+on:
+  schedule:
+    # 每月固定日期触发（约10篇/月）
+    # 北京时间 09:00 = UTC 01:00
+    - cron: '0 1 1,4,7,11,14,17,21,24,27,30 * *'
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: '指定调研主题（留空则自动选题）'
+        required: false
+        default: ''
+      category:
+        description: '报告分类（trend/company/topic/person）'
+        required: false
+        default: 'topic'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  generate-research:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: |
+          pip install requests beautifulsoup4 feedparser python-dateutil
+
+      - name: 生成深度调研报告
+        id: generate
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          TOPIC="${{ github.event.inputs.topic }}"
+          CATEGORY="${{ github.event.inputs.category }}"
+          
+          if [ -n "$TOPIC" ]; then
+            python scripts/generate_research.py --topic "$TOPIC" --category "$CATEGORY"
+          else
+            python scripts/generate_research.py
+          fi
+          
+          # 获取生成的文件名
+          GENERATED_FILE=$(ls -t 02-deep-research/*/*-complete.html 2>/dev/null | head -1)
+          if [ -n "$GENERATED_FILE" ]; then
+            echo "file=$GENERATED_FILE" >> $GITHUB_OUTPUT
+            echo "✅ 生成成功: $GENERATED_FILE"
+          else
+            echo "❌ 生成失败"
+            exit 1
+          fi
+
+      - name: 更新首页链接
+        run: |
+          python scripts/update_research_index.py
+
+      - name: 检查是否有变更
+        id: check_changes
+        run: |
+          git add -A
+          git diff --cached --quiet && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: 提交并推送
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config user.name "熏儿-Bot"
+          git config user.email "xunr-bot@ai-insight.daily"
+          
+          MONTH=$(date +"%Y年%m月")
+          COUNT=$(ls 02-deep-research/*/*-complete.html 2>/dev/null | wc -l)
+          
+          git commit -m "feat: ${MONTH}深度调研自动更新（累计${COUNT}篇）"
+          git push
+
+      - name: 上传 Pages 构建产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: 部署到 GitHub Pages
+        uses: actions/deploy-pages@v4
