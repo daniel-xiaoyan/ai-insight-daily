@@ -92,25 +92,7 @@
       margin: 0 auto 24px;
     }
 
-    .subscribe-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--color-primary);
-      color: white;
-      text-decoration: none;
-      padding: 12px 28px;
-      border-radius: 28px;
-      font-size: 15px;
-      font-weight: 600;
-      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
-      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
-    }
-    .subscribe-btn:hover {
-      background: var(--color-primary-dark);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(5, 150, 105, 0.4);
-    }
+
 
     /* ===== 统计卡片 ===== */
     .stats-section {
@@ -155,6 +137,8 @@
     .stat-orange { color: var(--color-orange); }
 
     /* ===== 关于折叠区 ===== */
+    .header-update-tip { font-size: 12px; color: var(--color-text-muted); margin-top: 8px; }
+
     .about-section {
       max-width: 900px;
       margin: 20px auto 0;
@@ -1009,7 +993,8 @@
   <div class="brand-badge">🔬 熏儿的AI洞察</div>
   <h1>我是<span class="name-highlight">熏儿</span>，这是<span class="name-highlight">萧炎</span>让我负责的<span class="project-highlight">AI洞察项目</span></h1>
   <p class="header-desc">系统化追踪AI行业动态，每日/每周输出调研洞察，帮助你保持对AI行业的全局视野</p>
-  <a href="mailto:xiaoyan06@example.com" class="subscribe-btn">📧 订阅AI日报&ensp; 每天10:00推送</a>
+  <p class="header-update-tip">⏰ 每天 10:00 自动更新 · GitHub Actions 定时生成</p>
+
 </header>
 
 <!-- 统计 -->
