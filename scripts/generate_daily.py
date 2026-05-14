@@ -84,10 +84,34 @@ def parse_rss(xml_bytes):
                 summary = entry.findtext(f"{ns}summary", "").strip()
                 link_el = entry.find(f"{ns}link")
                 link = link_el.get("href","") if link_el is not None else ""
-                items.append({"title": title, "desc": summary[:200], "link": link, "pub": ""})
+                published = entry.findtext(f"{ns}published", "").strip()
+                updated = entry.findtext(f"{ns}updated", "").strip()
+                pub = published or updated or ""
+                items.append({"title": title, "desc": summary[:200], "link": link, "pub": pub})
     except Exception as e:
         print(f"  ⚠️  解析RSS失败: {e}")
     return items
+
+def parse_pub_date(pub_str):
+    """解析各种格式的发布日期，返回datetime对象"""
+    if not pub_str:
+        return None
+    # 尝试多种常见日期格式
+    formats = [
+        "%a, %d %b %Y %H:%M:%S %z",   # RFC 822: "Wed, 14 May 2026 08:00:00 +0000"
+        "%a, %d %b %Y %H:%M:%S",       # RFC 822 无时区
+        "%Y-%m-%dT%H:%M:%S%z",         # ISO 8601: "2026-05-14T08:00:00+00:00"
+        "%Y-%m-%dT%H:%M:%SZ",          # ISO 8601 UTC
+        "%Y-%m-%dT%H:%M:%S",           # ISO 8601 无时区
+        "%Y-%m-%d %H:%M:%S",           # 简单格式
+        "%Y-%m-%d",                    # 仅日期
+    ]
+    for fmt in formats:
+        try:
+            return datetime.datetime.strptime(pub_str.strip(), fmt)
+        except ValueError:
+            continue
+    return None
 
 def is_ai_related(title, tags):
     t = title.lower()
@@ -106,6 +130,8 @@ def clean_html(text):
 # ─── 收集新闻 ──────────────────────────────────────────
 def collect_news(date_str):
     dt = datetime.datetime.strptime(date_str, "%Y-%m-%d")
+    # 只保留最近3天的新闻（防止旧新闻混入）
+    cutoff_date = dt - datetime.timedelta(days=3)
     all_news = {"海外": {}, "国内": {}}
     
     for src in RSS_SOURCES:
@@ -116,21 +142,31 @@ def collect_news(date_str):
         items = parse_rss(xml)
         region = src["region"]
         count = 0
-        for item in items[:30]:
+        filtered = 0
+        for item in items[:50]:  # 扫描更多条目，但严格过滤日期
             if not is_ai_related(item["title"], src["tags"]):
                 continue
+            # 日期过滤：只保留最近3天的新闻
+            pub_dt = parse_pub_date(item["pub"])
+            if pub_dt is not None:
+                # 去掉时区信息方便比较
+                pub_dt_naive = pub_dt.replace(tzinfo=None) if pub_dt.tzinfo else pub_dt
+                if pub_dt_naive < cutoff_date:
+                    filtered += 1
+                    continue
             cat = classify_topic(item["title"])
             if cat not in all_news[region]:
                 all_news[region][cat] = []
-            if len(all_news[region][cat]) < 3:
+            if len(all_news[region][cat]) < 5:  # 每个类别多留一些，保证内容丰富
                 all_news[region][cat].append({
                     "title": item["title"],
                     "source": src["name"],
                     "link": item["link"],
                     "desc": clean_html(item["desc"]),
+                    "pub": item["pub"],
                 })
                 count += 1
-        print(f"     → 筛选到 {count} 条AI相关")
+        print(f"     → 筛选到 {count} 条AI相关，过滤 {filtered} 条旧新闻")
     return all_news
 
 # ─── 热度计算 ──────────────────────────────────────────
