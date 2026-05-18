@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI投融资追踪 | 熏儿的AI洞察</title>
+  <style>
+    :root{--green:#059669;--green-light:#dcfce7;--green-dark:#047857;--blue:#2563eb;--blue-light:#dbeafe;--purple:#7c3aed;--orange:#d97706;--orange-light:#fef3c7;--red:#ef4444;--red-light:#fee2e2;--bg:#f8fafb;--border:#f5f5f4;--border2:#e7e5e4;--text:#57534e;--text-dark:#1c1917;--text-muted:#78716c;--radius:16px;--radius-sm:10px;--shadow:0 1px 3px rgba(0,0,0,.06)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+    .top-bar{height:4px;background:linear-gradient(90deg,#f59e0b,#ef4444,#7c3aed)}
+    .nav{background:white;border-bottom:1px solid var(--border2);padding:10px 20px;display:flex;align-items:center;gap:8px;font-size:13px}
+    .nav a{color:var(--green);text-decoration:none}.nav-sep{color:var(--border2)}.nav-cur{color:var(--text-muted)}
+    .container{max-width:1060px;margin:0 auto;padding:24px 16px 80px}
+    
+    /* Hero */
+    .hero{background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);border-radius:var(--radius);padding:32px;margin-bottom:24px;color:white}
+    .hero-label{font-size:11px;font-weight:700;letter-spacing:2px;color:#f59e0b;margin-bottom:12px}
+    .hero-title{font-size:32px;font-weight:800;margin-bottom:8px}
+    .hero-sub{font-size:14px;color:#94a3b8;margin-bottom:20px}
+    .hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+    .hero-stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px 20px;text-align:center}
+    .hero-stat strong{font-size:22px;font-weight:800;color:white;display:block}
+    .hero-stat span{font-size:11px;color:#94a3b8}
+    
+    /* Filter */
+    .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+    .filter-btn{padding:6px 16px;border-radius:999px;border:1px solid var(--border2);background:white;font-size:13px;color:var(--text-muted);cursor:pointer;transition:all .15s}
+    .filter-btn.active,.filter-btn:hover{background:var(--text-dark);color:white;border-color:var(--text-dark)}
+    
+    /* Deals Table */
+    .section-title{font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+    .deals-card{background:white;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);margin-bottom:24px}
+    table{width:100%;border-collapse:collapse}
+    th{padding:10px 14px;background:#f8fafb;text-align:left;font-size:12px;font-weight:700;color:var(--text-muted);border-bottom:1px solid var(--border2);white-space:nowrap}
+    td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:#f8fafb}
+    
+    .company-cell{display:flex;align-items:center;gap:10px}
+    .company-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+    .company-name{font-weight:700;color:var(--text-dark);font-size:14px}
+    .company-tag{font-size:11px;color:var(--text-muted)}
+    
+    .amount-cell{font-weight:700;color:var(--text-dark);font-size:15px}
+    .amount-rmb{font-size:11px;color:var(--text-muted);margin-top:1px}
+    
+    .round-badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700}
+    .round-preipo{background:#fef3c7;color:#92400e}
+    .round-d{background:#dbeafe;color:#1e40af}
+    .round-strategic{background:#f3e8ff;color:#5b21b6}
+    .round-ipo{background:#dcfce7;color:#14532d}
+    .round-unknown{background:#f1f5f9;color:#475569}
+    
+    .investor-list{display:flex;flex-wrap:wrap;gap:4px}
+    .investor-tag{background:#f1f5f9;border:1px solid var(--border2);border-radius:6px;padding:2px 8px;font-size:11px;color:var(--text)}
+    .investor-lead{background:#fef3c7;border-color:#fbbf24;color:#92400e;font-weight:600}
+    
+    .hot-badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;background:#fee2e2;color:#991b1b;margin-left:6px}
+    
+    /* Valuation chart */
+    .val-bar-wrap{display:flex;align-items:center;gap:8px}
+    .val-bar-bg{flex:1;height:6px;background:#f1f5f9;border-radius:3px;overflow:hidden}
+    .val-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#059669,#2563eb)}
+    .val-text{font-size:12px;font-weight:700;color:var(--text-dark);min-width:60px;text-align:right}
+    
+    /* Spotlight card */
+    .spotlight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px}
+    .spotlight-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .spotlight-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+    .spotlight-icon-name{display:flex;align-items:center;gap:10px}
+    .spotlight-name{font-size:16px;font-weight:700;color:var(--text-dark)}
+    .spotlight-round{font-size:11px;color:var(--text-muted)}
+    .spotlight-amount{font-size:22px;font-weight:800;color:var(--text-dark)}
+    .spotlight-amount-sub{font-size:11px;color:var(--text-muted)}
+    .spotlight-divider{height:1px;background:var(--border);margin:12px 0}
+    .spotlight-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px}
+    .spotlight-row-label{color:var(--text-muted)}
+    .spotlight-row-val{font-weight:600;color:var(--text-dark)}
+    .spotlight-investors{margin-top:10px}
+    .spotlight-investors-label{font-size:11px;color:var(--text-muted);margin-bottom:6px}
+    .spotlight-comment{margin-top:12px;padding:10px 12px;background:#f8fafb;border-radius:8px;font-size:12px;color:var(--text);line-height:1.6;border-left:3px solid var(--green)}
+    
+    /* Trend */
+    .trend-section{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:24px}
+    .trend-title{font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:16px}
+    .trend-insight-list{display:flex;flex-direction:column;gap:12px}
+    .trend-insight{display:flex;gap:12px;padding:12px;background:#f8fafb;border-radius:10px}
+    .trend-insight-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+    .trend-insight-body{flex:1}
+    .trend-insight-title{font-size:13px;font-weight:700;color:var(--text-dark)}
+    .trend-insight-desc{font-size:12px;color:var(--text-muted);margin-top:3px;line-height:1.6}
+    
+    /* Updated tag */
+    .updated-tag{font-size:11px;color:var(--text-muted);background:#f1f5f9;padding:3px 10px;border-radius:999px}
+    
+    @media(max-width:700px){.hero-stats{flex-direction:column} table{font-size:12px} td,th{padding:8px 10px}}
+  </style>
+</head>
+<body>
+<div class="top-bar"></div>
+<nav class="nav">
+  <a href="../index.html">🔬 AI洞察</a>
+  <span class="nav-sep">/</span>
+  <a href="../index.html#tracking">追踪体系</a>
+  <span class="nav-sep">/</span>
+  <span class="nav-cur">💰 AI投融资追踪</span>
+</nav>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-label">💰 INVESTMENT TRACKER · LIVE</div>
+    <div class="hero-title">AI投融资实时追踪</div>
+    <div class="hero-sub">持续追踪中国及全球AI公司一级市场融资动态 · 数据来源：公开披露、港交所公告、财联社、钛媒体</div>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>~85亿</strong><span>本月融资总额（美元）</span></div>
+      <div class="hero-stat"><strong>6</strong><span>本月重大融资事件</span></div>
+      <div class="hero-stat"><strong>515亿</strong><span>DeepSeek估值（美元，传闻）</span></div>
+      <div class="hero-stat"><strong>2026.05</strong><span>数据更新至</span></div>
+    </div>
+  </div>
+
+  <!-- 聚焦卡片：本月重磅融资 -->
+  <div class="section-title">🔥 本月重磅融资事件 <span class="updated-tag">更新至 2026-05-18</span></div>
+  <div class="spotlight-grid">
+
+    <!-- 月之暗面 Kimi -->
+    <div class="spotlight-card">
+      <div class="spotlight-header">
+        <div class="spotlight-icon-name">
+          <div class="company-icon" style="background:#dbeafe">🌙</div>
+          <div>
+            <div class="spotlight-name">月之暗面（Kimi）</div>
+            <div class="spotlight-round">D轮 · 2026年5月</div>
+          </div>
+        </div>
+        <span class="hot-badge">🔥 热门</span>
+      </div>
+      <div class="spotlight-amount">$20亿</div>
+      <div class="spotlight-amount-sub">约合人民币 145亿元</div>
+      <div class="spotlight-divider"></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">投后估值</span><span class="spotlight-row-val">200亿美元</span></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">估值增幅</span><span class="spotlight-row-val">较半年前↑ 365%</span></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">计划</span><span class="spotlight-row-val">港股IPO（筹备中）</span></div>
+      <div class="spotlight-investors">
+        <div class="spotlight-investors-label">投资方</div>
+        <div class="investor-list">
+          <span class="investor-tag investor-lead">领投：美团龙珠</span>
+          <span class="investor-tag">中国移动</span>
+          <span class="investor-tag">CPE源峰</span>
+          <span class="investor-tag">水木资本</span>
+        </div>
+      </div>
+      <div class="spotlight-comment">💬 熏儿：国资+战投双轮驱动，美元计价为港股上市做架构准备。月之暗面总融资额已超376亿元，是国内融资最多的大模型创业公司。</div>
+    </div>
+
+    <!-- 阶跃星辰 -->
+    <div class="spotlight-card">
+      <div class="spotlight-header">
+        <div class="spotlight-icon-name">
+          <div class="company-icon" style="background:#f3e8ff">⭐</div>
+          <div>
+            <div class="spotlight-name">阶跃星辰</div>
+            <div class="spotlight-round">战略轮 · 2026年5月</div>
+          </div>
+        </div>
+        <span class="hot-badge">🔥 热门</span>
+      </div>
+      <div class="spotlight-amount">~$25亿</div>
+      <div class="spotlight-amount-sub">产业链资本密集入场</div>
+      <div class="spotlight-divider"></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">进展</span><span class="spotlight-row-val">红筹架构已拆除</span></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">计划</span><span class="spotlight-row-val">赴港IPO（加速筹备）</span></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">股改</span><span class="spotlight-row-val">已完成（4月）</span></div>
+      <div class="spotlight-investors">
+        <div class="spotlight-investors-label">投资方</div>
+        <div class="investor-list">
+          <span class="investor-tag investor-lead">跟投：腾讯</span>
+          <span class="investor-tag investor-lead">跟投：HKIC港版淡马锡</span>
+          <span class="investor-tag">华勤技术</span>
+          <span class="investor-tag">龙旗科技</span>
+          <span class="investor-tag">豪威集团</span>
+          <span class="investor-tag">中兴通讯</span>
+        </div>
+      </div>
+      <div class="spotlight-comment">💬 熏儿：手机产业链集体押注AI，华勤+龙旗是全球手机ODM龙头。港版淡马锡HKIC入场，代表香港政府资本认可其上市潜力。</div>
+    </div>
+
+    <!-- DeepSeek -->
+    <div class="spotlight-card">
+      <div class="spotlight-header">
+        <div class="spotlight-icon-name">
+          <div class="company-icon" style="background:#dcfce7">🐳</div>
+          <div>
+            <div class="spotlight-name">DeepSeek</div>
+            <div class="spotlight-round">战略轮 · 2026年5月（传闻）</div>
+          </div>
+        </div>
+        <span class="hot-badge">👀 关注</span>
+      </div>
+      <div class="spotlight-amount">~$90亿</div>
+      <div class="spotlight-amount-sub">传闻融资600亿元，估值3000-515亿美元</div>
+      <div class="spotlight-divider"></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">估值区间</span><span class="spotlight-row-val">450亿~515亿美元（传）</span></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">梁文锋自投</span><span class="spotlight-row-val">约200亿元（传）</span></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">状态</span><span class="spotlight-row-val">收官阶段（未官宣）</span></div>
+      <div class="spotlight-investors">
+        <div class="spotlight-investors-label">潜在投资方（传闻）</div>
+        <div class="investor-list">
+          <span class="investor-tag investor-lead">传闻领投：国家大基金</span>
+          <span class="investor-tag">腾讯</span>
+          <span class="investor-tag">阿里巴巴</span>
+          <span class="investor-tag">幻方量化（母公司）</span>
+        </div>
+      </div>
+      <div class="spotlight-comment">💬 熏儿：国家集成电路产业投资基金领投，意味着DeepSeek已从商业AI公司升格为国家科技战略资产。估值从4月传闻的100亿美元，一个月内飙升至515亿美元。</div>
+    </div>
+
+    <!-- 可灵AI -->
+    <div class="spotlight-card">
+      <div class="spotlight-header">
+        <div class="spotlight-icon-name">
+          <div class="company-icon" style="background:#fef3c7">🎬</div>
+          <div>
+            <div class="spotlight-name">可灵AI（快手分拆）</div>
+            <div class="spotlight-round">Pre-IPO轮 · 2026年5月（筹备）</div>
+          </div>
+        </div>
+        <span class="hot-badge">🔥 热门</span>
+      </div>
+      <div class="spotlight-amount">拟融 $20亿</div>
+      <div class="spotlight-amount-sub">目标估值200亿美元，约1300亿人民币</div>
+      <div class="spotlight-divider"></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">目标上市时间</span><span class="spotlight-row-val">2027年（港股IPO）</span></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">ARR（2026年4月）</span><span class="spotlight-row-val">5亿美元</span></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">快手持股</span><span class="spotlight-row-val">100%（分拆前）</span></div>
+      <div class="spotlight-investors">
+        <div class="spotlight-investors-label">洽谈投资方</div>
+        <div class="investor-list">
+          <span class="investor-tag investor-lead">商谈中：腾讯</span>
+          <span class="investor-tag">其他战投（未披露）</span>
+        </div>
+      </div>
+      <div class="spotlight-comment">💬 熏儿：可灵估值（200亿美元）≈ 快手母公司整体估值（292亿美元）的69%！这就是为什么快手必须分拆——不分拆，可灵在快手报表里就是被低估的资产。</div>
+    </div>
+
+    <!-- 智谱AI -->
+    <div class="spotlight-card">
+      <div class="spotlight-header">
+        <div class="spotlight-icon-name">
+          <div class="company-icon" style="background:#e0e7ff">🧠</div>
+          <div>
+            <div class="spotlight-name">智谱AI</div>
+            <div class="spotlight-round">港股上市 · 2026年1月</div>
+          </div>
+        </div>
+        <span class="hot-badge">✅ 已上市</span>
+      </div>
+      <div class="spotlight-amount">市值 ~4833亿</div>
+      <div class="spotlight-amount-sub">港元，发行价116.2港元，已涨近10倍</div>
+      <div class="spotlight-divider"></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">2025年营收</span><span class="spotlight-row-val">7.24亿元人民币</span></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">MaaS ARR</span><span class="spotlight-row-val">17亿元（同比+60倍）</span></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">毛利率</span><span class="spotlight-row-val">18.9%（同比+5倍）</span></div>
+      <div class="spotlight-investors">
+        <div class="spotlight-investors-label">前十大股东（持股市值超70亿）</div>
+        <div class="investor-list">
+          <span class="investor-tag investor-lead">第一：君联资本（280亿元）</span>
+          <span class="investor-tag">共14家机构</span>
+        </div>
+      </div>
+      <div class="spotlight-comment">💬 熏儿：5月13日单日暴涨36.9%，市值一度突破5000亿港元，涨出了一个"科大讯飞"。但亏损的智谱市值是盈利的科大讯飞的4倍，靠的是对AI未来的信仰定价。</div>
+    </div>
+
+    <!-- MiniMax -->
+    <div class="spotlight-card">
+      <div class="spotlight-header">
+        <div class="spotlight-icon-name">
+          <div class="company-icon" style="background:#fee2e2">⚡</div>
+          <div>
+            <div class="spotlight-name">MiniMax</div>
+            <div class="spotlight-round">港股上市 · 2026年1月</div>
+          </div>
+        </div>
+        <span class="hot-badge">✅ 已上市</span>
+      </div>
+      <div class="spotlight-amount">市值 ~2566亿</div>
+      <div class="spotlight-amount-sub">港元，首日涨110%</div>
+      <div class="spotlight-divider"></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">2025年营收</span><span class="spotlight-row-val">约5.43亿元人民币</span></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">近期动作</span><span class="spotlight-row-val">开源M2.7旗舰模型</span></div>
+      <div class="spotlight-row"><span class="spotlight-row-label">5月涨幅</span><span class="spotlight-row-val">5月13日 +18.46%</span></div>
+      <div class="spotlight-investors">
+        <div class="spotlight-investors-label">核心股东</div>
+        <div class="investor-list">
+          <span class="investor-tag">腾讯</span>
+          <span class="investor-tag">IDG资本</span>
+          <span class="investor-tag">华兴资本</span>
+        </div>
+      </div>
+      <div class="spotlight-comment">💬 熏儿：首日暴涨后经历回调，现价818港元。MiniMax M2.7开源是重要战略动作，开源旗舰模型可以快速建立开发者生态，挑战Llama在国内的地位。</div>
+    </div>
+
+  </div>
+
+  <!-- 融资明细表格 -->
+  <div class="section-title">📊 近期AI融资明细（2026年1月至今）</div>
+  <div class="deals-card">
+    <table>
+      <thead>
+        <tr>
+          <th>公司</th>
+          <th>轮次</th>
+          <th>融资金额</th>
+          <th>投后估值</th>
+          <th>领投方</th>
+          <th>时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="company-cell">
+              <div class="company-icon" style="background:#dcfce7">🐳</div>
+              <div><div class="company-name">DeepSeek</div><div class="company-tag">基础大模型</div></div>
+            </div>
+          </td>
+          <td><span class="round-badge round-strategic">战略轮</span></td>
+          <td><div class="amount-cell">~$90亿</div><div class="amount-rmb">约600亿元（传）</div></td>
+          <td>
+            <div class="val-bar-wrap">
+              <div class="val-bar-bg"><div class="val-bar-fill" style="width:100%"></div></div>
+              <span class="val-text">515亿美元</span>
+            </div>
+          </td>
+          <td><div class="investor-list"><span class="investor-tag investor-lead">国家大基金（传）</span></div></td>
+          <td>2026.05（传）</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="company-cell">
+              <div class="company-icon" style="background:#fef3c7">⭐</div>
+              <div><div class="company-name">阶跃星辰</div><div class="company-tag">基础大模型</div></div>
+            </div>
+          </td>
+          <td><span class="round-badge round-strategic">战略轮</span></td>
+          <td><div class="amount-cell">~$25亿</div><div class="amount-rmb">约180亿元</div></td>
+          <td>
+            <div class="val-bar-wrap">
+              <div class="val-bar-bg"><div class="val-bar-fill" style="width:55%"></div></div>
+              <span class="val-text">未披露</span>
+            </div>
+          </td>
+          <td><div class="investor-list"><span class="investor-tag investor-lead">腾讯跟投</span><span class="investor-tag">HKIC</span><span class="investor-tag">华勤</span></div></td>
+          <td>2026.05</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="company-cell">
+              <div class="company-icon" style="background:#dbeafe">🌙</div>
+              <div><div class="company-name">月之暗面（Kimi）</div><div class="company-tag">基础大模型</div></div>
+            </div>
+          </td>
+          <td><span class="round-badge round-d">D轮</span></td>
+          <td><div class="amount-cell">$20亿</div><div class="amount-rmb">约145亿元</div></td>
+          <td>
+            <div class="val-bar-wrap">
+              <div class="val-bar-bg"><div class="val-bar-fill" style="width:38%"></div></div>
+              <span class="val-text">200亿美元</span>
+            </div>
+          </td>
+          <td><div class="investor-list"><span class="investor-tag investor-lead">美团龙珠</span><span class="investor-tag">中国移动</span><span class="investor-tag">CPE源峰</span></div></td>
+          <td>2026.05</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="company-cell">
+              <div class="company-icon" style="background:#fef3c7">🎬</div>
+              <div><div class="company-name">可灵AI（快手分拆）</div><div class="company-tag">视频生成大模型</div></div>
+            </div>
+          </td>
+          <td><span class="round-badge round-preipo">Pre-IPO</span></td>
+          <td><div class="amount-cell">拟融$20亿</div><div class="amount-rmb">约145亿元（洽谈中）</div></td>
+          <td>
+            <div class="val-bar-wrap">
+              <div class="val-bar-bg"><div class="val-bar-fill" style="width:38%"></div></div>
+              <span class="val-text">目标200亿美元</span>
+            </div>
+          </td>
+          <td><div class="investor-list"><span class="investor-tag investor-lead">腾讯（洽谈）</span></div></td>
+          <td>2026.05（洽谈）</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="company-cell">
+              <div class="company-icon" style="background:#e0e7ff">🧠</div>
+              <div><div class="company-name">智谱AI</div><div class="company-tag">基础大模型</div></div>
+            </div>
+          </td>
+          <td><span class="round-badge round-ipo">港股IPO</span></td>
+          <td><div class="amount-cell">上市融资</div><div class="amount-rmb">超额认购1164倍</div></td>
+          <td>
+            <div class="val-bar-wrap">
+              <div class="val-bar-bg"><div class="val-bar-fill" style="width:92%"></div></div>
+              <span class="val-text">4833亿港元</span>
+            </div>
+          </td>
+          <td><div class="investor-list"><span class="investor-tag investor-lead">港交所上市</span></div></td>
+          <td>2026.01</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="company-cell">
+              <div class="company-icon" style="background:#fee2e2">⚡</div>
+              <div><div class="company-name">MiniMax</div><div class="company-tag">基础大模型</div></div>
+            </div>
+          </td>
+          <td><span class="round-badge round-ipo">港股IPO</span></td>
+          <td><div class="amount-cell">上市融资</div><div class="amount-rmb">首日涨110%</div></td>
+          <td>
+            <div class="val-bar-wrap">
+              <div class="val-bar-bg"><div class="val-bar-fill" style="width:50%"></div></div>
+              <span class="val-text">2566亿港元</span>
+            </div>
+          </td>
+          <td><div class="investor-list"><span class="investor-tag investor-lead">港交所上市</span></div></td>
+          <td>2026.01</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 趋势洞察 -->
+  <div class="trend-section">
+    <div class="trend-title">🔬 熏儿的投融资趋势洞察</div>
+    <div class="trend-insight-list">
+      <div class="trend-insight">
+        <div class="trend-insight-icon" style="background:#fef3c7">🏛️</div>
+        <div class="trend-insight-body">
+          <div class="trend-insight-title">国资+产业资本正在取代美元VC，成为中国AI融资主力</div>
+          <div class="trend-insight-desc">中国移动入股月之暗面，国家大基金传闻领投DeepSeek，香港投资管理有限公司（HKIC）入股阶跃星辰——AI正在从"商业故事"升格为"国家战略资产"。这一趋势将持续，意味着顶级AI公司有政府背书，商业风险相对更低。</div>
+        </div>
+      </div>
+      <div class="trend-insight">
+        <div class="trend-insight-icon" style="background:#dcfce7">📊</div>
+        <div class="trend-insight-body">
+          <div class="trend-insight-title">大厂AI业务集体分拆：AI不能和传统业务装在同一张报表里</div>
+          <div class="trend-insight-desc">可灵在快手报表里只值60亿美元，独立后估值200亿美元——同样的资产，换个报表能多3倍估值。智谱、MiniMax已上市，阶跃星辰、可灵、昆仑芯正在跟进。"大厂孵化→独立估值→港股上市"正成为中国AI的标准路径。</div>
+        </div>
+      </div>
+      <div class="trend-insight">
+        <div class="trend-insight-icon" style="background:#dbeafe">💰</div>
+        <div class="trend-insight-body">
+          <div class="trend-insight-title">中国大模型"五强"格局基本确定，估值均超千亿人民币</div>
+          <div class="trend-insight-desc">DeepSeek（515亿美元）、智谱（市值4833亿港元）、MiniMax（市值2566亿港元）、月之暗面（200亿美元）、阶跃星辰（待定）。五家合计市值/估值超2万亿人民币，但2025年合计营收仅约20亿元。资本市场给的是"信仰价"，最终谁能活下去，还要看商业化。</div>
+        </div>
+      </div>
+      <div class="trend-insight">
+        <div class="trend-insight-icon" style="background:#f3e8ff">🌏</div>
+        <div class="trend-insight-body">
+          <div class="trend-insight-title">港股成为中国AI公司首选上市地，A股估值框架尚未重构</div>
+          <div class="trend-insight-desc">智谱、MiniMax先后登陆港股，阶跃星辰、可灵、月之暗面均瞄准港股。港股对AI亏损公司更包容，且对接国际资本，估值体系更接近纳斯达克的AI公司定价逻辑。百度昆仑芯尝试A+H，但A股主板对AI基础模型的估值体系尚未形成。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 数据来源 -->
+  <div style="font-size:12px;color:var(--text-muted);text-align:center;padding-top:16px">
+    数据来源：快手港交所公告（2026.05.12）· 财联社科创板日报 · 钛媒体 · 晚点LatePost · 摩根士丹利研报<br>
+    免责声明：部分数据来自市场传闻，未经当事公司官方确认，不构成投资建议 · 最后更新：2026-05-18
+  </div>
+
+</div>
+</body>
+</html>

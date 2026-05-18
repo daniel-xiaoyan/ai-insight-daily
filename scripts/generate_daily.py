@@ -127,12 +127,81 @@ def classify_topic(title):
 def clean_html(text):
     return re.sub(r"<[^>]+>", "", text or "").strip()[:150]
 
+# ─── 熏儿评语规则库 ─────────────────────────────────────────
+COMMENT_RULES = [
+    # 融资/投资类
+    (["融资","估值","领投","Pre-IPO","D轮","C轮","B轮","战略投资","IPO"],
+     "💰 资本持续涌入，头部效应加剧。融资不等于成功，商业化落地才是真考验。"),
+    (["分拆","独立","上市","港股","A股","纳斯达克"],
+     "📈 大厂AI业务分拆潮来临——AI资产在母公司报表里会被低估，独立才能获得正确定价。"),
+    # 大模型发布类
+    (["GPT-5","GPT5","o3","o4","Gemini","Claude","Llama","发布","新版","升级","更新"],
+     "🧠 模型能力持续迭代，但关键问题是：这次升级能解决哪个真实业务痛点？"),
+    (["开源","open source","开放权重"],
+     "🌐 开源加速AI生态建设，但开源≠免费——算力、部署、维护都需要成本。"),
+    # AI Coding类
+    (["Cursor","Copilot","Devin","Trae","IDE","代码","coding","code","编程","agent","Agent"],
+     "⌨️ AI Coding工具军备竞赛持续升温，开发者效率正在被重新定义。"),
+    # Agent/自动化类
+    (["Agent","agent","自动化","automation","MCP","workflow","工作流"],
+     "🤖 Agent时代正在到来，但复杂任务的可靠性仍是核心挑战，落地比想象中难。"),
+    # 监管/政策类
+    (["监管","法规","政策","regulation","ban","禁止","安全","safety","对齐","alignment"],
+     "⚖️ AI监管从边缘走向主流，合规能力将成为企业AI产品的核心竞争力之一。"),
+    # 硬件/芯片类
+    (["NVIDIA","英伟达","GPU","芯片","算力","H100","B200","B300","Blackwell"],
+     "🖥️ 算力是AI时代的石油，英伟达的护城河比想象中更深——软件生态才是真壁垒。"),
+    # 搜索/应用类
+    (["搜索","search","Perplexity","问答","知识"],
+     "🔍 AI搜索正在重构信息获取方式，但准确性和实时性仍是最大挑战。"),
+    # 裁员/收缩类
+    (["裁员","layoff","降本","成本","亏损","烧钱"],
+     "📉 AI行业进入理性调整期，烧钱换增长的时代结束，ROI成为关键词。"),
+    # 视频/多模态类
+    (["视频","Sora","可灵","Runway","Veo","Pika","多模态","图像","生图"],
+     "🎬 视频生成AI爆发，但训练成本极高。谁能控制成本同时保持质量，谁才能活到最后。"),
+    # 企业/B2B类
+    (["企业","B2B","SaaS","转型","落地","ROI","效率","生产力"],
+     "🏢 企业AI进入深水区，从试点到规模化落地，关键是找到可量化的ROI。"),
+]
+
+COMMENT_DEFAULT = "📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。"
+
+def generate_comment(title):
+    """根据标题关键词生成熏儿评语"""
+    title_lower = title.lower()
+    for keywords, comment in COMMENT_RULES:
+        if any(kw.lower() in title_lower for kw in keywords):
+            return comment
+    return COMMENT_DEFAULT
+
+# ─── 去重：获取昨日已出现的链接 ──────────────────────────────
+def get_yesterday_urls(date_str):
+    """读取昨日日报中的所有链接，用于去重标注"""
+    try:
+        dt = datetime.datetime.strptime(date_str, "%Y-%m-%d")
+        yesterday = dt - datetime.timedelta(days=1)
+        yesterday_str = format_date(yesterday)
+        ym = yesterday.strftime("%Y-%m")
+        yesterday_path = REPORTS_DIR / ym / f"{yesterday_str}.html"
+        if not yesterday_path.exists():
+            return set()
+        content = yesterday_path.read_text(encoding="utf-8")
+        # 提取所有 href 链接
+        urls = set(re.findall(r'href="(https?://[^"]+)"', content))
+        return urls
+    except Exception:
+        return set()
+
 # ─── 收集新闻 ──────────────────────────────────────────
 def collect_news(date_str):
     dt = datetime.datetime.strptime(date_str, "%Y-%m-%d")
     # 只保留最近3天的新闻（防止旧新闻混入）
     cutoff_date = dt - datetime.timedelta(days=3)
     all_news = {"海外": {}, "国内": {}}
+    
+    # 获取昨日已有链接，用于标注"今日首发"
+    yesterday_urls = get_yesterday_urls(date_str)
     
     for src in RSS_SOURCES:
         print(f"  📡 抓取 {src['name']}...")
@@ -158,12 +227,16 @@ def collect_news(date_str):
             if cat not in all_news[region]:
                 all_news[region][cat] = []
             if len(all_news[region][cat]) < 5:  # 每个类别多留一些，保证内容丰富
+                # 标记是否为今日首发（昨日未出现过的链接）
+                is_new_today = item["link"] not in yesterday_urls if item.get("link") else True
                 all_news[region][cat].append({
                     "title": item["title"],
                     "source": src["name"],
                     "link": item["link"],
                     "desc": clean_html(item["desc"]),
                     "pub": item["pub"],
+                    "is_new_today": is_new_today,
+                    "comment": generate_comment(item["title"]),
                 })
                 count += 1
         print(f"     → 筛选到 {count} 条AI相关，过滤 {filtered} 条旧新闻")
@@ -209,14 +282,19 @@ def news_items_html(items):
     html = ""
     for item in items:
         link = item.get("link","#") or "#"
+        is_new_today = item.get("is_new_today", True)
+        comment = item.get("comment", "")
+        badge = '<span class="news-new">TODAY</span>' if is_new_today else '<span class="news-repeat">昨日续</span>'
+        comment_html = f'<div class="news-comment">{comment}</div>' if comment else ""
         html += f"""
               <div class="news-item">
                 <div class="news-item-top">
-                  <span class="news-new">NEW</span>
+                  {badge}
                   <a class="news-title-link" href="{link}" target="_blank" rel="noopener">{item['title']}</a>
                 </div>
                 <div class="news-source">来源：{item['source']}</div>
                 {f'<div class="news-desc">{item["desc"]}</div>' if item.get("desc") else ""}
+                {comment_html}
               </div>"""
     return html
 
@@ -329,10 +407,12 @@ def render_html(date_str, news):
     .news-item{{background:#f8fafb;border:1px solid var(--border2);border-radius:10px;padding:12px 14px}}
     .news-item-top{{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}}
     .news-new{{font-size:9px;font-weight:700;background:#ef4444;color:white;padding:2px 6px;border-radius:999px;letter-spacing:.5px}}
+    .news-repeat{{font-size:9px;font-weight:700;background:#94a3b8;color:white;padding:2px 6px;border-radius:999px;letter-spacing:.5px}}
     .news-title-link{{font-size:14px;font-weight:600;color:var(--blue);text-decoration:none;line-height:1.4;flex:1}}
     .news-title-link:hover{{text-decoration:underline;color:var(--green)}}
     .news-source{{font-size:11px;color:var(--text-muted)}}
     .news-desc{{font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.5}}
+    .news-comment{{font-size:11px;color:var(--green-dark);margin-top:6px;padding:6px 10px;background:var(--green-light);border-radius:6px;line-height:1.5}}
     .news-empty{{font-size:13px;color:var(--text-muted);padding:8px 0}}
     .xunr-card{{background:white;border:1px solid var(--border2);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}}
     .xunr-header{{display:flex;align-items:center;gap:12px;margin-bottom:14px}}
