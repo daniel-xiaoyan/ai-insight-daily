@@ -711,33 +711,37 @@
       box-shadow: var(--shadow-sm);
     }
     .tracking-cat-header {
-      padding: 15px 20px;
+      padding: 14px 20px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-weight: 600;
       font-size: 15px;
-      color: white;
-      transition: filter var(--transition);
+      color: #1a202c;
+      background: white;
+      border: 1px solid var(--color-border);
+      border-left-width: 4px;
+      transition: background var(--transition);
       border-radius: var(--radius-md);
     }
     .tracking-cat-header.open { border-radius: var(--radius-md) var(--radius-md) 0 0; }
-    .tracking-cat-header:hover { filter: brightness(0.95); }
-    .cat-header-green  { background: linear-gradient(135deg, #059669, #10b981); }
-    .cat-header-blue   { background: linear-gradient(135deg, #2563eb, #3b82f6); }
-    .cat-header-orange { background: linear-gradient(135deg, #d97706, #f59e0b); }
+    .tracking-cat-header:hover { background: #f8fafc; }
+    .cat-header-green  { border-left-color: #059669; }
+    .cat-header-blue   { border-left-color: #2563eb; }
+    .cat-header-orange { border-left-color: #d97706; }
 
     .cat-info { display: flex; align-items: center; gap: 10px; }
     .cat-count {
       font-size: 12px;
-      background: rgba(255,255,255,0.2);
-      color: white;
+      background: #f1f5f9;
+      color: #475569;
       padding: 2px 10px;
       border-radius: 999px;
       font-weight: 600;
+      border: 1px solid #e2e8f0;
     }
-    .cat-arrow { color: rgba(255,255,255,0.8); transition: transform 0.3s; font-size: 12px; }
+    .cat-arrow { color: #94a3b8; transition: transform 0.3s; font-size: 12px; }
     .tracking-cat-header.open .cat-arrow { transform: rotate(180deg); }
 
     .tracking-cat-body { display: none; background: white; border: 1px solid var(--color-border); border-top: none; border-radius: 0 0 var(--radius-md) var(--radius-md); }
@@ -1534,12 +1538,12 @@
 
     <!-- 🧰 AI工具导航（新增） -->
     <div class="tracking-category">
-      <div class="tracking-cat-header" style="background:linear-gradient(90deg,#f0fdf4,#f0f9ff);border:1px solid #86efac" onclick="toggleCat(this)">
-        <div class="cat-info" style="color:#14532d">
+      <div class="tracking-cat-header cat-header-green" onclick="toggleCat(this)">
+        <div class="cat-info">
           🧰 AI工具导航
-          <span class="cat-count" style="background:#dcfce7;color:#14532d;border-color:#86efac">100+ 工具</span>
+          <span class="cat-count">100+ 工具</span>
         </div>
-        <span class="cat-arrow" style="color:#059669">▼</span>
+        <span class="cat-arrow">▼</span>
       </div>
       <div class="tracking-cat-body">
         <div class="tracking-group-title">🔥 本周最热工具</div>
@@ -1563,12 +1567,12 @@
 
     <!-- 🧠 AI模型横评（新增） -->
     <div class="tracking-category">
-      <div class="tracking-cat-header" style="background:linear-gradient(90deg,#ede9fe,#f5f3ff);border:1px solid #c4b5fd" onclick="toggleCat(this)">
-        <div class="cat-info" style="color:#3b0764">
+      <div class="tracking-cat-header" style="border-left-color:#7c3aed" onclick="toggleCat(this)">
+        <div class="cat-info">
           🧠 AI模型横评对比
-          <span class="cat-count" style="background:#ddd6fe;color:#5b21b6;border-color:#c4b5fd">15款模型</span>
+          <span class="cat-count">15款模型</span>
         </div>
-        <span class="cat-arrow" style="color:#7c3aed">▼</span>
+        <span class="cat-arrow">▼</span>
       </div>
       <div class="tracking-cat-body">
         <div class="tracking-group-title">💰 主流模型API价格速查（每百万tokens · 美元）</div>
@@ -1593,12 +1597,12 @@
 
     <!-- 💰 AI投融资追踪（新增） -->
     <div class="tracking-category">
-      <div class="tracking-cat-header" style="background:linear-gradient(90deg,#fef9ee,#fffbf0);border:1px solid #fcd34d" onclick="toggleCat(this)">
-        <div class="cat-info" style="color:#78350f">
+      <div class="tracking-cat-header cat-header-orange" onclick="toggleCat(this)">
+        <div class="cat-info">
           💰 AI投融资追踪
-          <span class="cat-count" style="background:#fef3c7;color:#92400e;border-color:#fcd34d">实时更新</span>
+          <span class="cat-count">实时更新</span>
         </div>
-        <span class="cat-arrow" style="color:#d97706">▼</span>
+        <span class="cat-arrow">▼</span>
       </div>
       <div class="tracking-cat-body">
         <div class="tracking-group-title">🔥 2026年5月重磅融资事件</div>
