@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI工具导航 | 熏儿的AI洞察</title>
+  <style>
+    :root{--green:#059669;--green-light:#dcfce7;--blue:#2563eb;--blue-light:#dbeafe;--purple:#7c3aed;--orange:#d97706;--red:#ef4444;--bg:#f0f4f8;--card:#fff;--border:#e2e8f0;--text:#374151;--text-dark:#111827;--text-muted:#6b7280;--radius:14px;--shadow:0 1px 4px rgba(0,0,0,.07)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}
+    .top-bar{height:4px;background:linear-gradient(90deg,#059669,#2563eb,#7c3aed,#f59e0b)}
+    .nav{background:white;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:8px;font-size:13px;flex-wrap:wrap}
+    .nav a{color:var(--green);text-decoration:none}.nav-sep{color:#d1d5db}.nav-cur{color:var(--text-muted)}
+
+    /* Hero */
+    .hero{background:linear-gradient(135deg,#f0fdf4 0%,#eff6ff 50%,#faf5ff 100%);border-bottom:1px solid var(--border);padding:36px 20px 28px;text-align:center}
+    .hero-badge{display:inline-flex;align-items:center;gap:6px;background:white;border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--text-muted);margin-bottom:14px;box-shadow:var(--shadow)}
+    .hero-title{font-size:28px;font-weight:800;color:var(--text-dark);margin-bottom:8px}
+    .hero-title span{background:linear-gradient(135deg,#059669,#2563eb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-sub{font-size:14px;color:var(--text-muted);margin-bottom:20px}
+    .hero-stats{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+    .hero-stat{font-size:13px;color:var(--text-muted)}
+    .hero-stat strong{font-size:20px;font-weight:800;color:var(--text-dark);display:block;line-height:1.2}
+
+    /* Search */
+    .search-wrap{max-width:500px;margin:0 auto 28px;padding:0 16px}
+    .search-box{display:flex;align-items:center;background:white;border:1.5px solid var(--border);border-radius:12px;padding:8px 16px;gap:8px;box-shadow:var(--shadow)}
+    .search-box input{flex:1;border:none;outline:none;font-size:14px;color:var(--text-dark);background:transparent}
+    .search-box input::placeholder{color:#9ca3af}
+
+    /* Layout */
+    .layout{display:flex;gap:20px;max-width:1200px;margin:0 auto;padding:0 16px 80px}
+    
+    /* Sidebar */
+    .sidebar{width:180px;flex-shrink:0;position:sticky;top:16px;height:fit-content}
+    .sidebar-title{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1px;margin-bottom:8px;padding:0 4px}
+    .sidebar-nav{display:flex;flex-direction:column;gap:2px}
+    .sidebar-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;font-size:13px;color:var(--text);cursor:pointer;text-decoration:none;transition:all .15s}
+    .sidebar-item:hover,.sidebar-item.active{background:var(--blue-light);color:var(--blue)}
+    .sidebar-item .s-icon{font-size:16px;width:20px;text-align:center}
+    .sidebar-count{margin-left:auto;font-size:11px;background:#f3f4f6;color:var(--text-muted);padding:1px 7px;border-radius:999px}
+
+    /* Main */
+    .main{flex:1;min-width:0}
+    
+    /* Category section */
+    .cat-section{margin-bottom:32px}
+    .cat-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--border)}
+    .cat-icon-wrap{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+    .cat-name{font-size:17px;font-weight:700;color:var(--text-dark)}
+    .cat-desc{font-size:12px;color:var(--text-muted)}
+    .cat-count-badge{margin-left:auto;font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:#f3f4f6;color:var(--text-muted)}
+    
+    /* Tool cards */
+    .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+    .tool-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;text-decoration:none;color:inherit;transition:all .2s;display:block}
+    .tool-card:hover{border-color:#93c5fd;box-shadow:0 4px 16px rgba(37,99,235,.1);transform:translateY(-1px)}
+    .tc-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+    .tc-logo{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:#f9fafb;border:1px solid var(--border)}
+    .tc-name{font-size:14px;font-weight:700;color:var(--text-dark);line-height:1.3}
+    .tc-by{font-size:11px;color:var(--text-muted)}
+    .tc-desc{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:8px}
+    .tc-tags{display:flex;flex-wrap:wrap;gap:4px}
+    .tc-tag{font-size:10px;padding:2px 6px;border-radius:5px;background:#f3f4f6;color:var(--text-muted);border:1px solid #e5e7eb}
+    .tc-tag-hot{background:#fef3c7;color:#92400e;border-color:#fcd34d}
+    .tc-tag-free{background:#dcfce7;color:#14532d;border-color:#86efac}
+    .tc-tag-cn{background:#fce7f3;color:#9d174d;border-color:#f9a8d4}
+    .tc-tag-new{background:#dbeafe;color:#1e40af;border-color:#93c5fd}
+    .tc-tag-open{background:#ede9fe;color:#5b21b6;border-color:#c4b5fd}
+    
+    /* 熏儿推荐 */
+    .xun-pick{position:absolute;top:10px;right:10px;font-size:10px;background:linear-gradient(135deg,#059669,#2563eb);color:white;padding:2px 7px;border-radius:999px;font-weight:600}
+    .tool-card{position:relative}
+
+    /* 分隔 */
+    .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:32px 0}
+
+    @media(max-width:768px){.layout{flex-direction:column}.sidebar{width:100%;position:static}.tools-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.tools-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="top-bar"></div>
+<nav class="nav">
+  <a href="../index.html">🔬 AI洞察</a>
+  <span class="nav-sep">/</span>
+  <span class="nav-cur">🧰 AI工具导航</span>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">🧰 AI TOOLS NAVIGATOR · 2026.05</div>
+  <div class="hero-title">AI工具导航 <span>精选 100+</span></div>
+  <div class="hero-sub">熏儿精选 · 按场景分类 · 助你找到最适合的AI工具</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>100+</strong>精选工具</div>
+    <div class="hero-stat"><strong>12</strong>场景分类</div>
+    <div class="hero-stat"><strong>★</strong>熏儿推荐</div>
+  </div>
+</div>
+
+<!-- Search -->
+<div class="search-wrap" style="margin-top:20px">
+  <div class="search-box">
+    <span>🔍</span>
+    <input type="text" id="search-input" placeholder="搜索工具名称或功能..." oninput="filterTools(this.value)">
+    <span style="font-size:11px;color:#9ca3af;cursor:pointer" onclick="document.getElementById('search-input').value='';filterTools('')">✕</span>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-title">📂 场景分类</div>
+    <div class="sidebar-nav">
+      <a class="sidebar-item active" href="#all" onclick="filterCat('all',this)"><span class="s-icon">🌐</span>全部工具<span class="sidebar-count">100+</span></a>
+      <a class="sidebar-item" href="#coding" onclick="filterCat('coding',this)"><span class="s-icon">⌨️</span>AI编程<span class="sidebar-count">16</span></a>
+      <a class="sidebar-item" href="#chat" onclick="filterCat('chat',this)"><span class="s-icon">💬</span>AI对话<span class="sidebar-count">12</span></a>
+      <a class="sidebar-item" href="#search" onclick="filterCat('search',this)"><span class="s-icon">🔍</span>AI搜索<span class="sidebar-count">8</span></a>
+      <a class="sidebar-item" href="#write" onclick="filterCat('write',this)"><span class="s-icon">✍️</span>AI写作<span class="sidebar-count">10</span></a>
+      <a class="sidebar-item" href="#image" onclick="filterCat('image',this)"><span class="s-icon">🎨</span>图像生成<span class="sidebar-count">10</span></a>
+      <a class="sidebar-item" href="#video" onclick="filterCat('video',this)"><span class="s-icon">🎬</span>视频生成<span class="sidebar-count">8</span></a>
+      <a class="sidebar-item" href="#voice" onclick="filterCat('voice',this)"><span class="s-icon">🎙️</span>语音/音乐<span class="sidebar-count">6</span></a>
+      <a class="sidebar-item" href="#agent" onclick="filterCat('agent',this)"><span class="s-icon">🤖</span>AI Agent<span class="sidebar-count">8</span></a>
+      <a class="sidebar-item" href="#data" onclick="filterCat('data',this)"><span class="s-icon">📊</span>数据分析<span class="sidebar-count">6</span></a>
+      <a class="sidebar-item" href="#ppt" onclick="filterCat('ppt',this)"><span class="s-icon">📑</span>PPT/设计<span class="sidebar-count">6</span></a>
+      <a class="sidebar-item" href="#translate" onclick="filterCat('translate',this)"><span class="s-icon">🌏</span>翻译/语言<span class="sidebar-count">5</span></a>
+      <a class="sidebar-item" href="#api" onclick="filterCat('api',this)"><span class="s-icon">🔧</span>API/开发者<span class="sidebar-count">8</span></a>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main" id="main-content">
+
+    <!-- ⌨️ AI编程 -->
+    <div class="cat-section" data-cat="coding">
+      <div class="cat-header">
+        <div class="cat-icon-wrap" style="background:#dbeafe">⌨️</div>
+        <div>
+          <div class="cat-name">AI编程工具</div>
+          <div class="cat-desc">AI IDE、代码补全、Agent编程、代码审查</div>
+        </div>
+        <span class="cat-count-badge">16款</span>
+      </div>
+      <div class="tools-grid">
+        <a class="tool-card" href="https://cursor.com" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">⌨️</div><div><div class="tc-name">Cursor</div><div class="tc-by">Anysphere</div></div></div>
+          <div class="tc-desc">目前最强AI IDE，Tab补全+Agent模式，支持全代码库理解。开发者首选。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">🔥 最热门</span><span class="tc-tag">IDE</span><span class="tc-tag">Agent</span></div>
+        </a>
+        <a class="tool-card" href="https://www.trae.ai" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🌊</div><div><div class="tc-name">Trae</div><div class="tc-by">字节跳动</div></div></div>
+          <div class="tc-desc">字节出品的AI IDE，国内访问快，免费额度充足，Cursor的国内竞品。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag tc-tag-free">免费额度</span><span class="tc-tag">IDE</span></div>
+        </a>
+        <a class="tool-card" href="https://github.com/features/copilot" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🐙</div><div><div class="tc-name">GitHub Copilot</div><div class="tc-by">Microsoft/GitHub</div></div></div>
+          <div class="tc-desc">微软旗下，深度集成VSCode和GitHub，企业级AI编程助手老牌选手。</div>
+          <div class="tc-tags"><span class="tc-tag">VSCode</span><span class="tc-tag">企业级</span></div>
+        </a>
+        <a class="tool-card" href="https://codeflicker.dev" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🔥</div><div><div class="tc-name">CodeFlicker</div><div class="tc-by">快手 · 你正在用</div></div></div>
+          <div class="tc-desc">就是你现在在用的这个！快手出品，集成多模型，国内企业场景友好。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag tc-tag-hot">你在用</span></div>
+        </a>
+        <a class="tool-card" href="https://www.cognition.ai/blog/introducing-devin" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🤖</div><div><div class="tc-name">Devin</div><div class="tc-by">Cognition AI</div></div></div>
+          <div class="tc-desc">全球第一个完全自主的AI软件工程师，可以独立完成完整编程任务。</div>
+          <div class="tc-tags"><span class="tc-tag">全自主Agent</span><span class="tc-tag tc-tag-new">前沿</span></div>
+        </a>
+        <a class="tool-card" href="https://replit.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">♻️</div><div><div class="tc-name">Replit</div><div class="tc-by">Replit Inc.</div></div></div>
+          <div class="tc-desc">云端AI编程环境，适合快速原型验证，直接在浏览器中运行代码。</div>
+          <div class="tc-tags"><span class="tc-tag">云端IDE</span><span class="tc-tag tc-tag-free">免费版</span></div>
+        </a>
+        <a class="tool-card" href="https://lovable.dev" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">💝</div><div><div class="tc-name">Lovable</div><div class="tc-by">Lovable</div></div></div>
+          <div class="tc-desc">对话描述需求直接生成完整前端应用，无需写代码，产品经理神器。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">🔥 爆火</span><span class="tc-tag">无代码</span><span class="tc-tag">前端</span></div>
+        </a>
+        <a class="tool-card" href="https://bolt.new" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">⚡</div><div><div class="tc-name">Bolt.new</div><div class="tc-by">StackBlitz</div></div></div>
+          <div class="tc-desc">浏览器内AI全栈开发环境，输入需求秒出完整项目，部署一键完成。</div>
+          <div class="tc-tags"><span class="tc-tag">全栈生成</span><span class="tc-tag tc-tag-free">免费额度</span></div>
+        </a>
+        <a class="tool-card" href="https://www.v0.dev" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🔲</div><div><div class="tc-name">v0.dev</div><div class="tc-by">Vercel</div></div></div>
+          <div class="tc-desc">Vercel出品，专攻前端UI生成，React/Next.js组件直接对话生成。</div>
+          <div class="tc-tags"><span class="tc-tag">前端UI</span><span class="tc-tag">React</span></div>
+        </a>
+        <a class="tool-card" href="https://claude.ai/code" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">🎭</div><div><div class="tc-name">Claude Code</div><div class="tc-by">Anthropic</div></div></div>
+          <div class="tc-desc">命令行AI编程Agent，Coding Agent基准全球第一，适合复杂代码库。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">Coding #1</span><span class="tc-tag">CLI</span><span class="tc-tag">Agent</span></div>
+        </a>
+        <a class="tool-card" href="https://marketplace.visualstudio.com/items?itemName=Continue.continue" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🔄</div><div><div class="tc-name">Continue</div><div class="tc-by">Continue.dev</div></div></div>
+          <div class="tc-desc">开源AI编程插件，支持接入任意模型（DeepSeek/本地模型），完全可定制。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-open">开源</span><span class="tc-tag">多模型</span><span class="tc-tag tc-tag-free">免费</span></div>
+        </a>
+        <a class="tool-card" href="https://cline.bot" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🤖</div><div><div class="tc-name">Cline</div><div class="tc-by">Cline</div></div></div>
+          <div class="tc-desc">VSCode中的AI自主编程Agent，可以自动执行终端命令、读写文件、运行代码。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-open">开源</span><span class="tc-tag">VSCode</span><span class="tc-tag">Agent</span></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 💬 AI对话 -->
+    <div class="cat-section" data-cat="chat">
+      <div class="cat-header">
+        <div class="cat-icon-wrap" style="background:#dcfce7">💬</div>
+        <div>
+          <div class="cat-name">AI对话助手</div>
+          <div class="cat-desc">通用对话、推理、问答、个人助手</div>
+        </div>
+        <span class="cat-count-badge">12款</span>
+      </div>
+      <div class="tools-grid">
+        <a class="tool-card" href="https://chatgpt.com" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">🤖</div><div><div class="tc-name">ChatGPT</div><div class="tc-by">OpenAI</div></div></div>
+          <div class="tc-desc">AI对话鼻祖，GPT-5.2驱动，推理/代码/创作全能，最广泛使用的AI助手。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">🔥 最流行</span><span class="tc-tag">通用</span><span class="tc-tag">多模态</span></div>
+        </a>
+        <a class="tool-card" href="https://claude.ai" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">🎭</div><div><div class="tc-name">Claude</div><div class="tc-by">Anthropic</div></div></div>
+          <div class="tc-desc">写作/分析/代码三强，200K超长上下文，安全对齐最佳，开发者最爱。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">开发者最爱</span><span class="tc-tag">200K上下文</span></div>
+        </a>
+        <a class="tool-card" href="https://gemini.google.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🌊</div><div><div class="tc-name">Gemini</div><div class="tc-by">Google</div></div></div>
+          <div class="tc-desc">Google旗舰，2M超长上下文，深度集成Google生态，多模态能力强。</div>
+          <div class="tc-tags"><span class="tc-tag">2M上下文</span><span class="tc-tag">多模态</span><span class="tc-tag tc-tag-free">免费版</span></div>
+        </a>
+        <a class="tool-card" href="https://kimi.moonshot.cn" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🌙</div><div><div class="tc-name">Kimi</div><div class="tc-by">月之暗面</div></div></div>
+          <div class="tc-desc">国内长文档处理最强，200万字上下文，学术论文/长文分析首选。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag">超长文档</span><span class="tc-tag tc-tag-free">免费</span></div>
+        </a>
+        <a class="tool-card" href="https://chat.deepseek.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🐳</div><div><div class="tc-name">DeepSeek</div><div class="tc-by">DeepSeek</div></div></div>
+          <div class="tc-desc">国产最强开源模型，推理能力媲美GPT-5，完全免费，国内随时可用。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag tc-tag-free">完全免费</span><span class="tc-tag tc-tag-open">开源</span></div>
+        </a>
+        <a class="tool-card" href="https://doubao.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🫘</div><div><div class="tc-name">豆包</div><div class="tc-by">字节跳动</div></div></div>
+          <div class="tc-desc">字节旗下日活最高的国内AI助手，生活助手场景覆盖广，免费好用。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag tc-tag-free">免费</span><span class="tc-tag">日活最高</span></div>
+        </a>
+        <a class="tool-card" href="https://grok.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">⚡</div><div><div class="tc-name">Grok</div><div class="tc-by">xAI / 马斯克</div></div></div>
+          <div class="tc-desc">马斯克旗下，实时接入X（Twitter）信息流，最新动态查询无延迟。</div>
+          <div class="tc-tags"><span class="tc-tag">实时信息</span><span class="tc-tag">X平台集成</span></div>
+        </a>
+        <a class="tool-card" href="https://yiyan.baidu.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🔵</div><div><div class="tc-name">文心一言</div><div class="tc-by">百度</div></div></div>
+          <div class="tc-desc">百度旗下，深度集成百度搜索，文档处理和企业应用场景成熟。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag">百度搜索</span></div>
+        </a>
+        <a class="tool-card" href="https://tongyi.aliyun.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🟠</div><div><div class="tc-name">通义千问</div><div class="tc-by">阿里云</div></div></div>
+          <div class="tc-desc">阿里旗下，开源版本Qwen系列全球最强开源之一，API接入方便。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag tc-tag-open">开源</span><span class="tc-tag">企业级</span></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 🔍 AI搜索 -->
+    <div class="cat-section" data-cat="search">
+      <div class="cat-header">
+        <div class="cat-icon-wrap" style="background:#ede9fe">🔍</div>
+        <div>
+          <div class="cat-name">AI搜索引擎</div>
+          <div class="cat-desc">实时搜索、答案引擎、研究助手</div>
+        </div>
+        <span class="cat-count-badge">8款</span>
+      </div>
+      <div class="tools-grid">
+        <a class="tool-card" href="https://perplexity.ai" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">🔮</div><div><div class="tc-name">Perplexity</div><div class="tc-by">Perplexity AI</div></div></div>
+          <div class="tc-desc">AI搜索标杆，每个答案都带来源引用，研究调查类问题首选，替代Google。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">🔥 搜索标杆</span><span class="tc-tag">实时引用</span><span class="tc-tag tc-tag-free">免费版</span></div>
+        </a>
+        <a class="tool-card" href="https://www.you.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🎯</div><div><div class="tc-name">You.com</div><div class="tc-by">You.com</div></div></div>
+          <div class="tc-desc">AI搜索+对话一体，支持切换多种AI模型搜索，隐私保护较好。</div>
+          <div class="tc-tags"><span class="tc-tag">多模型</span><span class="tc-tag">隐私友好</span></div>
+        </a>
+        <a class="tool-card" href="https://devv.ai" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">👨‍💻</div><div><div class="tc-name">Devv.ai</div><div class="tc-by">Devv</div></div></div>
+          <div class="tc-desc">专为程序员设计的AI搜索，代码相关问题的答案质量远超通用搜索。</div>
+          <div class="tc-tags"><span class="tc-tag">开发者专用</span><span class="tc-tag">代码搜索</span></div>
+        </a>
+        <a class="tool-card" href="https://metaso.cn" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🔭</div><div><div class="tc-name">秘塔AI搜索</div><div class="tc-by">秘塔科技</div></div></div>
+          <div class="tc-desc">国内最好用的AI搜索，无广告，专业版支持深度研究报告生成。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag">无广告</span><span class="tc-tag tc-tag-hot">🔥 推荐</span></div>
+        </a>
+        <a class="tool-card" href="https://tiangong.cn" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🌌</div><div><div class="tc-name">天工AI搜索</div><div class="tc-by">昆仑万维</div></div></div>
+          <div class="tc-desc">国内AI搜索，实时联网，答案聚合能力强，支持多轮对话追问。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag">实时联网</span><span class="tc-tag tc-tag-free">免费</span></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ✍️ AI写作 -->
+    <div class="cat-section" data-cat="write">
+      <div class="cat-header">
+        <div class="cat-icon-wrap" style="background:#fef3c7">✍️</div>
+        <div>
+          <div class="cat-name">AI写作工具</div>
+          <div class="cat-desc">文案创作、文章生成、润色优化</div>
+        </div>
+        <span class="cat-count-badge">10款</span>
+      </div>
+      <div class="tools-grid">
+        <a class="tool-card" href="https://www.notion.com/product/ai" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">📝</div><div><div class="tc-name">Notion AI</div><div class="tc-by">Notion</div></div></div>
+          <div class="tc-desc">无缝嵌入Notion工作流，文档写作、总结、翻译直接在笔记里完成。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">知识管理</span><span class="tc-tag">文档写作</span></div>
+        </a>
+        <a class="tool-card" href="https://www.copy.ai" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">📋</div><div><div class="tc-name">Copy.ai</div><div class="tc-by">Copy.ai</div></div></div>
+          <div class="tc-desc">营销文案专家，广告词/邮件/社媒内容批量生成，内置90+写作模板。</div>
+          <div class="tc-tags"><span class="tc-tag">营销文案</span><span class="tc-tag">批量生成</span></div>
+        </a>
+        <a class="tool-card" href="https://jasper.ai" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🟣</div><div><div class="tc-name">Jasper</div><div class="tc-by">Jasper AI</div></div></div>
+          <div class="tc-desc">企业级AI写作平台，支持品牌调性一致性设置，内容营销团队首选。</div>
+          <div class="tc-tags"><span class="tc-tag">企业级</span><span class="tc-tag">品牌一致</span></div>
+        </a>
+        <a class="tool-card" href="https://www.writesonic.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🔊</div><div><div class="tc-name">Writesonic</div><div class="tc-by">Writesonic</div></div></div>
+          <div class="tc-desc">SEO优化写作+AI搜索引擎，自动生成对搜索引擎友好的长文内容。</div>
+          <div class="tc-tags"><span class="tc-tag">SEO优化</span><span class="tc-tag">长文生成</span></div>
+        </a>
+        <a class="tool-card" href="https://manus.im" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🤲</div><div><div class="tc-name">Manus</div><div class="tc-by">Manus AI</div></div></div>
+          <div class="tc-desc">国内爆火的AI Agent，能自主完成调研+写作+整理全流程，一键输出深度报告。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag tc-tag-hot">🔥 爆火</span><span class="tc-tag">全自主Agent</span></div>
+        </a>
+        <a class="tool-card" href="https://www.grammarly.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">📗</div><div><div class="tc-name">Grammarly</div><div class="tc-by">Grammarly</div></div></div>
+          <div class="tc-desc">英文写作必备，语法检查+风格优化+语气调整，集成所有主流编辑器。</div>
+          <div class="tc-tags"><span class="tc-tag">英文写作</span><span class="tc-tag">语法检查</span></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 🎨 图像生成 -->
+    <div class="cat-section" data-cat="image">
+      <div class="cat-header">
+        <div class="cat-icon-wrap" style="background:#fce7f3">🎨</div>
+        <div>
+          <div class="cat-name">AI图像生成</div>
+          <div class="cat-desc">文生图、图像编辑、创意设计</div>
+        </div>
+        <span class="cat-count-badge">10款</span>
+      </div>
+      <div class="tools-grid">
+        <a class="tool-card" href="https://midjourney.com" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">🎨</div><div><div class="tc-name">Midjourney</div><div class="tc-by">Midjourney</div></div></div>
+          <div class="tc-desc">艺术风格最强的AI绘图工具，出图质量顶级，设计师/创意人必备。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">🔥 艺术最强</span><span class="tc-tag">文生图</span></div>
+        </a>
+        <a class="tool-card" href="https://www.kling.ai" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🎬</div><div><div class="tc-name">可灵AI</div><div class="tc-by">快手（分拆中）</div></div></div>
+          <div class="tc-desc">快手出品视频+图像生成，图生视频国内最强，ARR已达5亿美元正分拆上市。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag tc-tag-hot">🔥 分拆上市</span><span class="tc-tag">图+视频</span></div>
+        </a>
+        <a class="tool-card" href="https://openai.com/sora" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🌀</div><div><div class="tc-name">DALL-E 3 / GPT图像</div><div class="tc-by">OpenAI</div></div></div>
+          <div class="tc-desc">深度集成ChatGPT，对话即生图，理解自然语言描述能力强，方便快捷。</div>
+          <div class="tc-tags"><span class="tc-tag">ChatGPT集成</span><span class="tc-tag">自然语言</span></div>
+        </a>
+        <a class="tool-card" href="https://stability.ai" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🌈</div><div><div class="tc-name">Stable Diffusion</div><div class="tc-by">Stability AI</div></div></div>
+          <div class="tc-desc">开源文生图鼻祖，可本地部署，无内容限制，开发者和专业用户首选。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-open">开源</span><span class="tc-tag">本地部署</span><span class="tc-tag tc-tag-free">免费</span></div>
+        </a>
+        <a class="tool-card" href="https://www.adobe.com/products/firefly.html" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🔥</div><div><div class="tc-name">Adobe Firefly</div><div class="tc-by">Adobe</div></div></div>
+          <div class="tc-desc">Adobe旗下，深度集成PS/PR，商业授权清晰，企业设计工作流首选。</div>
+          <div class="tc-tags"><span class="tc-tag">商业授权</span><span class="tc-tag">PS集成</span><span class="tc-tag">企业</span></div>
+        </a>
+        <a class="tool-card" href="https://www.canva.com/ai-image-generator/" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🎭</div><div><div class="tc-name">Canva AI</div><div class="tc-by">Canva</div></div></div>
+          <div class="tc-desc">Canva集成AI图像生成，非设计师也能快速出图+排版，门槛极低。</div>
+          <div class="tc-tags"><span class="tc-tag">零门槛</span><span class="tc-tag">模板丰富</span><span class="tc-tag tc-tag-free">免费版</span></div>
+        </a>
+        <a class="tool-card" href="https://ideogram.ai" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">📝</div><div><div class="tc-name">Ideogram</div><div class="tc-by">Ideogram AI</div></div></div>
+          <div class="tc-desc">文字渲染最强的AI图像生成，logo/海报/含文字图片生成效果远超同类。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">文字渲染最强</span><span class="tc-tag">Logo</span></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 🎬 视频生成 -->
+    <div class="cat-section" data-cat="video">
+      <div class="cat-header">
+        <div class="cat-icon-wrap" style="background:#fee2e2">🎬</div>
+        <div>
+          <div class="cat-name">AI视频生成</div>
+          <div class="cat-desc">文生视频、图生视频、视频编辑</div>
+        </div>
+        <span class="cat-count-badge">8款</span>
+      </div>
+      <div class="tools-grid">
+        <a class="tool-card" href="https://www.kling.ai" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">🎬</div><div><div class="tc-name">可灵AI</div><div class="tc-by">快手</div></div></div>
+          <div class="tc-desc">国内视频生成标杆，图生视频效果顶级，ARR 5亿美元，2027年港股上市。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内#1</span><span class="tc-tag tc-tag-hot">🔥 最强</span></div>
+        </a>
+        <a class="tool-card" href="https://runwayml.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🛤️</div><div><div class="tc-name">Runway</div><div class="tc-by">Runway</div></div></div>
+          <div class="tc-desc">海外视频生成标杆，Gen-3 Alpha效果惊艳，影视级视频生成工具。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">海外标杆</span><span class="tc-tag">影视级</span></div>
+        </a>
+        <a class="tool-card" href="https://lumalabs.ai/dream-machine" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🌙</div><div><div class="tc-name">Luma Dream Machine</div><div class="tc-by">Luma AI</div></div></div>
+          <div class="tc-desc">物理运动感真实，适合产品展示类视频，每天有免费生成额度。</div>
+          <div class="tc-tags"><span class="tc-tag">真实物理感</span><span class="tc-tag tc-tag-free">每日免费</span></div>
+        </a>
+        <a class="tool-card" href="https://openai.com/sora" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🌀</div><div><div class="tc-name">Sora</div><div class="tc-by">OpenAI</div></div></div>
+          <div class="tc-desc">OpenAI旗下，理解自然语言描述生成高质量视频，叙事连贯性强。</div>
+          <div class="tc-tags"><span class="tc-tag">叙事连贯</span><span class="tc-tag">ChatGPT Plus</span></div>
+        </a>
+        <a class="tool-card" href="https://jimeng.jianying.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">✨</div><div><div class="tc-name">即梦AI</div><div class="tc-by">字节跳动</div></div></div>
+          <div class="tc-desc">字节旗下视频+图像生成，与剪映深度集成，国内短视频创作者首选。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag">剪映集成</span><span class="tc-tag tc-tag-free">免费</span></div>
+        </a>
+        <a class="tool-card" href="https://minimax.chat" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">⚡</div><div><div class="tc-name">海螺AI</div><div class="tc-by">MiniMax</div></div></div>
+          <div class="tc-desc">MiniMax旗下，视频生成+对话一体，Music 2.6音乐生成也很强大。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag">视频+音乐</span></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 🤖 AI Agent -->
+    <div class="cat-section" data-cat="agent">
+      <div class="cat-header">
+        <div class="cat-icon-wrap" style="background:#dbeafe">🤖</div>
+        <div>
+          <div class="cat-name">AI Agent / 自动化</div>
+          <div class="cat-desc">工作流自动化、任务Agent、AI助理</div>
+        </div>
+        <span class="cat-count-badge">8款</span>
+      </div>
+      <div class="tools-grid">
+        <a class="tool-card" href="https://n8n.io" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">🔗</div><div><div class="tc-name">n8n</div><div class="tc-by">n8n GmbH</div></div></div>
+          <div class="tc-desc">开源自动化工作流平台，可接入数百个服务，AI节点+自动化最佳组合。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-open">开源</span><span class="tc-tag">工作流</span><span class="tc-tag tc-tag-hot">🔥 推荐</span></div>
+        </a>
+        <a class="tool-card" href="https://dify.ai" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">🧩</div><div><div class="tc-name">Dify</div><div class="tc-by">LangGenius</div></div></div>
+          <div class="tc-desc">国内最流行的AI应用开发平台，可视化构建RAG/Agent应用，支持私有化部署。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag tc-tag-open">开源</span><span class="tc-tag tc-tag-hot">🔥 最流行</span></div>
+        </a>
+        <a class="tool-card" href="https://coze.cn" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🤖</div><div><div class="tc-name">扣子（Coze）</div><div class="tc-by">字节跳动</div></div></div>
+          <div class="tc-desc">字节旗下Bot开发平台，无代码构建AI助手，国内应用场景丰富，支持飞书集成。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag">无代码</span><span class="tc-tag">飞书集成</span></div>
+        </a>
+        <a class="tool-card" href="https://zapier.com/ai" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">⚡</div><div><div class="tc-name">Zapier AI</div><div class="tc-by">Zapier</div></div></div>
+          <div class="tc-desc">老牌自动化工具+AI升级，6000+服务集成，企业自动化工作流首选。</div>
+          <div class="tc-tags"><span class="tc-tag">6000+集成</span><span class="tc-tag">企业自动化</span></div>
+        </a>
+        <a class="tool-card" href="https://manus.im" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🤲</div><div><div class="tc-name">Manus</div><div class="tc-by">Manus AI</div></div></div>
+          <div class="tc-desc">自主AI Agent，可以浏览网页/执行代码/管理文件，完成复杂多步任务。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag tc-tag-hot">🔥 爆火</span><span class="tc-tag">全自主</span></div>
+        </a>
+        <a class="tool-card" href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🎭</div><div><div class="tc-name">Claude Code</div><div class="tc-by">Anthropic</div></div></div>
+          <div class="tc-desc">终端AI编程Agent，自主理解需求、执行命令、修改代码，全球Coding #1。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">Coding Agent #1</span><span class="tc-tag">CLI</span></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 🎙️ 语音/音乐 -->
+    <div class="cat-section" data-cat="voice">
+      <div class="cat-header">
+        <div class="cat-icon-wrap" style="background:#dcfce7">🎙️</div>
+        <div>
+          <div class="cat-name">AI语音 / 音乐</div>
+          <div class="cat-desc">语音克隆、TTS、音乐生成、语音识别</div>
+        </div>
+        <span class="cat-count-badge">6款</span>
+      </div>
+      <div class="tools-grid">
+        <a class="tool-card" href="https://elevenlabs.io" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">🎙️</div><div><div class="tc-name">ElevenLabs</div><div class="tc-by">ElevenLabs</div></div></div>
+          <div class="tc-desc">语音克隆/TTS最强，情感表达自然，30秒克隆任意声音，多语言支持极佳。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">🔥 TTS最强</span><span class="tc-tag">声音克隆</span></div>
+        </a>
+        <a class="tool-card" href="https://suno.ai" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">🎵</div><div><div class="tc-name">Suno</div><div class="tc-by">Suno AI</div></div></div>
+          <div class="tc-desc">AI音乐生成标杆，输入歌词+风格描述即出完整歌曲，质量媲美专业制作。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">🔥 音乐最强</span><span class="tc-tag">完整歌曲</span><span class="tc-tag tc-tag-free">免费版</span></div>
+        </a>
+        <a class="tool-card" href="https://udio.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🎶</div><div><div class="tc-name">Udio</div><div class="tc-by">Udio</div></div></div>
+          <div class="tc-desc">Suno的有力竞争者，音乐生成质量高，细节控制更精细，创作自由度大。</div>
+          <div class="tc-tags"><span class="tc-tag">音乐生成</span><span class="tc-tag tc-tag-free">免费版</span></div>
+        </a>
+        <a class="tool-card" href="https://minimax.chat" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">⚡</div><div><div class="tc-name">Music 2.6</div><div class="tc-by">MiniMax</div></div></div>
+          <div class="tc-desc">MiniMax最新发布的音乐生成模型，国内最强音乐AI，支持中文歌词生成。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag tc-tag-new">最新</span><span class="tc-tag">中文歌词</span></div>
+        </a>
+        <a class="tool-card" href="https://openai.com/research/whisper" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">👂</div><div><div class="tc-name">Whisper</div><div class="tc-by">OpenAI</div></div></div>
+          <div class="tc-desc">开源语音识别模型，多语言支持最好，本地部署零成本，字幕生成首选。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-open">开源</span><span class="tc-tag">语音识别</span><span class="tc-tag tc-tag-free">免费</span></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 🔧 API/开发者工具 -->
+    <div class="cat-section" data-cat="api">
+      <div class="cat-header">
+        <div class="cat-icon-wrap" style="background:#f1f5f9">🔧</div>
+        <div>
+          <div class="cat-name">API / 开发者平台</div>
+          <div class="cat-desc">模型API、RAG框架、Agent框架</div>
+        </div>
+        <span class="cat-count-badge">8款</span>
+      </div>
+      <div class="tools-grid">
+        <a class="tool-card" href="https://openai.com/api" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🤖</div><div><div class="tc-name">OpenAI API</div><div class="tc-by">OpenAI</div></div></div>
+          <div class="tc-desc">最成熟的大模型API，生态最广，GPT-5.2 $1.75/M，支持Function Calling/Assistants。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">生态最广</span><span class="tc-tag">$1.75/M</span></div>
+        </a>
+        <a class="tool-card" href="https://siliconflow.cn" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">🌊</div><div><div class="tc-name">硅基流动</div><div class="tc-by">SiliconFlow</div></div></div>
+          <div class="tc-desc">国内最便宜的开源模型API平台，100+模型一个API接入，部分模型完全免费。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-cn">🇨🇳 国内</span><span class="tc-tag tc-tag-free">部分免费</span><span class="tc-tag tc-tag-hot">🔥 性价比王</span></div>
+        </a>
+        <a class="tool-card" href="https://www.langchain.com" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🔗</div><div><div class="tc-name">LangChain</div><div class="tc-by">LangChain</div></div></div>
+          <div class="tc-desc">AI应用开发框架标准，RAG/Agent/Chain，Python+JS版本，生态最大。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-open">开源</span><span class="tc-tag">RAG</span><span class="tc-tag">Agent框架</span></div>
+        </a>
+        <a class="tool-card" href="https://huggingface.co" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🤗</div><div><div class="tc-name">Hugging Face</div><div class="tc-by">Hugging Face</div></div></div>
+          <div class="tc-desc">开源模型托管平台，50万+模型，Spaces快速部署，AI界的GitHub。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-open">开源模型库</span><span class="tc-tag">50万+模型</span></div>
+        </a>
+        <a class="tool-card" href="https://api.deepseek.com" target="_blank" rel="noopener">
+          <div class="xun-pick">★ 熏儿推荐</div>
+          <div class="tc-top"><div class="tc-logo">🐳</div><div><div class="tc-name">DeepSeek API</div><div class="tc-by">DeepSeek</div></div></div>
+          <div class="tc-desc">最便宜的顶级模型API，$0.28/$0.42 per M，比GPT-5.2便宜33倍，1M上下文。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-hot">💰 最便宜</span><span class="tc-tag">1M上下文</span><span class="tc-tag tc-tag-cn">🇨🇳 国内</span></div>
+        </a>
+        <a class="tool-card" href="https://llamaindex.ai" target="_blank" rel="noopener">
+          <div class="tc-top"><div class="tc-logo">🦙</div><div><div class="tc-name">LlamaIndex</div><div class="tc-by">LlamaIndex</div></div></div>
+          <div class="tc-desc">RAG应用开发框架，专注数据摄取+检索增强，企业知识库搭建首选。</div>
+          <div class="tc-tags"><span class="tc-tag tc-tag-open">开源</span><span class="tc-tag">RAG专项</span><span class="tc-tag">知识库</span></div>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+function filterTools(query) {
+  const q = query.toLowerCase().trim();
+  document.querySelectorAll('.tool-card').forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.style.display = (!q || text.includes(q)) ? 'block' : 'none';
+  });
+  // show/hide sections
+  document.querySelectorAll('.cat-section').forEach(sec => {
+    const visible = [...sec.querySelectorAll('.tool-card')].some(c => c.style.display !== 'none');
+    sec.style.display = visible ? '' : 'none';
+  });
+}
+
+function filterCat(cat, el) {
+  // update sidebar active
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+  // show/hide sections
+  document.querySelectorAll('.cat-section').forEach(sec => {
+    if (cat === 'all') { sec.style.display = ''; }
+    else { sec.style.display = sec.dataset.cat === cat ? '' : 'none'; }
+  });
+  // clear search
+  document.getElementById('search-input').value = '';
+  return false;
+}
+</script>
+</body>
+</html>
