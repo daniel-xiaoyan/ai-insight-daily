@@ -139,6 +139,83 @@
     /* ===== 关于折叠区 ===== */
     .header-update-tip { font-size: 12px; color: var(--color-text-muted); margin-top: 8px; }
 
+    /* ===== 今日快读横幅 ===== */
+    .today-ticker {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: #0f172a;
+      color: white;
+      overflow: hidden;
+      height: 40px;
+      position: relative;
+    }
+    .ticker-label {
+      flex-shrink: 0;
+      padding: 0 14px;
+      font-size: 12px;
+      font-weight: 700;
+      background: #ef4444;
+      color: white;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      z-index: 2;
+    }
+    .ticker-track-wrap {
+      flex: 1;
+      overflow: hidden;
+      height: 100%;
+      position: relative;
+    }
+    .ticker-track {
+      display: inline-flex;
+      align-items: center;
+      height: 100%;
+      white-space: nowrap;
+      animation: ticker-scroll 40s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .tick-item {
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tick-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .tick-red    { background: rgba(239,68,68,.25);  color: #fca5a5; }
+    .tick-blue   { background: rgba(37,99,235,.25);  color: #93c5fd; }
+    .tick-green  { background: rgba(5,150,105,.25);  color: #6ee7b7; }
+    .tick-orange { background: rgba(217,119,6,.25);  color: #fcd34d; }
+    .tick-purple { background: rgba(124,58,237,.25); color: #c4b5fd; }
+    .ticker-link {
+      flex-shrink: 0;
+      padding: 0 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #34d399;
+      text-decoration: none;
+      white-space: nowrap;
+      border-left: 1px solid rgba(255,255,255,.1);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      transition: background .15s;
+    }
+    .ticker-link:hover { background: rgba(255,255,255,.05); }
+
     /* ===== 访客统计条 ===== */
     .visitor-stats-bar {
       display: flex;
@@ -1101,6 +1178,23 @@
   </div>
 </div>
 
+<!-- 今日快读横幅 -->
+<div class="today-ticker">
+  <div class="ticker-label">🔥 今日快读</div>
+  <div class="ticker-track-wrap">
+    <div class="ticker-track" id="tickerTrack">
+      <span class="tick-item"><span class="tick-tag tick-red">🏛️ 行业</span>马斯克诉OpenAI案全败 · 9名陪审员一致裁决&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span class="tick-item"><span class="tick-tag tick-blue">🤝 并购</span>Anthropic收购Stainless · 补齐开发者工具生态&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span class="tick-item"><span class="tick-tag tick-green">💰 企业</span>百度Q1营收321亿 · AI业务收入136亿占比42%&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span class="tick-item"><span class="tick-tag tick-orange">📈 投资</span>京东AI研发投入增长超200% · 全场景融入6·18&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span class="tick-item"><span class="tick-tag tick-purple">⚡ 算力</span>$670亿史上最大电力收购 · 专为AI数据中心供电&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span class="tick-item"><span class="tick-tag tick-blue">⌨️ 工具</span>LangSmith Engine · Agent调试闭环自动化&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span class="tick-item"><span class="tick-tag tick-green">🎬 内容</span>番茄小说AI动漫进院线 · 字节开放头部IP改编权&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
+  <a class="ticker-link" href="01-daily-reports/2026-05/2026-05-19.html">查看全部 →</a>
+</div>
+
 <!-- 导航 Tabs -->
 <div class="tabs-wrapper">
   <div class="tabs">
@@ -1403,6 +1497,15 @@
 
   <!-- ===== 追踪体系 Tab ===== -->
   <div class="tab-panel" id="panel-tracking">
+    <!-- 快捷跳转工具栏 -->
+    <div class="tracking-quicknav">
+      <span class="tqn-label">快速跳转：</span>
+      <a class="tqn-btn" href="03-tracking/market.html" target="_blank">📈 市场空间</a>
+      <a class="tqn-btn" href="03-tracking/investment.html" target="_blank">💰 投融资</a>
+      <a class="tqn-btn" href="03-tracking/models.html" target="_blank">🧠 模型横评</a>
+      <a class="tqn-btn" href="03-tracking/ai-tools.html" target="_blank">🧰 工具导航</a>
+      <a class="tqn-btn tqn-btn-ghost" href="01-daily-reports/2026-05/2026-05-19.html" target="_blank">📰 今日日报</a>
+    </div>
     <p class="tracking-intro">系统化追踪AI行业核心人物、公司与信息源，点击标题展开详情 ↓</p>
 
     <!-- 人物追踪 100+ -->
@@ -1538,14 +1641,14 @@
 
     <!-- 📈 AI市场空间（新增） -->
     <div class="tracking-category">
-      <div class="tracking-cat-header" style="border-left-color:#2563eb" onclick="toggleCat(this)">
+      <div class="tracking-cat-header open" style="border-left-color:#2563eb" onclick="toggleCat(this)">
         <div class="cat-info">
           📈 AI市场空间
           <span class="cat-count">8大赛道</span>
         </div>
         <span class="cat-arrow">▼</span>
       </div>
-      <div class="tracking-cat-body">
+      <div class="tracking-cat-body open">
         <div class="tracking-group-title">💡 关键数字速查（2025年实际数据）</div>
         <div class="tracking-table-wrap">
           <table class="tracking-table">
@@ -2059,6 +2162,14 @@
   }
 
   renderCalendar();
+
+  // ===== 今日快读无缝滚动（复制一份内容实现loop） =====
+  (function() {
+    const track = document.getElementById('tickerTrack');
+    if (!track) return;
+    // 复制一份使滚动无缝
+    track.innerHTML += track.innerHTML;
+  })();
 </script>
 
 <!-- Vercount 访客统计 -->

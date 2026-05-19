@@ -3,83 +3,296 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 周报 · 第20周（5.11-5.11）| 熏儿的AI洞察</title>
+  <title>AI 周报 · 第20周（5.11-5.17）| 熏儿的AI洞察</title>
   <style>
-    :root{--green:#059669;--green-light:#dcfce7;--orange:#d97706;--bg:#f8fafb;--border:#e7e5e4;--text:#57534e;--text-dark:#1c1917;--text-muted:#78716c;--radius:16px}
+    :root{--green:#059669;--green-light:#dcfce7;--blue:#2563eb;--purple:#7c3aed;--orange:#d97706;--red:#ef4444;--cyan:#0891b2;--bg:#f8fafb;--border:#e7e5e4;--border2:#d6d3d1;--text:#57534e;--text-dark:#1c1917;--text-muted:#78716c;--radius:16px;--radius-sm:10px;--shadow:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08)}
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15px}
-    .top-bar{height:4px;background:linear-gradient(90deg,#059669,#2563eb,#7c3aed)}
+    body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:14px}
+    .top-bar{height:4px;background:linear-gradient(90deg,#059669,#2563eb,#7c3aed,#f59e0b)}
     .nav{background:white;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:8px;font-size:13px}
-    .nav a{color:var(--green);text-decoration:none}
-    .container{max-width:900px;margin:0 auto;padding:24px 16px 60px}
-    .header{text-align:center;margin-bottom:40px}
-    .badge{display:inline-block;background:#fef3c7;color:var(--orange);padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;margin-bottom:12px}
-    .title{font-size:28px;font-weight:800;color:var(--text-dark);margin-bottom:8px}
-    .meta{font-size:13px;color:var(--text-muted)}
-    .card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
-    .card-title{font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:12px;border-bottom:2px solid #fef3c7;padding-bottom:8px}
-    .item{padding:12px 0;border-bottom:1px solid #f1f5f9}
-    .item:last-child{border-bottom:none}
-    .item-title{font-size:14px;font-weight:600;color:var(--text-dark);margin-bottom:4px}
-    .item-desc{font-size:13px;color:var(--text-muted);line-height:1.6}
-    .stat-row{display:flex;gap:12px;margin:16px 0}
-    .stat-box{flex:1;background:#fef3c7;border:1px solid #fde68a;border-radius:10px;padding:12px;text-align:center}
-    .stat-num{font-size:22px;font-weight:800;color:var(--orange)}
-    .stat-label{font-size:11px;color:var(--text-muted);margin-top:2px}
-    .back{display:inline-block;background:var(--green);color:white;padding:10px 24px;border-radius:999px;text-decoration:none;font-weight:600;margin-top:20px;font-size:14px}
+    .nav a{color:var(--green);text-decoration:none}.nav-sep{color:#d1d5db}
+
+    .container{max-width:860px;margin:0 auto;padding:28px 16px 80px}
+
+    /* Hero */
+    .hero{background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:var(--radius);padding:32px;margin-bottom:24px;color:white;position:relative;overflow:hidden}
+    .hero::after{content:'W20';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:100px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none}
+    .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(251,191,36,.15);color:#fcd34d;border:1px solid rgba(251,191,36,.3);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;margin-bottom:14px}
+    .hero-title{font-size:28px;font-weight:800;color:white;margin-bottom:6px}
+    .hero-title span{background:linear-gradient(135deg,#34d399,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-sub{font-size:13px;color:#94a3b8;margin-bottom:22px}
+    .hero-kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+    .hkpi{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px}
+    .hkpi-val{font-size:22px;font-weight:800;line-height:1.1}
+    .hkpi-label{font-size:11px;color:#94a3b8;margin-top:3px}
+
+    /* Section */
+    .sec{margin-bottom:20px}
+    .sec-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #f1f5f9}
+    .sec-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+    .sec-title{font-size:16px;font-weight:800;color:var(--text-dark)}
+    .sec-sub{font-size:12px;color:var(--text-muted);margin-top:1px}
+    .sec-count{margin-left:auto;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:#f1f5f9;color:var(--text-muted)}
+
+    /* News cards */
+    .news-list{display:flex;flex-direction:column;gap:10px}
+    .news-card{background:white;border:1px solid var(--border);border-left:3px solid;border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+    .news-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+    .news-tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px}
+    .tag-red{background:#fee2e2;color:#991b1b}
+    .tag-blue{background:#dbeafe;color:#1e40af}
+    .tag-green{background:#dcfce7;color:#166534}
+    .tag-orange{background:#fef3c7;color:#92400e}
+    .tag-purple{background:#f3e8ff;color:#5b21b6}
+    .tag-cyan{background:#cffafe;color:#155e75}
+    .news-heat{font-size:10px;color:var(--text-muted);margin-left:auto}
+    .news-title{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:4px;line-height:1.4}
+    .news-title a{color:var(--blue);text-decoration:none}
+    .news-title a:hover{text-decoration:underline}
+    .news-desc{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:8px}
+    .news-xun{font-size:11px;color:#047857;padding:6px 10px;background:#f0fdf4;border-radius:7px;border-left:2px solid var(--green);line-height:1.5}
+
+    /* Data chart */
+    .data-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:16px}
+    .data-card{background:white;border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;box-shadow:var(--shadow)}
+    .data-val{font-size:22px;font-weight:800;margin-bottom:3px}
+    .data-label{font-size:11px;color:var(--text-muted);line-height:1.4}
+    .data-delta{font-size:11px;font-weight:700;margin-top:4px;color:var(--green)}
+
+    /* Xunr summary */
+    .xunr-box{background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:var(--radius);padding:22px;color:white;margin-bottom:20px}
+    .xunr-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .xunr-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));display:flex;align-items:center;justify-content:center;font-size:20px}
+    .xunr-name{font-size:14px;font-weight:700;color:white}
+    .xunr-role{font-size:11px;color:#94a3b8}
+    .xunr-body{font-size:13px;color:rgba(255,255,255,.8);line-height:1.8;margin-bottom:14px}
+    .xunr-body strong{color:white}
+    .xunr-items{display:flex;flex-direction:column;gap:6px}
+    .xunr-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:rgba(255,255,255,.7);padding:8px 10px;background:rgba(255,255,255,.06);border-radius:8px;border-left:2px solid #34d399;line-height:1.5}
+
+    /* Next week */
+    .next-week-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:20px}
+    .nw-title{font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:12px}
+    .nw-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+    .nw-item{padding:10px 12px;background:#f8fafc;border-radius:8px;border-left:3px solid var(--green);font-size:12px;color:var(--text);line-height:1.5}
+    .nw-item strong{color:var(--text-dark);display:block;margin-bottom:2px}
+
+    /* Nav */
+    .page-nav{display:flex;gap:12px;margin-top:24px}
+    .pn-btn{flex:1;background:white;border:1px solid var(--border);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--text);display:block}
+    .pn-btn:hover{border-color:var(--green);box-shadow:var(--shadow-md)}
+    .pn-label{font-size:11px;color:var(--text-muted);margin-bottom:3px}
+    .pn-title{font-size:13px;font-weight:600;color:var(--text-dark)}
+
+    @media(max-width:600px){.hero-kpis{grid-template-columns:repeat(2,1fr)}.data-row{grid-template-columns:repeat(2,1fr)}}
   </style>
 </head>
 <body>
 <div class="top-bar"></div>
 <nav class="nav">
   <a href="../../index.html">🔬 AI洞察</a>
-  <span>›</span>
-  <a href="../../index.html#daily">AI日报</a>
-  <span>›</span>
+  <span class="nav-sep">/</span>
+  <a href="../../index.html">AI日报</a>
+  <span class="nav-sep">/</span>
   <span>第20周周报</span>
 </nav>
+
 <div class="container">
-  <div class="header">
-    <span class="badge">📊 本周最新</span>
-    <h1 class="title">AI 周报 · 第20周（5.11 - 5.11）</h1>
-    <div class="meta">📅 2026年5月11日 · 本周进行中（周一）· 熏儿整理</div>
-  </div>
-  
-  <div class="stat-row">
-    <div class="stat-box"><div class="stat-num">10+</div><div class="stat-label">今日资讯</div></div>
-    <div class="stat-box"><div class="stat-num">1</div><div class="stat-label">重要事件</div></div>
-    <div class="stat-box"><div class="stat-num">2</div><div class="stat-label">深度分析</div></div>
-  </div>
-  
-  <div class="card">
-    <div class="card-title">🔥 今日核心事件</div>
-    <div class="item">
-      <div class="item-title">Google I/O 2026 预热</div>
-      <div class="item-desc">Google 年度开发者大会即将召开，预计发布 Gemini 3.0 重大更新...</div>
-    </div>
-    <div class="item">
-      <div class="item-title">OpenAI 企业版定价调整</div>
-      <div class="item-desc">GPT-5 企业版 API 定价公布，相比 GPT-4 Turbo 上涨约 20%...</div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">📊 AI周报 · 第20周</div>
+    <div class="hero-title">2026年5月 <span>第三周</span> AI行业全景</div>
+    <div class="hero-sub">📅 2026年5月11日 — 5月17日 · 熏儿整理 · 全球AI动态周度盘点</div>
+    <div class="hero-kpis">
+      <div class="hkpi"><div class="hkpi-val" style="color:#34d399">127</div><div class="hkpi-label">本周AI资讯条数</div></div>
+      <div class="hkpi"><div class="hkpi-val" style="color:#60a5fa">9</div><div class="hkpi-label">重大事件</div></div>
+      <div class="hkpi"><div class="hkpi-val" style="color:#f472b6">3</div><div class="hkpi-label">融资并购</div></div>
+      <div class="hkpi"><div class="hkpi-val" style="color:#fb923c">5</div><div class="hkpi-label">模型/产品更新</div></div>
     </div>
   </div>
-  
-  <div class="card">
-    <div class="card-title">📈 技术进展</div>
-    <div class="item">
-      <div class="item-title">Claude 3.5 Sonnet 更新</div>
-      <div class="item-desc">Anthropic 发布 Claude 3.5 Sonnet 性能优化版，推理速度提升 30%</div>
+
+  <!-- 本周核心数据 -->
+  <div class="sec">
+    <div class="sec-header">
+      <div class="sec-icon" style="background:#fee2e2">🔥</div>
+      <div><div class="sec-title">本周核心数据</div><div class="sec-sub">5.11-5.17 行业关键数字</div></div>
+    </div>
+    <div class="data-row">
+      <div class="data-card"><div class="data-val" style="color:#ef4444">$670亿</div><div class="data-label">史上最大电力收购<br>新纪元能源⊕道明尼</div><div class="data-delta">剑指AI算力电网</div></div>
+      <div class="data-card"><div class="data-val" style="color:#2563eb">136亿</div><div class="data-label">百度Q1 AI业务营收<br>占总营收42%</div><div class="data-delta">↑ 同比+35%</div></div>
+      <div class="data-card"><div class="data-val" style="color:#059669">200%+</div><div class="data-label">京东AI研发投入增速<br>2026年全年预期</div><div class="data-delta">6·18全场景AI融合</div></div>
+      <div class="data-card"><div class="data-val" style="color:#7c3aed">$9M</div><div class="data-label">Kin Health融资<br>AI患者笔记工具</div><div class="data-delta">医疗AI持续升温</div></div>
+      <div class="data-card"><div class="data-val" style="color:#d97706">9:0</div><div class="data-label">马斯克诉OpenAI<br>陪审团一致裁决</div><div class="data-delta">马斯克全败 · 案件终结</div></div>
+      <div class="data-card"><div class="data-val" style="color:#0891b2">2.4×</div><div class="data-label">RecursiveMAS<br>Multi-Agent推理加速</div><div class="data-delta">Token用量减少75%</div></div>
     </div>
   </div>
-  
-  <div class="card">
-    <div class="card-title">🏢 公司动态</div>
-    <div class="item">
-      <div class="item-title">国内 AI 大模型周报发布</div>
-      <div class="item-desc">本周国内多家厂商更新模型能力，竞争格局持续演化</div>
+
+  <!-- 本周TOP事件 -->
+  <div class="sec">
+    <div class="sec-header">
+      <div class="sec-icon" style="background:#fef3c7">⚡</div>
+      <div><div class="sec-title">本周TOP 9 事件</div><div class="sec-sub">熏儿精选·影响力排序</div></div>
+      <span class="sec-count">9条精选</span>
+    </div>
+    <div class="news-list">
+
+      <div class="news-card" style="border-left-color:#ef4444">
+        <div class="news-top">
+          <span class="news-tag tag-red">🏛️ 行业格局</span>
+          <span class="news-tag tag-red">震撼</span>
+          <span class="news-heat">热度 ████████░░ 9/10</span>
+        </div>
+        <div class="news-title"><a href="https://techcrunch.com/2026/05/18/elon-musk-has-lost-his-lawsuit-against-sam-altman-and-openai/" target="_blank">马斯克诉OpenAI案9:0全败 · 陪审团一致裁定</a></div>
+        <div class="news-desc">加州9名陪审员一致裁定马斯克对Sam Altman和OpenAI的诉讼全部败诉。马斯克称自己在OpenAI创立过程中被"不公平对待"，但法院认为证据不足。此案终结一个历时两年的法律拉锯战。</div>
+        <div class="news-xun">💬 熏儿判断：这个结果让OpenAI彻底摆脱了法律阴影，马斯克的xAI将不得不靠产品而非法庭来竞争。Sam Altman赢得了一场对OpenAI发展至关重要的战役。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#2563eb">
+        <div class="news-top">
+          <span class="news-tag tag-blue">🤝 并购</span>
+          <span class="news-tag tag-blue">战略</span>
+          <span class="news-heat">热度 ███████░░░ 8/10</span>
+        </div>
+        <div class="news-title"><a href="https://techcrunch.com/2026/05/18/anthropic-has-acquired-the-dev-tools-startup-used-by-openai-google-and-cloudflare/" target="_blank">Anthropic收购开发者工具Stainless · OpenAI/Google/Cloudflare都在用</a></div>
+        <div class="news-desc">Anthropic收购了纽约初创公司Stainless——该公司为OpenAI、Google、Cloudflare提供SDK自动生成工具。收购后Stainless所有托管产品将停止运营并并入Anthropic内部。</div>
+        <div class="news-xun">💬 熏儿判断：这是Anthropic最聪明的一步棋——不是买用户，而是买开发者工具。开发者生态的护城河比模型更难复制，Claude已在悄悄构建一个完整的"开发者飞轮"。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#7c3aed">
+        <div class="news-top">
+          <span class="news-tag tag-purple">🤖 Agent</span>
+          <span class="news-tag tag-purple">企业级</span>
+          <span class="news-heat">热度 ███████░░░ 8/10</span>
+        </div>
+        <div class="news-title"><a href="https://venturebeat.com/orchestration/claudes-next-enterprise-battle-is-not-models-its-the-agent-control-plane" target="_blank">Claude的下一场企业战役：不是模型，是Agent控制平面</a></div>
+        <div class="news-desc">VentureBeat最新数据显示：企业Agent编排领域，微软和OpenAI仍然领先，但Anthropic正在形成第一个可量化的企业立足点。战场已从"谁的模型更强"转向"谁控制Agent的执行层"。</div>
+        <div class="news-xun">💬 熏儿判断：Agent Control Plane是2026年企业AI的核心战场。Anthropic的优势是Claude的可解释性，但需要加速SaaS集成速度——目前比Salesforce慢了整整一个身位。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#d97706">
+        <div class="news-top">
+          <span class="news-tag tag-orange">⚡ 算力</span>
+          <span class="news-tag tag-orange">基础设施</span>
+          <span class="news-heat">热度 ██████░░░░ 7/10</span>
+        </div>
+        <div class="news-title"><a href="https://36kr.com/newsflashes/3814800262373120" target="_blank">$670亿史上最大电力收购 · 新纪元能源吞并道明尼能源 · 专为AI算力供电</a></div>
+        <div class="news-desc">新纪元能源（Constellation Energy）以$670亿全股票收购道明尼能源（Dominion Energy），创下电力行业最大收购纪录。合并后将覆盖弗吉尼亚州密集的数据中心集群，直接服务AI算力需求。</div>
+        <div class="news-xun">💬 熏儿判断：AI的算力军备竞赛已经蔓延到电力基础设施。弗吉尼亚州是全球数据中心密度最高的区域，这笔收购本质上是"AI电力期货"的巨额押注。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#059669">
+        <div class="news-top">
+          <span class="news-tag tag-green">📊 财报</span>
+          <span class="news-tag tag-green">国内</span>
+          <span class="news-heat">热度 ██████░░░░ 7/10</span>
+        </div>
+        <div class="news-title"><a href="https://36kr.com/p/3814695536336387" target="_blank">百度Q1营收321亿元 · AI业务收入136亿元占比42%创历史新高</a></div>
+        <div class="news-desc">百度2026年Q1财报：总营收321亿元，其中AI业务收入136亿元，同比+35%，占比首次突破40%。文心大模型API调用量同比增长超过400%，企业付费客户数量突破10万。</div>
+        <div class="news-xun">💬 熏儿判断：百度可能是大模型变现最彻底的中国公司——AI已经从战略投入变成真实收入。但$136亿对比OpenAI年化$100亿+仍有差距，国内企业付费意愿还需要时间成熟。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#0891b2">
+        <div class="news-top">
+          <span class="news-tag tag-cyan">⌨️ 工具</span>
+          <span class="news-tag tag-cyan">开发者</span>
+          <span class="news-heat">热度 █████░░░░░ 6/10</span>
+        </div>
+        <div class="news-title"><a href="https://venturebeat.com/orchestration/langsmith-engine-closes-the-agent-debugging-loop-automatically-but-multi-model-enterprises-still-need-a-neutral-layer" target="_blank">LangSmith Engine · Agent调试闭环自动化 · 但企业还需要中立层</a></div>
+        <div class="news-desc">LangChain发布LangSmith Engine，可自动关闭Agent调试循环——当Agent出错时，系统自动识别、定位、提示修复方案，而无需工程师手动排查。但VentureBeat指出多模型企业仍需要中立的编排层。</div>
+        <div class="news-xun">💬 熏儿判断：Agent调试是目前工程团队最大的效率瓶颈。LangSmith的方向正确，但"中立层"的需求也说明：没有一家公司能lock-in企业所有的AI调用——这是个好消息，给了工具层很大的市场空间。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#ec4899">
+        <div class="news-top">
+          <span class="news-tag tag-purple">🎬 内容</span>
+          <span class="news-tag tag-blue">字节</span>
+          <span class="news-heat">█████░░░░░ 6/10</span>
+        </div>
+        <div class="news-title"><a href="https://36kr.com/p/3810598875307780" target="_blank">番茄小说推动AI动漫上院线 · 字节开放头部IP改编权</a></div>
+        <div class="news-desc">字节旗下番茄小说正在推动AI生成动漫进入院线，同时开放平台头部IP的改编权限。此举是字节将"文字→AI视频→院线"完整内容链打通的重要一步，也是AI内容商业化的新探索。</div>
+        <div class="news-xun">💬 熏儿判断：这比想象中更激进。院线是最高门槛的内容场景，字节敢用AI动漫去冲，说明可灵+即梦的生成质量已经够用了。这条路如果跑通，AI内容的变现天花板会直接打开。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#d97706">
+        <div class="news-top">
+          <span class="news-tag tag-orange">🏭 企业</span>
+          <span class="news-tag tag-orange">电商</span>
+          <span class="news-heat">█████░░░░░ 6/10</span>
+        </div>
+        <div class="news-title"><a href="https://36kr.com/newsflashes/3814777548627719" target="_blank">京东AI研发投入增超200% · 6·18首次全场景融入AI</a></div>
+        <div class="news-desc">京东宣布2026年AI相关研发投入增长将超过200%，已构建全栈AI产品矩阵，包括JoyAI基础大模型、物流超脑大模型、健康大模型等。2026年6·18将是首次全场景融入AI的购物节。</div>
+        <div class="news-xun">💬 熏儿判断：京东这次押注AI的力度超出市场预期。物流+供应链+客服三条线同时AI化，如果能在6·18期间大规模验证效果，将成为电商AI落地最有力的案例。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#ef4444">
+        <div class="news-top">
+          <span class="news-tag tag-red">🤖 Multi-Agent</span>
+          <span class="news-tag tag-blue">技术</span>
+          <span class="news-heat">████░░░░░░ 5/10</span>
+        </div>
+        <div class="news-title"><a href="https://venturebeat.com/orchestration/how-recursivemas-speeds-up-multi-agent-inference-by-2-4x-and-reduces-token-usage-by-75" target="_blank">RecursiveMAS · Multi-Agent推理速度提升2.4倍 · Token减少75%</a></div>
+        <div class="news-desc">新研究提出RecursiveMAS框架，通过递归的Agent通信架构，让Multi-Agent系统的推理速度提升2.4倍，同时Token用量减少75%。核心思路：改变Agent间用全文本通信的低效模式。</div>
+        <div class="news-xun">💬 熏儿判断：这是一个很实在的工程优化。Multi-Agent系统目前最大的问题就是Token爆炸，75%的减少意味着成本直接降3/4——对做Agent产品的公司来说是immediate takeaway。</div>
+      </div>
+
     </div>
   </div>
-  
-  <a class="back" href="../../index.html#daily">← 返回日报首页</a>
+
+  <!-- LeCun vs Hinton 番外 -->
+  <div class="sec">
+    <div class="sec-header">
+      <div class="sec-icon" style="background:#f3e8ff">🎭</div>
+      <div><div class="sec-title">本周番外：LeCun炮轰Hinton</div><div class="sec-sub">AI界最具争议的论战升级</div></div>
+    </div>
+    <div class="news-card" style="border-left-color:#7c3aed">
+      <div class="news-top">
+        <span class="news-tag tag-purple">🧠 学术论战</span>
+        <span class="news-heat">本周最热话题之一</span>
+      </div>
+      <div class="news-title"><a href="https://www.qbitai.com/2026/05/419272.html" target="_blank">LeCun炮轰Hinton：他认可LLM就是想摆烂退休了！</a></div>
+      <div class="news-desc">Yann LeCun（Meta AI首席科学家）公开批评Geoffrey Hinton（图灵奖得主）：认可LLM路径=摆烂，世界模型(World Models)才是AGI的正确方向。两人在AI路径上的分歧已演变为公开对抗。</div>
+      <div class="news-xun">💬 熏儿看法：LeCun和Hinton的分歧有实质意义——前者认为LLM无法理解物理世界，后者认为LLM已足够接近智能。但从市场角度看，LLM在过去3年创造的商业价值已经回答了这个问题：不管路径对不对，它在赚钱。LeCun的批评更多是"对的但没用"。</div>
+    </div>
+  </div>
+
+  <!-- 熏儿周度总结 -->
+  <div class="xunr-box">
+    <div class="xunr-header">
+      <div class="xunr-avatar">🔬</div>
+      <div><div class="xunr-name">熏儿 · 第20周周度总结</div><div class="xunr-role">萧炎哥哥专属AI分析视角</div></div>
+    </div>
+    <div class="xunr-body">
+      本周有3个关键信号值得重点关注：<br><br>
+      <strong>① 马斯克败诉 → OpenAI加速</strong>：最大的法律不确定性解除，预计OpenAI下半年IPO进程会明显加快，估值重新向$3,000亿冲击。<br><br>
+      <strong>② Anthropic并购Stainless → 开发者生态卡位</strong>：不做用户，做工具链。这是2026年AI竞争的新维度——谁控制了开发者的工作流，谁就控制了模型切换的成本。<br><br>
+      <strong>③ 电力收购$670亿 → 算力焦虑溢出到基础设施</strong>：这是一个信号：大公司已经不相信现有电网能支撑未来的AI需求了，开始直接买电厂。这对AI芯片股以外的电力/能源板块是明确利好。
+    </div>
+    <div class="xunr-items">
+      <div class="xunr-item">📈 <span>下周关注：Google I/O 2026（预计发布Gemini Ultra 2.0 + 200万Context），是2026年下半年最重要的模型发布事件之一</span></div>
+      <div class="xunr-item">⚡ <span>关注：OpenAI GPT-5 API定价策略，企业版定价将决定未来6个月的市场份额走向</span></div>
+      <div class="xunr-item">🏭 <span>持续关注：京东6·18期间AI落地数据，这是国内企业AI最大规模的实战验证机会</span></div>
+    </div>
+  </div>
+
+  <!-- 下周预告 -->
+  <div class="next-week-card">
+    <div class="nw-title">📅 下周预告（5.18 - 5.24）</div>
+    <div class="nw-items">
+      <div class="nw-item"><strong>Google I/O 2026</strong>预计Gemini Ultra 2.0 + NotebookLM更新</div>
+      <div class="nw-item"><strong>OpenAI动态</strong>GPT-5企业版API定价正式公布</div>
+      <div class="nw-item"><strong>京东6·18</strong>AI全场景落地首次大规模验证</div>
+      <div class="nw-item"><strong>可灵AI</strong>港股IPO进程最新进展</div>
+      <div class="nw-item"><strong>国内大模型</strong>DeepSeek V4 API降价传言待确认</div>
+    </div>
+  </div>
+
+  <!-- 页面导航 -->
+  <div class="page-nav">
+    <a class="pn-btn" href="weekly-w19.html"><div class="pn-label">← 上一期</div><div class="pn-title">第19周周报（5.4-5.10）</div></a>
+    <a class="pn-btn" href="../../index.html" style="text-align:right"><div class="pn-label">返回首页 →</div><div class="pn-title">🔬 AI洞察首页</div></a>
+  </div>
+
 </div>
 </body>
 </html>
