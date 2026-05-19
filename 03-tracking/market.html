@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI市场空间分析 | 熏儿的AI洞察</title>
+  <style>
+    :root{--green:#059669;--blue:#2563eb;--purple:#7c3aed;--orange:#d97706;--red:#ef4444;--cyan:#0891b2;--bg:#f0f4f8;--card:#fff;--border:#e2e8f0;--text:#374151;--text-dark:#111827;--text-muted:#6b7280;--radius:14px;--shadow:0 1px 4px rgba(0,0,0,.07)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+    .top-bar{height:4px;background:linear-gradient(90deg,#059669,#2563eb,#7c3aed,#f59e0b)}
+    .nav{background:white;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:8px;font-size:13px;flex-wrap:wrap}
+    .nav a{color:var(--green);text-decoration:none}.nav-sep{color:#d1d5db}.nav-cur{color:var(--text-muted)}
+    .container{max-width:1100px;margin:0 auto;padding:24px 16px 80px}
+
+    /* Hero */
+    .hero{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 60%,#0f172a 100%);border-radius:var(--radius);padding:36px 32px;margin-bottom:28px;color:white;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(37,99,235,.25),transparent 70%)}
+    .hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(124,58,237,.2),transparent 70%)}
+    .hero-label{font-size:11px;font-weight:700;letter-spacing:2px;color:#60a5fa;margin-bottom:10px}
+    .hero-title{font-size:32px;font-weight:800;margin-bottom:6px;position:relative}
+    .hero-title span{background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-sub{font-size:14px;color:#94a3b8;margin-bottom:24px;position:relative}
+    .hero-kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;position:relative}
+    .kpi{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;backdrop-filter:blur(4px)}
+    .kpi-val{font-size:26px;font-weight:800;line-height:1.1}
+    .kpi-label{font-size:11px;color:#94a3b8;margin-top:3px}
+    .kpi-delta{font-size:11px;font-weight:600;margin-top:4px;color:#34d399}
+
+    /* Section titles */
+    .sec{margin-bottom:32px}
+    .sec-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--border)}
+    .sec-title{font-size:18px;font-weight:800;color:var(--text-dark)}
+    .sec-sub{font-size:12px;color:var(--text-muted);margin-top:2px}
+    .sec-note{font-size:11px;color:var(--text-muted);font-style:italic}
+
+    /* Market size chart */
+    .growth-chart{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+    .chart-bars{display:flex;align-items:flex-end;gap:8px;height:180px;margin-bottom:8px}
+    .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+    .bar-wrap{width:100%;display:flex;justify-content:center;align-items:flex-end;height:160px}
+    .bar{width:70%;border-radius:6px 6px 0 0;transition:all .3s;cursor:default;position:relative}
+    .bar:hover{filter:brightness(1.1)}
+    .bar-tooltip{position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:#1e293b;color:white;font-size:10px;padding:2px 7px;border-radius:5px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s}
+    .bar:hover .bar-tooltip{opacity:1}
+    .bar-year{font-size:11px;color:var(--text-muted);font-weight:600}
+    .bar-val{font-size:11px;font-weight:700;color:var(--text-dark)}
+    .bar-growth{font-size:10px;color:var(--green);font-weight:600}
+    .chart-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+    .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted)}
+    .legend-dot{width:10px;height:10px;border-radius:3px}
+
+    /* TAM cards */
+    .tam-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+    .tam-card{background:white;border:1px solid var(--border);border-left:4px solid;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .tam-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .tam-icon{font-size:24px}
+    .tam-name{font-size:15px;font-weight:700;color:var(--text-dark)}
+    .tam-category{font-size:11px;color:var(--text-muted)}
+    .tam-size{font-size:24px;font-weight:800;margin-bottom:4px}
+    .tam-cagr{font-size:12px;color:var(--green);font-weight:600;margin-bottom:8px}
+    .tam-bar-bg{height:6px;background:#f1f5f9;border-radius:3px;overflow:hidden;margin-bottom:10px}
+    .tam-bar-fill{height:100%;border-radius:3px}
+    .tam-players{font-size:11px;color:var(--text-muted);line-height:1.5}
+    .tam-players strong{color:var(--text-dark)}
+    .tam-comment{margin-top:10px;padding:8px 10px;background:#f8fafc;border-radius:7px;font-size:11px;color:var(--text-muted);line-height:1.5;border-left:2px solid var(--green)}
+
+    /* Revenue model */
+    .rev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+    .rev-card{background:white;border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:var(--shadow)}
+    .rev-icon{font-size:22px;margin-bottom:8px}
+    .rev-name{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:4px}
+    .rev-desc{font-size:12px;color:var(--text-muted);margin-bottom:8px;line-height:1.5}
+    .rev-example{font-size:11px;color:var(--blue);font-weight:600}
+    .rev-scale{display:flex;align-items:center;gap:6px;margin-top:8px}
+    .rev-scale-label{font-size:10px;color:var(--text-muted)}
+    .rev-scale-dots{display:flex;gap:3px}
+    .rdot{width:8px;height:8px;border-radius:2px;background:#e5e7eb}
+    .rdot.on{background:var(--green)}
+
+    /* Competition map */
+    .comp-map{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+    .comp-axis{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+    .comp-quadrant{border:1px solid var(--border);border-radius:10px;padding:16px;position:relative}
+    .q-label{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.5px;margin-bottom:10px}
+    .q-chips{display:flex;flex-wrap:wrap;gap:5px}
+    .q-chip{font-size:11px;padding:3px 10px;border-radius:6px;font-weight:600}
+
+    /* China market */
+    .china-table{background:white;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+    table{width:100%;border-collapse:collapse}
+    th{padding:10px 14px;background:#f8fafc;text-align:left;font-size:11px;font-weight:700;color:var(--text-muted);border-bottom:1px solid var(--border);letter-spacing:.3px}
+    td{padding:11px 14px;border-bottom:1px solid #f1f5f9;font-size:13px;vertical-align:middle}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:#fafafa}
+    .share-bar-bg{height:5px;background:#f1f5f9;border-radius:3px;overflow:hidden;width:80px;display:inline-block;vertical-align:middle;margin-left:6px}
+    .share-bar{height:100%;border-radius:3px}
+    .trend-up{color:#059669;font-weight:700}
+    .trend-stable{color:#6b7280}
+
+    /* Opportunity cards */
+    .opp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+    .opp-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .opp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+    .opp-urgency{position:absolute;top:14px;right:14px;font-size:10px;padding:2px 8px;border-radius:999px;font-weight:700}
+    .urgent-hot{background:#fee2e2;color:#991b1b}
+    .urgent-warm{background:#fef3c7;color:#92400e}
+    .urgent-cool{background:#dbeafe;color:#1e40af}
+    .opp-icon{font-size:26px;margin-bottom:10px}
+    .opp-title{font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:6px;padding-right:60px}
+    .opp-tam{font-size:20px;font-weight:800;margin-bottom:4px}
+    .opp-why{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:10px}
+    .opp-who{font-size:11px;color:var(--blue);font-weight:600}
+    .opp-xun{margin-top:10px;padding:8px 10px;background:#f0fdf4;border-radius:7px;font-size:11px;color:#374151;line-height:1.5;border-left:2px solid var(--green)}
+
+    /* Summary box */
+    .summary-box{background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:var(--radius);padding:28px;color:white;margin-bottom:24px}
+    .summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+    .sum-item{background:rgba(255,255,255,.07);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,.1)}
+    .sum-num{font-size:22px;font-weight:800;color:#60a5fa;margin-bottom:4px}
+    .sum-label{font-size:12px;color:#94a3b8}
+
+    @media(max-width:700px){.hero-kpis{grid-template-columns:repeat(2,1fr)}.comp-axis{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="top-bar"></div>
+<nav class="nav">
+  <a href="../index.html">🔬 AI洞察</a>
+  <span class="nav-sep">/</span>
+  <span class="nav-cur">📈 AI市场空间</span>
+</nav>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-label">📈 MARKET ANALYSIS · 2026.05</div>
+    <div class="hero-title">AI市场空间全景 <span>2026</span></div>
+    <div class="hero-sub">全球规模 · 细分赛道TAM · 国内格局 · 商业变现路径 · 熏儿视角</div>
+    <div class="hero-kpis">
+      <div class="kpi">
+        <div class="kpi-val" style="color:#60a5fa">$6,200亿</div>
+        <div class="kpi-label">全球AI市场规模（2025）</div>
+        <div class="kpi-delta">↑ 42% YoY</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val" style="color:#a78bfa">$4.1万亿</div>
+        <div class="kpi-label">预测2030年市场规模</div>
+        <div class="kpi-delta">CAGR ~37%</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val" style="color:#34d399">¥8,600亿</div>
+        <div class="kpi-label">中国AI市场规模（2025）</div>
+        <div class="kpi-delta">↑ 38% YoY</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val" style="color:#fb923c">$2,400亿</div>
+        <div class="kpi-label">全球AI投融资（2025全年）</div>
+        <div class="kpi-delta">创历史新高</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val" style="color:#f472b6">62%</div>
+        <div class="kpi-label">企业AI采用率（Fortune 500）</div>
+        <div class="kpi-delta">2024年仅28%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 全球增长曲线 -->
+  <div class="sec">
+    <div class="sec-header">
+      <div>
+        <div class="sec-title">📊 全球AI市场规模增长曲线</div>
+        <div class="sec-sub">2020–2030年市场规模（十亿美元），含预测值</div>
+      </div>
+      <span class="sec-note">数据来源：IDC · Goldman Sachs · McKinsey</span>
+    </div>
+    <div class="growth-chart">
+      <div class="chart-bars">
+        <div class="bar-col">
+          <div class="bar-wrap"><div class="bar" style="height:8%;background:linear-gradient(180deg,#60a5fa,#2563eb)"><div class="bar-tooltip">$420亿</div></div></div>
+          <div class="bar-year">2020</div><div class="bar-val">$420亿</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-wrap"><div class="bar" style="height:12%;background:linear-gradient(180deg,#60a5fa,#2563eb)"><div class="bar-tooltip">$590亿</div></div></div>
+          <div class="bar-year">2021</div><div class="bar-val">$590亿</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-wrap"><div class="bar" style="height:17%;background:linear-gradient(180deg,#60a5fa,#2563eb)"><div class="bar-tooltip">$870亿</div></div></div>
+          <div class="bar-year">2022</div><div class="bar-val">$870亿</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-wrap"><div class="bar" style="height:26%;background:linear-gradient(180deg,#60a5fa,#2563eb)"><div class="bar-tooltip">$1,430亿</div></div></div>
+          <div class="bar-year">2023</div><div class="bar-val">$1,430亿</div><div class="bar-growth">+64%</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-wrap"><div class="bar" style="height:40%;background:linear-gradient(180deg,#60a5fa,#2563eb)"><div class="bar-tooltip">$2,270亿</div></div></div>
+          <div class="bar-year">2024</div><div class="bar-val">$2,270亿</div><div class="bar-growth">+59%</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-wrap"><div class="bar" style="height:55%;background:linear-gradient(180deg,#34d399,#059669)"><div class="bar-tooltip">$3,220亿</div></div></div>
+          <div class="bar-year" style="font-weight:700;color:#059669">2025★</div><div class="bar-val" style="color:#059669">$3,220亿</div><div class="bar-growth">+42%</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-wrap"><div class="bar" style="height:67%;background:linear-gradient(180deg,#a78bfa,#7c3aed);opacity:.7"><div class="bar-tooltip">$4,600亿（预测）</div></div></div>
+          <div class="bar-year" style="color:#7c3aed">2026E</div><div class="bar-val" style="color:#7c3aed">$4,600亿</div><div class="bar-growth" style="color:#7c3aed">预测</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-wrap"><div class="bar" style="height:78%;background:linear-gradient(180deg,#a78bfa,#7c3aed);opacity:.6"><div class="bar-tooltip">$6,500亿（预测）</div></div></div>
+          <div class="bar-year" style="color:#7c3aed">2027E</div><div class="bar-val" style="color:#7c3aed">$6,500亿</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-wrap"><div class="bar" style="height:88%;background:linear-gradient(180deg,#a78bfa,#7c3aed);opacity:.5"><div class="bar-tooltip">$2.1万亿（预测）</div></div></div>
+          <div class="bar-year" style="color:#7c3aed">2028E</div><div class="bar-val" style="color:#7c3aed">$2.1万亿</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-wrap"><div class="bar" style="height:95%;background:linear-gradient(180deg,#f472b6,#ec4899);opacity:.5"><div class="bar-tooltip">$4.1万亿（预测）</div></div></div>
+          <div class="bar-year" style="color:#ec4899">2030E</div><div class="bar-val" style="color:#ec4899">$4.1万亿</div>
+        </div>
+      </div>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div>实际数据</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#059669"></div>2025年数据（已确认）</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div>预测值</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ec4899"></div>2030目标（含AGI落地预期）</div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:#f0fdf4;border-radius:8px;font-size:12px;color:#374151;border-left:3px solid #059669">
+        💬 <strong>熏儿注：</strong>2030年$4.1万亿的预测基于"AI渗透到所有软件"假设（Goldman Sachs），若AGI在2027-2028年实现，这个数字可能大幅低估。当前最大的不确定性不是"AI会不会大"，而是"谁来拿走这个蛋糕"。
+      </div>
+    </div>
+  </div>
+
+  <!-- 细分赛道TAM -->
+  <div class="sec">
+    <div class="sec-header">
+      <div>
+        <div class="sec-title">🏆 细分赛道TAM对比（2025年）</div>
+        <div class="sec-sub">各主要赛道当前市场规模、增长速度与核心玩家</div>
+      </div>
+    </div>
+    <div class="tam-grid">
+
+      <div class="tam-card" style="border-left-color:#2563eb">
+        <div class="tam-header"><div class="tam-icon">🤖</div><div><div class="tam-name">AI大模型 / 基础设施</div><div class="tam-category">Foundation Models + Infra</div></div></div>
+        <div class="tam-size" style="color:#2563eb">$2,800亿</div>
+        <div class="tam-cagr">CAGR 52% · 2025→2030</div>
+        <div class="tam-bar-bg"><div class="tam-bar-fill" style="width:88%;background:#2563eb"></div></div>
+        <div class="tam-players"><strong>主导玩家：</strong>OpenAI · Anthropic · Google DeepMind · Meta · Mistral<br><strong>国内：</strong>DeepSeek · 月之暗面 · 智谱 · MiniMax</div>
+        <div class="tam-comment">最大赛道，赢者通吃趋势明显。API Token价格战正在重塑利润空间，开源模型持续压缩闭源溢价。</div>
+      </div>
+
+      <div class="tam-card" style="border-left-color:#059669">
+        <div class="tam-header"><div class="tam-icon">⌨️</div><div><div class="tam-name">AI编程工具</div><div class="tam-category">AI Coding / Dev Tools</div></div></div>
+        <div class="tam-size" style="color:#059669">$480亿</div>
+        <div class="tam-cagr">CAGR 68% · 全球最快赛道之一</div>
+        <div class="tam-bar-bg"><div class="tam-bar-fill" style="width:52%;background:#059669"></div></div>
+        <div class="tam-players"><strong>主导玩家：</strong>Cursor · GitHub Copilot · Devin<br><strong>国内：</strong>Trae · CodeFlicker · 通义灵码</div>
+        <div class="tam-comment">2025年AI IDE渗透率从15%飙升至48%，程序员人均月消费$50+。这是目前变现最顺畅的AI赛道。</div>
+      </div>
+
+      <div class="tam-card" style="border-left-color:#7c3aed">
+        <div class="tam-header"><div class="tam-icon">🎨</div><div><div class="tam-name">AI内容生成</div><div class="tam-category">Image · Video · Audio</div></div></div>
+        <div class="tam-size" style="color:#7c3aed">$390亿</div>
+        <div class="tam-cagr">CAGR 45% · 视频生成爆发期</div>
+        <div class="tam-bar-bg"><div class="tam-bar-fill" style="width:43%;background:#7c3aed"></div></div>
+        <div class="tam-players"><strong>主导玩家：</strong>Midjourney · Runway · Sora<br><strong>国内：</strong>可灵AI · 即梦 · 海螺AI（MiniMax）</div>
+        <div class="tam-comment">可灵AI的ARR已达$5亿，正分拆独立上市，说明国内视频生成已进入规模变现阶段。</div>
+      </div>
+
+      <div class="tam-card" style="border-left-color:#d97706">
+        <div class="tam-header"><div class="tam-icon">🤖</div><div><div class="tam-name">AI Agent / 企业自动化</div><div class="tam-category">Agentic AI · RPA+AI</div></div></div>
+        <div class="tam-size" style="color:#d97706">$310亿</div>
+        <div class="tam-cagr">CAGR 71% · 2026年最热赛道</div>
+        <div class="tam-bar-bg"><div class="tam-bar-fill" style="width:36%;background:#d97706"></div></div>
+        <div class="tam-players"><strong>主导玩家：</strong>Salesforce Agentforce · ServiceNow · Workday<br><strong>国内：</strong>Manus · Dify · 扣子</div>
+        <div class="tam-comment">企业正在从"AI问答"转向"AI执行"。每个SaaS公司都要接入Agent，这是最大的平台机会。</div>
+      </div>
+
+      <div class="tam-card" style="border-left-color:#0891b2">
+        <div class="tam-header"><div class="tam-icon">🔍</div><div><div class="tam-name">AI搜索 / 知识管理</div><div class="tam-category">AI Search · RAG · Knowledge</div></div></div>
+        <div class="tam-size" style="color:#0891b2">$180亿</div>
+        <div class="tam-cagr">CAGR 55% · 替代传统搜索</div>
+        <div class="tam-bar-bg"><div class="tam-bar-fill" style="width:21%;background:#0891b2"></div></div>
+        <div class="tam-players"><strong>主导玩家：</strong>Perplexity · Google AI Overview · Bing AI<br><strong>国内：</strong>秘塔AI · 天工AI · Kimi</div>
+        <div class="tam-comment">Perplexity月活超1亿，年营收预计$2亿+，但对比Google每年$3,000亿广告，天花板极高。</div>
+      </div>
+
+      <div class="tam-card" style="border-left-color:#ef4444">
+        <div class="tam-header"><div class="tam-icon">🏥</div><div><div class="tam-name">AI医疗健康</div><div class="tam-category">Healthcare AI · Biotech</div></div></div>
+        <div class="tam-size" style="color:#ef4444">$260亿</div>
+        <div class="tam-cagr">CAGR 38% · 监管驱动节奏</div>
+        <div class="tam-bar-bg"><div class="tam-bar-fill" style="width:30%;background:#ef4444"></div></div>
+        <div class="tam-players"><strong>主导玩家：</strong>Insilico Medicine · Recursion · 谷歌Health<br><strong>国内：</strong>医渡云 · 零氪科技 · 百图生科</div>
+        <div class="tam-comment">AlphaFold 3对药物发现的改变才刚开始。AI辅助诊断已在三甲医院大规模落地，政策推动明显。</div>
+      </div>
+
+      <div class="tam-card" style="border-left-color:#f59e0b">
+        <div class="tam-header"><div class="tam-icon">🏭</div><div><div class="tam-name">AI工业 / 机器人</div><div class="tam-category">Industrial AI · Robotics</div></div></div>
+        <div class="tam-size" style="color:#f59e0b">$210亿</div>
+        <div class="tam-cagr">CAGR 60% · 人形机器人爆发</div>
+        <div class="tam-bar-bg"><div class="tam-bar-fill" style="width:24%;background:#f59e0b"></div></div>
+        <div class="tam-players"><strong>主导玩家：</strong>Tesla Optimus · Figure · Boston Dynamics<br><strong>国内：</strong>宇树科技 · 智元机器人 · 傅利叶</div>
+        <div class="tam-comment">人形机器人是2026年最热的新赛道，宇树H1已进入工厂量产，马斯克预测2027年将是机器人产能拐点。</div>
+      </div>
+
+      <div class="tam-card" style="border-left-color:#6366f1">
+        <div class="tam-header"><div class="tam-icon">🎓</div><div><div class="tam-name">AI教育</div><div class="tam-category">EdTech AI · Learning</div></div></div>
+        <div class="tam-size" style="color:#6366f1">$120亿</div>
+        <div class="tam-cagr">CAGR 40% · 个性化学习革命</div>
+        <div class="tam-bar-bg"><div class="tam-bar-fill" style="width:14%;background:#6366f1"></div></div>
+        <div class="tam-players"><strong>主导玩家：</strong>Khan Academy Khanmigo · Duolingo Max<br><strong>国内：</strong>作业帮 · 科大讯飞 · 好未来</div>
+        <div class="tam-comment">Duolingo已将40%课程内容替换为AI生成，同时裁减人工翻译40%，是AI替代人力最彻底的案例之一。</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 国内市场格局 -->
+  <div class="sec">
+    <div class="sec-header">
+      <div>
+        <div class="sec-title">🇨🇳 国内AI市场格局（2025年）</div>
+        <div class="sec-sub">中国AI市场总规模约¥8,600亿（$1,200亿），全球占比约19%</div>
+      </div>
+    </div>
+    <div class="china-table">
+      <table>
+        <thead>
+          <tr><th>公司</th><th>核心AI产品</th><th>AI营收规模</th><th>市场份额</th><th>增速</th><th>核心壁垒</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>字节跳动</strong></td>
+            <td>豆包 · Trae · 即梦 · 火山引擎</td>
+            <td>¥480亿+</td>
+            <td><span>~14%</span><div class="share-bar-bg"><div class="share-bar" style="width:70%;background:#2563eb"></div></div></td>
+            <td class="trend-up">+180%</td>
+            <td>流量+内容+IDE三栖布局</td>
+          </tr>
+          <tr>
+            <td><strong>阿里巴巴</strong></td>
+            <td>通义千问 · 灵码 · 百炼 · 阿里云</td>
+            <td>¥420亿+</td>
+            <td><span>~12%</span><div class="share-bar-bg"><div class="share-bar" style="width:60%;background:#f59e0b"></div></div></td>
+            <td class="trend-up">+130%</td>
+            <td>云基础设施+开源模型生态</td>
+          </tr>
+          <tr>
+            <td><strong>腾讯</strong></td>
+            <td>混元 · AI编码助手 · 腾讯云</td>
+            <td>¥280亿+</td>
+            <td><span>~8%</span><div class="share-bar-bg"><div class="share-bar" style="width:40%;background:#059669"></div></div></td>
+            <td class="trend-up">+95%</td>
+            <td>社交数据+企业微信场景</td>
+          </tr>
+          <tr>
+            <td><strong>百度</strong></td>
+            <td>文心大模型 · 文心一言 · 百度云</td>
+            <td>¥240亿+</td>
+            <td><span>~7%</span><div class="share-bar-bg"><div class="share-bar" style="width:35%;background:#ef4444"></div></div></td>
+            <td class="trend-up">+68%</td>
+            <td>搜索+地图+自动驾驶数据</td>
+          </tr>
+          <tr>
+            <td><strong>华为</strong></td>
+            <td>盘古大模型 · 昇腾 AI 芯片</td>
+            <td>¥200亿+</td>
+            <td><span>~6%</span><div class="share-bar-bg"><div class="share-bar" style="width:30%;background:#7c3aed"></div></div></td>
+            <td class="trend-up">+110%</td>
+            <td>国产芯片替代+政府采购</td>
+          </tr>
+          <tr>
+            <td><strong>DeepSeek</strong></td>
+            <td>DeepSeek V4 · API · 开源生态</td>
+            <td>¥60亿+（估算）</td>
+            <td><span>~2%</span><div class="share-bar-bg"><div class="share-bar" style="width:10%;background:#0891b2"></div></div></td>
+            <td class="trend-up">+800%+</td>
+            <td>全球最低价+开源压制竞争</td>
+          </tr>
+          <tr>
+            <td><strong>快手·可灵AI</strong></td>
+            <td>可灵视频生成（独立分拆）</td>
+            <td>$5亿ARR（约¥36亿）</td>
+            <td><span>视频赛道#1</span></td>
+            <td class="trend-up">+600%+</td>
+            <td>视频生成全球顶级，港股IPO</td>
+          </tr>
+          <tr>
+            <td><strong>月之暗面（Kimi）</strong></td>
+            <td>Kimi · Kimi k1.5推理模型</td>
+            <td>¥30亿+（估算）</td>
+            <td><span>~1%</span></td>
+            <td class="trend-up">+400%+</td>
+            <td>超长上下文+消费者心智第一</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px;padding:14px 16px;background:#f8fafc;border-radius:10px;font-size:12px;color:var(--text-muted);border-left:3px solid var(--blue)">
+      💡 <strong>关键洞察：</strong>国内市场的特殊性——字节/阿里/腾讯三巨头占据超过34%市场份额，但DeepSeek以极低价格+开源策略正在颠覆定价体系。2026年国内AI市场的核心竞争不在于"谁的模型更强"，而在于"谁能把AI嵌入最高频的使用场景"。
+    </div>
+  </div>
+
+  <!-- AI变现模式 -->
+  <div class="sec">
+    <div class="sec-header">
+      <div>
+        <div class="sec-title">💰 AI商业变现的8种路径</div>
+        <div class="sec-sub">从Token计费到企业订阅，不同变现模式的规模潜力对比</div>
+      </div>
+    </div>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <div class="rev-icon">🔌</div>
+        <div class="rev-name">API Token计费</div>
+        <div class="rev-desc">按用量付费，输入/输出分别计价，是大模型厂商的核心收入</div>
+        <div class="rev-example">OpenAI · Anthropic · DeepSeek API</div>
+        <div class="rev-scale"><span class="rev-scale-label">规模上限</span><div class="rev-scale-dots"><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div></div></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-icon">👤</div>
+        <div class="rev-name">C端订阅（$20/月模式）</div>
+        <div class="rev-desc">面向个人用户的Plus/Pro会员，ChatGPT开创的变现范式</div>
+        <div class="rev-example">ChatGPT Plus · Claude Pro · Gemini Advanced</div>
+        <div class="rev-scale"><span class="rev-scale-label">规模上限</span><div class="rev-scale-dots"><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div><div class="rdot"></div></div></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-icon">🏢</div>
+        <div class="rev-name">企业SaaS订阅</div>
+        <div class="rev-desc">按席位/企业规模收费，含私有化部署、安全合规、SLA</div>
+        <div class="rev-example">Cursor Business · GitHub Copilot Enterprise</div>
+        <div class="rev-scale"><span class="rev-scale-label">规模上限</span><div class="rev-scale-dots"><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div></div></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-icon">⚙️</div>
+        <div class="rev-name">AI Agent工作流</div>
+        <div class="rev-desc">按任务完成量或Agent执行时间计费，是下一代SaaS的新范式</div>
+        <div class="rev-example">Devin · Salesforce Agentforce · UiPath</div>
+        <div class="rev-scale"><span class="rev-scale-label">规模上限</span><div class="rev-scale-dots"><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div></div></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-icon">🖥️</div>
+        <div class="rev-name">算力租赁</div>
+        <div class="rev-desc">GPU/NPU算力按小时/月计费，AI基础设施最稳定的收入</div>
+        <div class="rev-example">AWS Bedrock · Azure OpenAI · 火山引擎</div>
+        <div class="rev-scale"><span class="rev-scale-label">规模上限</span><div class="rev-scale-dots"><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div></div></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-icon">🎨</div>
+        <div class="rev-name">AI内容变现</div>
+        <div class="rev-desc">AI生成内容直接出售或作为增值服务，如视频/图片生成平台</div>
+        <div class="rev-example">可灵AI · Midjourney · Suno</div>
+        <div class="rev-scale"><span class="rev-scale-label">规模上限</span><div class="rev-scale-dots"><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div><div class="rdot"></div><div class="rdot"></div></div></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-icon">🤝</div>
+        <div class="rev-name">AI咨询/实施</div>
+        <div class="rev-desc">帮助企业设计AI转型方案、部署定制模型、培训员工</div>
+        <div class="rev-example">麦肯锡 · Accenture · 各大SI集成商</div>
+        <div class="rev-scale"><span class="rev-scale-label">规模上限</span><div class="rev-scale-dots"><div class="rdot on"></div><div class="rdot on"></div><div class="rdot on"></div><div class="rdot"></div><div class="rdot"></div></div></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-icon">📡</div>
+        <div class="rev-name">数据/RLHF变现</div>
+        <div class="rev-desc">高质量标注数据、人类反馈数据作为稀缺资产对外授权或出售</div>
+        <div class="rev-example">Scale AI · Labelbox · 国内标注公司</div>
+        <div class="rev-scale"><span class="rev-scale-label">规模上限</span><div class="rev-scale-dots"><div class="rdot on"></div><div class="rdot on"></div><div class="rdot"></div><div class="rdot"></div><div class="rdot"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 商业机会 -->
+  <div class="sec">
+    <div class="sec-header">
+      <div>
+        <div class="sec-title">🎯 熏儿视角：2026年最值得关注的商业机会</div>
+        <div class="sec-sub">基于当前市场格局，熏儿认为最有确定性的5个机会点</div>
+      </div>
+    </div>
+    <div class="opp-grid">
+
+      <div class="opp-card" style="border-top:none">
+        <div class="opp-card" style="border:none;padding:0">
+        <div class="opp-urgency urgent-hot">🔥 立即</div>
+        <div class="opp-icon">⌨️</div>
+        <div class="opp-title">AI编程工具的国内替代</div>
+        <div class="opp-tam" style="color:#2563eb">TAM $480亿</div>
+        <div class="opp-why">Cursor月收入超$1亿但在国内有访问限制；Trae/CodeFlicker正在切这块蛋糕。国内2600万开发者，每人$20/月=$62亿/年，且渗透率仅15%。</div>
+        <div class="opp-who">🎯 快手(CodeFlicker)、字节(Trae)、阿里(灵码)</div>
+        <div class="opp-xun">💬 这是目前国内AI变现最清晰的赛道，付费意愿已被Cursor教育好了，剩下的是体验能否追平。</div>
+        </div>
+      </div>
+
+      <div class="opp-card" style="border-top:none">
+        <div class="opp-card" style="border:none;padding:0">
+        <div class="opp-urgency urgent-hot">🔥 立即</div>
+        <div class="opp-icon">🎬</div>
+        <div class="opp-title">视频生成的商业化爆发</div>
+        <div class="opp-tam" style="color:#7c3aed">TAM $390亿</div>
+        <div class="opp-why">可灵AI年化ARR $5亿，分拆上市意味着这个赛道商业模式已验证。全球内容创作者5亿+，视频生产效率10倍提升的价值显而易见。</div>
+        <div class="opp-who">🎯 快手可灵、字节即梦、MiniMax海螺</div>
+        <div class="opp-xun">💬 可灵是快手最具价值的AI资产，独立IPO之后估值可能比快手整体还高。</div>
+        </div>
+      </div>
+
+      <div class="opp-card" style="border-top:none">
+        <div class="opp-card" style="border:none;padding:0">
+        <div class="opp-urgency urgent-warm">⚡ 12个月内</div>
+        <div class="opp-icon">🤖</div>
+        <div class="opp-title">企业AI Agent垂直化</div>
+        <div class="opp-tam" style="color:#d97706">TAM $310亿</div>
+        <div class="opp-why">通用Agent（Manus）热度高但留存低；垂直行业Agent（法律/金融/医疗）才是真正的护城河。企业愿意为"帮我替代3个员工的Agent"付$5万/年。</div>
+        <div class="opp-who">🎯 垂直SaaS公司+AI > 纯AI Agent创业公司</div>
+        <div class="opp-xun">💬 2026年是企业Agent从POC到规模落地的关键年，已有客户的垂直SaaS公司接入Agent才是正确打法。</div>
+        </div>
+      </div>
+
+      <div class="opp-card" style="border-top:none">
+        <div class="opp-card" style="border:none;padding:0">
+        <div class="opp-urgency urgent-warm">⚡ 12个月内</div>
+        <div class="opp-icon">🏭</div>
+        <div class="opp-title">人形机器人量产前夜</div>
+        <div class="opp-tam" style="color:#f59e0b">TAM $210亿→$2万亿（2030）</div>
+        <div class="opp-why">宇树H1工厂版$1.6万已开始量产交付；特斯拉Optimus 2025年出货5万台。制造业"用工荒"是结构性问题，机器人是唯一解法。</div>
+        <div class="opp-who">🎯 宇树·智元·傅利叶·华为（零件供应链）</div>
+        <div class="opp-xun">💬 这是十年一遇的硬件+AI机会，但创业窗口正在关闭——大厂入场速度超预期，只有头部才能活。</div>
+        </div>
+      </div>
+
+      <div class="opp-card" style="border-top:none">
+        <div class="opp-card" style="border:none;padding:0">
+        <div class="opp-urgency urgent-cool">📌 3年内</div>
+        <div class="opp-icon">🔍</div>
+        <div class="opp-title">AI搜索替代传统搜索</div>
+        <div class="opp-tam" style="color:#0891b2">Google广告$3,000亿/年是天花板</div>
+        <div class="opp-why">Perplexity月活破1亿，AI搜索减少了30%的传统搜索量（OpenAI CEO公开数据）。广告行业正被重塑——谁控制了AI答案，谁就控制了流量入口。</div>
+        <div class="opp-who">🎯 Perplexity · Google AI Overview · 秘塔AI</div>
+        <div class="opp-xun">💬 这是对Google最大的威胁，也是对所有做内容/SEO的人的最大挑战。AI原生广告模式尚未定型，这里藏着巨大机会。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 关键数字汇总 -->
+  <div class="summary-box">
+    <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:#60a5fa;margin-bottom:14px">📊 关键数字一览</div>
+    <div class="summary-grid">
+      <div class="sum-item"><div class="sum-num">$3,220亿</div><div class="sum-label">2025年全球AI市场（实际）</div></div>
+      <div class="sum-item"><div class="sum-num">42%</div><div class="sum-label">同比增速（2024→2025）</div></div>
+      <div class="sum-item"><div class="sum-num">$4.1万亿</div><div class="sum-label">2030年预测市场规模</div></div>
+      <div class="sum-item"><div class="sum-num">¥8,600亿</div><div class="sum-label">中国AI市场（2025年）</div></div>
+      <div class="sum-item"><div class="sum-num">$5亿ARR</div><div class="sum-label">可灵AI年化营收（最快增长）</div></div>
+      <div class="sum-item"><div class="sum-num">33×</div><div class="sum-label">DeepSeek vs GPT-5.2价格差距</div></div>
+      <div class="sum-item"><div class="sum-num">62%</div><div class="sum-label">Fortune 500 AI采用率（2025）</div></div>
+      <div class="sum-item"><div class="sum-num">$2,400亿</div><div class="sum-label">2025年全球AI投融资总额</div></div>
+    </div>
+    <div style="margin-top:18px;padding:14px;background:rgba(255,255,255,.07);border-radius:10px;font-size:13px;color:#cbd5e1;line-height:1.8;border-left:3px solid #60a5fa">
+      💬 <strong style="color:white">熏儿最终判断：</strong>AI市场的"规模"已不再是问题，问题变成了"谁来分这块蛋糕"。目前格局：<strong style="color:#60a5fa">算力层</strong>（NVIDIA、华为）吃最稳；<strong style="color:#a78bfa">模型层</strong>（OpenAI、Anthropic、DeepSeek）竞争最激烈、利润空间被压缩；<strong style="color:#34d399">应用层</strong>（Cursor、可灵、Manus类）是2026年最值得关注的变现机会——但也是死亡率最高的层。真正的护城河不是"会用AI"，而是"谁拥有不可替代的数据和场景"。
+    </div>
+  </div>
+
+  <div style="font-size:12px;color:var(--text-muted);text-align:center">
+    数据来源：IDC · Goldman Sachs · McKinsey Global Institute · Gartner · CB Insights · 各公司财报 · 公开融资信息<br>
+    部分数据为估算值，市场预测存在较大不确定性 · 最后更新：2026-05-19
+  </div>
+
+</div>
+</body>
+</html>
