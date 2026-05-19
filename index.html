@@ -143,38 +143,43 @@
     .today-ticker {
       display: flex;
       align-items: center;
-      gap: 0;
-      background: #0f172a;
-      color: white;
+      gap: 12px;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 10px 16px;
       overflow: hidden;
-      height: 40px;
-      position: relative;
     }
     .ticker-label {
       flex-shrink: 0;
-      padding: 0 14px;
-      font-size: 12px;
-      font-weight: 700;
-      background: #ef4444;
-      color: white;
-      height: 100%;
       display: flex;
       align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ef4444;
+      letter-spacing: .5px;
       white-space: nowrap;
-      z-index: 2;
+    }
+    .ticker-divider {
+      width: 1px;
+      height: 14px;
+      background: #e2e8f0;
+      flex-shrink: 0;
     }
     .ticker-track-wrap {
       flex: 1;
       overflow: hidden;
-      height: 100%;
+      height: 24px;
       position: relative;
+      mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
     }
     .ticker-track {
       display: inline-flex;
       align-items: center;
       height: 100%;
       white-space: nowrap;
-      animation: ticker-scroll 40s linear infinite;
+      animation: ticker-scroll 38s linear infinite;
     }
     .ticker-track:hover { animation-play-state: paused; }
     @keyframes ticker-scroll {
@@ -182,39 +187,47 @@
       100% { transform: translateX(-50%); }
     }
     .tick-item {
-      font-size: 13px;
-      color: rgba(255,255,255,0.85);
+      font-size: 12px;
+      color: #475569;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      padding-right: 28px;
     }
+    .tick-sep { color: #cbd5e1; padding-right: 0; }
     .tick-tag {
       font-size: 10px;
       font-weight: 700;
-      padding: 2px 7px;
+      padding: 1px 6px;
       border-radius: 4px;
       flex-shrink: 0;
     }
-    .tick-red    { background: rgba(239,68,68,.25);  color: #fca5a5; }
-    .tick-blue   { background: rgba(37,99,235,.25);  color: #93c5fd; }
-    .tick-green  { background: rgba(5,150,105,.25);  color: #6ee7b7; }
-    .tick-orange { background: rgba(217,119,6,.25);  color: #fcd34d; }
-    .tick-purple { background: rgba(124,58,237,.25); color: #c4b5fd; }
+    .tick-red    { background: #fee2e2; color: #b91c1c; }
+    .tick-blue   { background: #dbeafe; color: #1d4ed8; }
+    .tick-green  { background: #dcfce7; color: #15803d; }
+    .tick-orange { background: #fef3c7; color: #b45309; }
+    .tick-purple { background: #f3e8ff; color: #7c3aed; }
     .ticker-link {
       flex-shrink: 0;
-      padding: 0 14px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
-      color: #34d399;
+      color: var(--color-secondary);
       text-decoration: none;
       white-space: nowrap;
-      border-left: 1px solid rgba(255,255,255,.1);
-      height: 100%;
-      display: flex;
-      align-items: center;
-      transition: background .15s;
+      padding: 3px 10px;
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      transition: all .15s;
     }
-    .ticker-link:hover { background: rgba(255,255,255,.05); }
+    .ticker-link:hover {
+      background: var(--color-secondary);
+      color: white;
+      border-color: var(--color-secondary);
+    }
+    .today-ticker-wrap {
+      background: white;
+      border-bottom: 1px solid var(--color-border);
+    }
 
     /* ===== 访客统计条 ===== */
     .visitor-stats-bar {
@@ -1179,20 +1192,30 @@
 </div>
 
 <!-- 今日快读横幅 -->
-<div class="today-ticker">
-  <div class="ticker-label">🔥 今日快读</div>
-  <div class="ticker-track-wrap">
-    <div class="ticker-track" id="tickerTrack">
-      <span class="tick-item"><span class="tick-tag tick-red">🏛️ 行业</span>马斯克诉OpenAI案全败 · 9名陪审员一致裁决&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <span class="tick-item"><span class="tick-tag tick-blue">🤝 并购</span>Anthropic收购Stainless · 补齐开发者工具生态&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <span class="tick-item"><span class="tick-tag tick-green">💰 企业</span>百度Q1营收321亿 · AI业务收入136亿占比42%&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <span class="tick-item"><span class="tick-tag tick-orange">📈 投资</span>京东AI研发投入增长超200% · 全场景融入6·18&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <span class="tick-item"><span class="tick-tag tick-purple">⚡ 算力</span>$670亿史上最大电力收购 · 专为AI数据中心供电&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <span class="tick-item"><span class="tick-tag tick-blue">⌨️ 工具</span>LangSmith Engine · Agent调试闭环自动化&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <span class="tick-item"><span class="tick-tag tick-green">🎬 内容</span>番茄小说AI动漫进院线 · 字节开放头部IP改编权&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<div class="today-ticker-wrap">
+  <div class="today-ticker">
+    <div class="ticker-label">🔥 TODAY</div>
+    <div class="ticker-divider"></div>
+    <div class="ticker-track-wrap">
+      <div class="ticker-track" id="tickerTrack">
+        <span class="tick-item"><span class="tick-tag tick-red">行业</span>马斯克诉OpenAI案 9:0 全败&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-blue">并购</span>Anthropic收购Stainless开发者工具&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-green">财报</span>百度Q1 AI迖321亿 · AI占比42%&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-orange">乱型</span>$670亿电力收购 · 专为AI算力供电&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>LangSmith Engine Agent调试闭环自动化&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-green">内容</span>番茄小说AI动漫进院线&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-orange">企业</span>京东AI投入+200% · 6·18全场景融入&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+      </div>
     </div>
+    <a class="ticker-link" href="01-daily-reports/2026-05/2026-05-19.html">查看日报 →</a>
   </div>
-  <a class="ticker-link" href="01-daily-reports/2026-05/2026-05-19.html">查看全部 →</a>
 </div>
 
 <!-- 导航 Tabs -->
