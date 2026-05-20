@@ -1144,11 +1144,195 @@
       text-decoration: none;
     }
     .footer-links a:hover { text-decoration: underline; }
+
+    /* ===== 深色模式 ===== */
+    body.dark-mode {
+      --color-bg: #0f172a;
+      --color-bg-card: #1e293b;
+      --color-text-primary: #f1f5f9;
+      --color-text-secondary: #94a3b8;
+      --color-text-muted: #64748b;
+      --color-border: #334155;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    body.dark-mode .today-ticker-wrap { background: #1e293b; }
+    body.dark-mode .tabs-wrapper { background: #0f172a; border-color: #334155; }
+    body.dark-mode .tab-btn { color: #94a3b8; }
+    body.dark-mode .tab-btn.active { background: #1e293b; color: #f1f5f9; }
+    body.dark-mode .tracking-cat-body { background: #1e293b; }
+    body.dark-mode .tracking-table th { background: #0f172a; color: #94a3b8; }
+    body.dark-mode .tracking-table td { border-color: #334155; }
+    body.dark-mode .tqn-btn { background: #334155; color: #94a3b8; border-color: #475569; }
+    body.dark-mode .header { background: #1e293b; border-color: #334155; }
+    body.dark-mode .brand-badge { background: #0f172a; border-color: #334155; color: #34d399; }
+    body.dark-mode .stat-card { background: #1e293b; border-color: #334155; }
+    body.dark-mode .report-card { background: #1e293b; border-color: #334155; }
+    body.dark-mode .research-section-stats { background: #1e293b; border-color: #334155; }
+    body.dark-mode .tl-card { background: #1e293b; border-color: #334155; }
+    body.dark-mode .tl-card:hover { background: #273549; }
+    body.dark-mode .cal-day { background: #1e293b; border-color: #334155; color: #94a3b8; }
+    body.dark-mode .cal-day.has-daily { background: #064e3b; color: #34d399; }
+    body.dark-mode .tag { background: #334155; color: #94a3b8; }
+    body.dark-mode .ticker-link { color: #34d399; border-color: #334155; }
+    body.dark-mode .ticker-link:hover { background: #34d399; color: #0f172a; }
+
+    /* 深色模式切换按钮 */
+    .dark-toggle {
+      position: fixed;
+      bottom: 24px;
+      left: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      z-index: 100;
+      transition: all var(--transition);
+    }
+    .dark-toggle:hover { transform: scale(1.1); box-shadow: var(--shadow-lg); }
+
+    /* ===== 搜索弹层 ===== */
+    .search-btn {
+      position: fixed;
+      bottom: 72px;
+      left: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: none;
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: white;
+      z-index: 100;
+      transition: all var(--transition);
+    }
+    .search-btn:hover { transform: scale(1.1); background: var(--color-primary-dark); }
+
+    .search-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.5);
+      z-index: 200;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 80px;
+    }
+    .search-overlay.open { display: flex; }
+
+    .search-box {
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: var(--shadow-lg);
+      margin: 0 16px;
+    }
+    .search-input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .search-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--color-primary); }
+    .search-close {
+      padding: 10px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: transparent;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--color-text-muted);
+    }
+    .search-close:hover { background: var(--color-bg); }
+    .search-results { max-height: 400px; overflow-y: auto; }
+    .search-result-item {
+      display: block;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      color: var(--color-text-primary);
+      border-bottom: 1px solid var(--color-border);
+      transition: background var(--transition);
+    }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: var(--color-bg); }
+    .sr-type { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-right: 6px; }
+    .sr-type-daily { background: #dcfce7; color: #166534; }
+    .sr-type-research { background: #dbeafe; color: #1e40af; }
+    .sr-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+    .sr-meta { font-size: 11px; color: var(--color-text-muted); }
+    .sr-highlight { background: #fef9c3; padding: 0 2px; border-radius: 2px; }
+    .search-empty { text-align: center; padding: 30px; color: var(--color-text-muted); font-size: 13px; }
+    .search-hint { font-size: 12px; color: var(--color-text-muted); text-align: center; padding: 8px 0 0; }
+
+    /* ===== RSS / 订阅入口 ===== */
+    .subscribe-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px 16px;
+      background: linear-gradient(90deg, #f0fdf4, #eff6ff);
+      border-bottom: 1px solid var(--color-border);
+      flex-wrap: wrap;
+    }
+    body.dark-mode .subscribe-bar { background: #1e293b; }
+    .subscribe-label { font-size: 12px; color: var(--color-text-muted); }
+    .subscribe-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid var(--color-border);
+      background: white;
+      color: var(--color-text-secondary);
+      transition: all var(--transition);
+    }
+    body.dark-mode .subscribe-btn { background: #334155; color: #94a3b8; }
+    .subscribe-btn:hover { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+    .subscribe-btn.rss { color: #d97706; border-color: #fed7aa; background: #fff7ed; }
+    .subscribe-btn.rss:hover { background: #d97706; color: white; border-color: #d97706; }
+    body.dark-mode .subscribe-btn.rss { background: #431407; border-color: #7c2d12; color: #fb923c; }
   </style>
 </head>
 <body>
 
 <div class="top-bar"></div>
+
+<!-- 订阅/RSS 横幅 -->
+<div class="subscribe-bar">
+  <span class="subscribe-label">📬 订阅 AI洞察，每日不错过：</span>
+  <a class="subscribe-btn rss" href="rss.xml" target="_blank">🟠 RSS 订阅</a>
+  <a class="subscribe-btn" href="https://github.com/daniel-xiaoyan/ai-insight-daily" target="_blank">⭐ GitHub 关注</a>
+  <a class="subscribe-btn" href="https://daniel-xiaoyan.github.io/ai-insight-daily/rss.xml" target="_blank">📋 复制 Feed 链接</a>
+</div>
 
 <!-- Header -->
 <header class="header">
@@ -2273,7 +2457,114 @@
     // 复制一份使滚动无缝
     track.innerHTML += track.innerHTML;
   })();
+
+  // ===== 深色模式 =====
+  (function() {
+    const btn = document.getElementById('darkToggle');
+    const saved = localStorage.getItem('ai_insight_dark');
+    if (saved === '1') { document.body.classList.add('dark-mode'); btn.textContent = '☀️'; }
+    btn.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('dark-mode');
+      btn.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('ai_insight_dark', isDark ? '1' : '0');
+    });
+  })();
+
+  // ===== 全局搜索 =====
+  (function() {
+    // 搜索数据索引：日报 + 深度调研
+    const searchIndex = [
+      // 深度调研
+      {type:'research',title:'2026年AI编程工具全景报告',desc:'Cursor·Trae·Copilot·CodeFlicker·Claude Code·Devin 12款工具8大维度横向对比',date:'2026-05-19',href:'02-deep-research/topics/ai-coding-tools-2026.html',tags:'编程 Cursor Trae CodeFlicker IDE Agent'},
+      {type:'research',title:'Anthropic深度调研：从安全信仰到企业Agent帝国',desc:'马斯克败诉、收购Stainless、Claude企业Agent战略全解析',date:'2026-05-19',href:'02-deep-research/companies/anthropic-deep-dive.html',tags:'Anthropic Claude Stainless 安全 企业'},
+      {type:'research',title:'字节跳动AI版图深度调研',desc:'豆包·Trae·可灵·即梦·番茄小说——字节8款AI产品全解析',date:'2026-05-19',href:'02-deep-research/companies/bytedance-ai-landscape.html',tags:'字节 豆包 Trae 可灵 即梦 番茄小说'},
+      {type:'research',title:'AI Agent 自动化落地的现状与趋势',desc:'企业AI Agent落地现状、技术架构、行业案例与ROI分析',date:'2026-05-11',href:'02-deep-research/topics/ai-agent-automation-2026.html',tags:'Agent 自动化 企业 落地 ROI'},
+      {type:'research',title:'AI范式转变：从工具到可编程认知的跨越',desc:'AI从独立目的地进化为隐形基础设施的底层逻辑',date:'2026-04-25',href:'02-deep-research/trends/ai-paradigm-shift-complete.html',tags:'范式 基础设施 趋势'},
+      {type:'research',title:'MCP协议全解：AI工具生态的新标准',desc:'Anthropic推出的Model Context Protocol架构设计与生态现状',date:'2026-04-22',href:'02-deep-research/topics/mcp-protocol-complete.html',tags:'MCP 协议 工具 Anthropic'},
+      {type:'research',title:'从AI大神的深度分享看2026年AI的下半场',desc:'综合10位AI领域思想领袖的核心观点，梳理三大趋势',date:'2026-04-20',href:'02-deep-research/trends/2026-ai-trends-complete.html',tags:'趋势 Agent 推理 具身智能'},
+      {type:'research',title:'OpenAI · $8400亿估值背后的战略全景',desc:'OpenAI产品矩阵、商业模式、竞争格局深度分析',date:'2026-04-18',href:'02-deep-research/companies/openai-gpt5-complete.html',tags:'OpenAI GPT-5 ChatGPT 估值 商业'},
+      {type:'research',title:'AI Coding工具演进全景：从补全到自主编程',desc:'AI编程工具5年演进史与未来方向',date:'2026-04-15',href:'02-deep-research/topics/ai-coding-evolution-complete.html',tags:'编程 补全 Copilot Cursor 演进'},
+      {type:'research',title:'Anthropic · MCP创建者的安全+商业双线战略',desc:'Anthropic产品、融资、安全研究全貌',date:'2026-04-12',href:'02-deep-research/companies/anthropic-complete.html',tags:'Anthropic Claude 安全 MCP'},
+      {type:'research',title:'Barry Zhang思想体系总结',desc:'Anthropic Applied AI负责人的AI应用方法论精华',date:'2026-03-28',href:'02-deep-research/people/barry-zhang-complete.html',tags:'Barry Zhang Anthropic 方法论'},
+      {type:'research',title:'AI Agent 团队落地指南（完整版）',desc:'企业落地AI Agent的4章完整方法论，12000字',date:'2026-03-20',href:'02-deep-research/topics/ai-agent-team-guide-complete.html',tags:'Agent 落地 团队 企业 方法论'},
+      {type:'research',title:'飞书 vs 钉钉 · 企业AI协作平台深度对比',desc:'两大国内企业协作平台的AI能力全面对比',date:'2026-03-15',href:'02-deep-research/topics/feishu-vs-dingtalk-complete.html',tags:'飞书 钉钉 企业 协作 AI'},
+      {type:'research',title:'字节跳动 AI 开挂指南',desc:'字节内部AI工具应用与工程文化深度解析',date:'2026-03-10',href:'02-deep-research/companies/bytedance-ai-complete.html',tags:'字节 工具 工程 文化'},
+      {type:'research',title:'软件工程3.0：AI时代的开发范式革命',desc:'从Karpathy的LLM OS到AI Native应用架构',date:'2026-03-05',href:'02-deep-research/trends/software3-complete.html',tags:'软件 工程 LLM OS Karpathy 范式'},
+      {type:'research',title:'纳瓦尔 Naval Ravikant 的AI认知框架',desc:'从财富创造到AI时代的个人认知升级',date:'2026-02-20',href:'02-deep-research/people/naval-ai-complete.html',tags:'Naval 认知 财富 AGI'},
+      {type:'research',title:'AI Agent平台对比：Coze vs Dify vs FastGPT',desc:'三大国内主流Agent开发平台全面横向对比',date:'2026-02-10',href:'02-deep-research/topics/coze-vs-dify-complete.html',tags:'Coze Dify FastGPT Agent 平台'},
+      // 5月日报
+      {type:'daily',title:'2026年5月20日 AI日报',desc:'最新AI行业动态',date:'2026-05-20',href:'01-daily-reports/2026-05/2026-05-20.html',tags:''},
+      {type:'daily',title:'2026年5月19日 AI日报',desc:'英伟达B300·Gemini 2.0 Ultra·企业AI落地ROI',date:'2026-05-19',href:'01-daily-reports/2026-05/2026-05-19.html',tags:'英伟达 Gemini 企业AI'},
+      {type:'daily',title:'2026年5月18日 AI日报',desc:'AI行业动态',date:'2026-05-18',href:'01-daily-reports/2026-05/2026-05-18.html',tags:''},
+      {type:'daily',title:'2026年5月17日 AI日报',desc:'AI行业动态',date:'2026-05-17',href:'01-daily-reports/2026-05/2026-05-17.html',tags:''},
+      {type:'daily',title:'2026年5月16日 AI日报',desc:'AI行业动态',date:'2026-05-16',href:'01-daily-reports/2026-05/2026-05-16.html',tags:''},
+      {type:'daily',title:'2026年5月15日 AI日报',desc:'AI行业动态',date:'2026-05-15',href:'01-daily-reports/2026-05/2026-05-15.html',tags:''},
+    ];
+
+    const overlay = document.getElementById('searchOverlay');
+    const input = document.getElementById('searchInput');
+    const results = document.getElementById('searchResults');
+    const openBtn = document.getElementById('searchBtn');
+    const closeBtn = document.getElementById('searchClose');
+
+    function openSearch() { overlay.classList.add('open'); input.focus(); input.select(); }
+    function closeSearch() { overlay.classList.remove('open'); }
+
+    openBtn.addEventListener('click', openSearch);
+    closeBtn.addEventListener('click', closeSearch);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeSearch(); });
+
+    // Ctrl+K / Cmd+K 快捷键
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
+      if (e.key === 'Escape') closeSearch();
+    });
+
+    function highlight(text, q) {
+      if (!q) return text;
+      const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+      return text.replace(re, '<mark class="sr-highlight">$1</mark>');
+    }
+
+    input.addEventListener('input', function() {
+      const q = this.value.trim();
+      if (!q) { results.innerHTML = '<div class="search-empty">输入关键词搜索日报和调研报告</div>'; return; }
+      const hits = searchIndex.filter(item =>
+        item.title.toLowerCase().includes(q.toLowerCase()) ||
+        item.desc.toLowerCase().includes(q.toLowerCase()) ||
+        item.tags.toLowerCase().includes(q.toLowerCase())
+      );
+      if (!hits.length) { results.innerHTML = '<div class="search-empty">没有找到相关内容，试试其他关键词</div>'; return; }
+      results.innerHTML = hits.map(item => `
+        <a class="search-result-item" href="${item.href}">
+          <div class="sr-title">
+            <span class="sr-type ${item.type === 'daily' ? 'sr-type-daily' : 'sr-type-research'}">${item.type === 'daily' ? '日报' : '调研'}</span>
+            ${highlight(item.title, q)}
+          </div>
+          <div class="sr-meta">${item.date} · ${highlight(item.desc, q)}</div>
+        </a>
+      `).join('');
+    });
+    // 初始提示
+    results.innerHTML = '<div class="search-empty">输入关键词搜索日报和调研报告</div>';
+  })();
 </script>
+
+<!-- 搜索弹层 -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-box">
+    <div class="search-input-row">
+      <input class="search-input" id="searchInput" type="text" placeholder="搜索日报、调研报告… (Ctrl+K)">
+      <button class="search-close" id="searchClose">✕ 关闭</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+    <div class="search-hint">按 Esc 关闭 · Ctrl+K 快速打开</div>
+  </div>
+</div>
+
+<!-- 搜索 & 深色模式 浮动按钮 -->
+<button class="search-btn" id="searchBtn" title="搜索 (Ctrl+K)">🔍</button>
+<button class="dark-toggle" id="darkToggle" title="切换深色模式">🌙</button>
 
 <!-- Vercount 访客统计 -->
 <script defer src="https://events.vercount.one/js"></script>

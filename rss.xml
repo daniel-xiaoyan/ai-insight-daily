@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI洞察 · 熏儿出品</title>
+    <link>https://daniel-xiaoyan.github.io/ai-insight-daily/</link>
+    <description>系统化追踪AI行业动态，每日/每周输出调研洞察，帮助你保持对AI行业的全局视野。每天10:00自动更新。</description>
+    <language>zh-CN</language>
+    <atom:link href="https://daniel-xiaoyan.github.io/ai-insight-daily/rss.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Tue, 20 May 2026 10:00:00 +0800</lastBuildDate>
+    <image>
+      <url>https://daniel-xiaoyan.github.io/ai-insight-daily/favicon.ico</url>
+      <title>AI洞察</title>
+      <link>https://daniel-xiaoyan.github.io/ai-insight-daily/</link>
+    </image>
+
+    <item>
+      <title>2026年5月20日 AI日报</title>
+      <link>https://daniel-xiaoyan.github.io/ai-insight-daily/01-daily-reports/2026-05/2026-05-20.html</link>
+      <description>最新AI行业动态 · 每日精选50+条资讯</description>
+      <pubDate>Wed, 20 May 2026 10:00:00 +0800</pubDate>
+      <guid>https://daniel-xiaoyan.github.io/ai-insight-daily/01-daily-reports/2026-05/2026-05-20.html</guid>
+    </item>
+
+    <item>
+      <title>2026年5月19日 AI日报</title>
+      <link>https://daniel-xiaoyan.github.io/ai-insight-daily/01-daily-reports/2026-05/2026-05-19.html</link>
+      <description>英伟达B300发布·AI算力军备竞赛新纪元·Gemini 2.0 Ultra 200万token上下文·企业AI落地ROI全面兑现</description>
+      <pubDate>Tue, 19 May 2026 10:00:00 +0800</pubDate>
+      <guid>https://daniel-xiaoyan.github.io/ai-insight-daily/01-daily-reports/2026-05/2026-05-19.html</guid>
+    </item>
+
+    <item>
+      <title>【深度调研】2026年AI编程工具全景报告</title>
+      <link>https://daniel-xiaoyan.github.io/ai-insight-daily/02-deep-research/topics/ai-coding-tools-2026.html</link>
+      <description>Cursor·Trae·Copilot·CodeFlicker·Claude Code·Devin——12款工具8大维度横向对比，谁在重新定义程序员的工作方式</description>
+      <pubDate>Mon, 19 May 2026 12:00:00 +0800</pubDate>
+      <guid>https://daniel-xiaoyan.github.io/ai-insight-daily/02-deep-research/topics/ai-coding-tools-2026.html</guid>
+    </item>
+
+    <item>
+      <title>【深度调研】Anthropic深度调研：从安全信仰到企业Agent帝国</title>
+      <link>https://daniel-xiaoyan.github.io/ai-insight-daily/02-deep-research/companies/anthropic-deep-dive.html</link>
+      <description>马斯克败诉、收购Stainless、Claude企业Agent战略——2026年5月最热的AI公司全解析，含商业模式与竞争分析</description>
+      <pubDate>Mon, 19 May 2026 14:00:00 +0800</pubDate>
+      <guid>https://daniel-xiaoyan.github.io/ai-insight-daily/02-deep-research/companies/anthropic-deep-dive.html</guid>
+    </item>
+
+    <item>
+      <title>【深度调研】字节跳动AI版图深度调研</title>
+      <link>https://daniel-xiaoyan.github.io/ai-insight-daily/02-deep-research/companies/bytedance-ai-landscape.html</link>
+      <description>豆包·Trae·可灵·即梦·番茄小说——字节8款AI产品全解析，中国最全面AI军团的战略逻辑与护城河分析</description>
+      <pubDate>Mon, 19 May 2026 16:00:00 +0800</pubDate>
+      <guid>https://daniel-xiaoyan.github.io/ai-insight-daily/02-deep-research/companies/bytedance-ai-landscape.html</guid>
+    </item>
+
+    <item>
+      <title>AI 周报 · 第20周（5.11 - 5.17）</title>
+      <link>https://daniel-xiaoyan.github.io/ai-insight-daily/01-daily-reports/2026-05/weekly-w20.html</link>
+      <description>Google I/O 预热·OpenAI 企业版定价·Claude 3.5 性能优化·国内大模型动态·本周五大关键事件总结</description>
+      <pubDate>Sun, 17 May 2026 20:00:00 +0800</pubDate>
+      <guid>https://daniel-xiaoyan.github.io/ai-insight-daily/01-daily-reports/2026-05/weekly-w20.html</guid>
+    </item>
+
+    <item>
+      <title>2026年5月18日 AI日报</title>
+      <link>https://daniel-xiaoyan.github.io/ai-insight-daily/01-daily-reports/2026-05/2026-05-18.html</link>
+      <description>AI行业每日精选资讯</description>
+      <pubDate>Sun, 18 May 2026 10:00:00 +0800</pubDate>
+      <guid>https://daniel-xiaoyan.github.io/ai-insight-daily/01-daily-reports/2026-05/2026-05-18.html</guid>
+    </item>
+
+    <item>
+      <title>2026年5月17日 AI日报</title>
+      <link>https://daniel-xiaoyan.github.io/ai-insight-daily/01-daily-reports/2026-05/2026-05-17.html</link>
+      <description>AI行业每日精选资讯</description>
+      <pubDate>Sat, 17 May 2026 10:00:00 +0800</pubDate>
+      <guid>https://daniel-xiaoyan.github.io/ai-insight-daily/01-daily-reports/2026-05/2026-05-17.html</guid>
+    </item>
+
+    <item>
+      <title>【深度调研】AI Agent 自动化落地的现状与趋势</title>
+      <link>https://daniel-xiaoyan.github.io/ai-insight-daily/02-deep-research/topics/ai-agent-automation-2026.html</link>
+      <description>深度解析企业AI Agent落地现状、技术架构、行业案例与未来趋势，含详细ROI分析和行动建议</description>
+      <pubDate>Sun, 11 May 2026 12:00:00 +0800</pubDate>
+      <guid>https://daniel-xiaoyan.github.io/ai-insight-daily/02-deep-research/topics/ai-agent-automation-2026.html</guid>
+    </item>
+
+  </channel>
+</rss>
