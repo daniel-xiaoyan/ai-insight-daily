@@ -195,8 +195,10 @@
     }
     .insight-charts {
       display: grid;
-      grid-template-columns: 1.6fr 1fr;
+      grid-template-columns: 1fr;
       gap: 14px;
+      max-width: 720px;
+      margin: 0 auto;
     }
     @media (max-width: 768px) {
       .insight-charts { grid-template-columns: 1fr; }
@@ -1561,21 +1563,7 @@
 <!-- 数据图表区 -->
 <div class="insight-chart-section">
   <div class="insight-charts">
-    <!-- 左：近30天日报数量曲线 -->
-    <div class="insight-chart-card">
-      <div class="icc-header">
-        <div class="icc-title">📊 近30天日报抓取量</div>
-        <div class="icc-meta">每日 RSS 抓取条数</div>
-      </div>
-      <div class="icc-bars" id="iccBars"></div>
-      <div class="icc-x">
-        <span>30天前</span>
-        <span>15天前</span>
-        <span>今天</span>
-      </div>
-    </div>
-
-    <!-- 右：话题热度分布 -->
+    <!-- 话题热度分布 -->
     <div class="insight-chart-card">
       <div class="icc-header">
         <div class="icc-title">🔥 话题热度分布</div>
@@ -2831,44 +2819,8 @@
       requestAnimationFrame(frame);
     }
 
-    // 2. 柱状图：模拟近30天日报抓取量（35-65 区间随机+周末略低，呈上升趋势）
-    function buildBars() {
-      const container = document.getElementById('iccBars');
-      if (!container) return;
-      const today = new Date();
-      const data = [];
-      // 用日期作为种子，让数据每天稳定但自然变化
-      function pseudoRand(seed) {
-        const x = Math.sin(seed * 12.9898) * 43758.5453;
-        return x - Math.floor(x);
-      }
-      for (let i = 29; i >= 0; i--) {
-        const d = new Date(today);
-        d.setDate(today.getDate() - i);
-        const seed = d.getDate() + d.getMonth() * 31;
-        const dow = d.getDay();
-        const isWeekend = (dow === 0 || dow === 6);
-        // 基础值 + 趋势上升 + 随机波动 + 周末略低
-        const trend = 38 + (29 - i) * 0.6;
-        const noise = pseudoRand(seed) * 18 - 9;
-        const weekendDip = isWeekend ? -8 : 0;
-        const value = Math.round(Math.max(20, Math.min(70, trend + noise + weekendDip)));
-        data.push({ date: d, value });
-      }
-      const max = Math.max(...data.map(d => d.value));
-      const todayIdx = data.length - 1;
-      let html = '';
-      data.forEach((d, idx) => {
-        const h = (d.value / max) * 100;
-        const dateStr = (d.date.getMonth() + 1) + '/' + d.date.getDate();
-        const cls = idx === todayIdx ? 'icc-bar highlight' : 'icc-bar';
-        html += `<div class="${cls}" style="height:0%" data-target="${h}">
-          <span class="icc-bar-tip">${dateStr}: ${d.value}条</span>
-        </div>`;
-      });
-      container.innerHTML = html;
-    }
-    buildBars();
+    // 2. 柱状图：移除（已删除30天日报抓取量）
+    function buildBars() { /* removed */ }
 
     // 3. 启动动画的统一函数
     let started = false;
@@ -2880,15 +2832,7 @@
         const target = parseInt(el.dataset.target, 10);
         animateNumber(el, target);
       });
-      // 柱状图爬升
-      setTimeout(() => {
-        document.querySelectorAll('.icc-bar').forEach((bar, idx) => {
-          setTimeout(() => {
-            bar.style.transition = 'height 0.7s cubic-bezier(.4,0,.2,1)';
-            bar.style.height = bar.dataset.target + '%';
-          }, idx * 22);
-        });
-      }, 200);
+      // 柱状图爬升（已移除）
       // 话题进度条
       setTimeout(() => {
         document.querySelectorAll('.topic-bar').forEach(bar => {
