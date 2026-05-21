@@ -189,16 +189,13 @@
 
     /* ===== 数据图表区 ===== */
     .insight-chart-section {
-      max-width: 1100px;
-      margin: 24px auto 0;
-      padding: 0 16px;
+      margin: 16px 0 0;
+      padding: 0;
     }
     .insight-charts {
       display: grid;
       grid-template-columns: 1fr;
       gap: 14px;
-      max-width: 720px;
-      margin: 0 auto;
     }
     @media (max-width: 768px) {
       .insight-charts { grid-template-columns: 1fr; }
@@ -1560,51 +1557,6 @@
   </div>
 </div>
 
-<!-- 数据图表区 -->
-<div class="insight-chart-section">
-  <div class="insight-charts">
-    <!-- 话题热度分布 -->
-    <div class="insight-chart-card">
-      <div class="icc-header">
-        <div class="icc-title">🔥 话题热度分布</div>
-        <div class="icc-meta">本月新闻分类占比</div>
-      </div>
-      <div class="topic-list">
-        <div class="topic-row">
-          <span class="topic-emoji">💼</span>
-          <span class="topic-name">行业动态</span>
-          <div class="topic-bar-wrap"><div class="topic-bar bar-orange" data-pct="32"></div></div>
-          <span class="topic-pct">32%</span>
-        </div>
-        <div class="topic-row">
-          <span class="topic-emoji">🧠</span>
-          <span class="topic-name">大模型</span>
-          <div class="topic-bar-wrap"><div class="topic-bar" data-pct="24"></div></div>
-          <span class="topic-pct">24%</span>
-        </div>
-        <div class="topic-row">
-          <span class="topic-emoji">⌨️</span>
-          <span class="topic-name">AI编程</span>
-          <div class="topic-bar-wrap"><div class="topic-bar bar-purple" data-pct="20"></div></div>
-          <span class="topic-pct">20%</span>
-        </div>
-        <div class="topic-row">
-          <span class="topic-emoji">🎨</span>
-          <span class="topic-name">AI应用</span>
-          <div class="topic-bar-wrap"><div class="topic-bar bar-blue" data-pct="14"></div></div>
-          <span class="topic-pct">14%</span>
-        </div>
-        <div class="topic-row">
-          <span class="topic-emoji">🏢</span>
-          <span class="topic-name">企业落地</span>
-          <div class="topic-bar-wrap"><div class="topic-bar bar-pink" data-pct="10"></div></div>
-          <span class="topic-pct">10%</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- 关于折叠区 -->
 <div class="about-section">
   <button class="about-toggle" id="aboutToggle" onclick="toggleAbout()">
@@ -1737,6 +1689,50 @@
         <div class="legend-item"><div class="legend-dot weekly"></div> 有周报</div>
         <div class="legend-item"><div class="legend-dot today"></div> 今天</div>
         <div class="calendar-count" id="calendarCount"></div>
+      </div>
+    </div>
+
+    <!-- 月度话题分布（与日历同属月度维度） -->
+    <div class="insight-chart-section">
+      <div class="insight-charts">
+        <div class="insight-chart-card">
+          <div class="icc-header">
+            <div class="icc-title">🔥 话题热度分布</div>
+            <div class="icc-meta">本月新闻分类占比</div>
+          </div>
+          <div class="topic-list">
+            <div class="topic-row">
+              <span class="topic-emoji">💼</span>
+              <span class="topic-name">行业动态</span>
+              <div class="topic-bar-wrap"><div class="topic-bar bar-orange" data-pct="32"></div></div>
+              <span class="topic-pct">32%</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-emoji">🧠</span>
+              <span class="topic-name">大模型</span>
+              <div class="topic-bar-wrap"><div class="topic-bar" data-pct="24"></div></div>
+              <span class="topic-pct">24%</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-emoji">⌨️</span>
+              <span class="topic-name">AI编程</span>
+              <div class="topic-bar-wrap"><div class="topic-bar bar-purple" data-pct="20"></div></div>
+              <span class="topic-pct">20%</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-emoji">🎨</span>
+              <span class="topic-name">AI应用</span>
+              <div class="topic-bar-wrap"><div class="topic-bar bar-blue" data-pct="14"></div></div>
+              <span class="topic-pct">14%</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-emoji">🏢</span>
+              <span class="topic-name">企业落地</span>
+              <div class="topic-bar-wrap"><div class="topic-bar bar-pink" data-pct="10"></div></div>
+              <span class="topic-pct">10%</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
