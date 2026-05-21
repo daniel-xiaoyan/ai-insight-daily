@@ -66,6 +66,18 @@
     .pn-btn{flex:1;background:white;border:1px solid var(--border2);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--text);display:block;transition:box-shadow .15s,border-color .15s}
     .pn-btn:hover{box-shadow:var(--shadow-md);border-color:var(--green)}
     .pn-label{font-size:11px;color:var(--text-muted);margin-bottom:3px}.pn-title{font-size:13px;font-weight:600}
+    .related-card{background:white;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-top:8px}
+    .related-header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,#f0fdf4,#eff6ff)}
+    .related-title{font-size:15px;font-weight:700;color:var(--text-dark)}
+    .related-subtitle{font-size:12px;color:var(--text-muted);margin-left:auto}
+    .related-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px}
+    @media(max-width:600px){.related-list{grid-template-columns:1fr}}
+    .related-item{display:flex;gap:10px;padding:10px 12px;border:1px solid var(--border2);border-radius:10px;text-decoration:none;color:var(--text);transition:all .15s;background:#fafbfc}
+    .related-item:hover{border-color:var(--green);box-shadow:var(--shadow-md);transform:translateY(-1px)}
+    .related-icon{width:32px;height:32px;border-radius:8px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+    .related-content{flex:1;min-width:0}
+    .related-name{font-size:13px;font-weight:600;color:var(--text-dark);line-height:1.4;margin-bottom:3px}
+    .related-desc{font-size:11px;color:var(--text-muted);line-height:1.4;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
     .back-top{position:fixed;bottom:24px;right:20px;background:var(--green);color:white;border:none;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;box-shadow:var(--shadow-md);z-index:99}
   </style>
 </head>
@@ -102,7 +114,7 @@
       </div>
       <div class="hero-date">📅 2026年5月21日 · 周四</div>
       <div class="hero-stats">
-        <span class="hero-stat-badge">🌐 海外 14条 · 国内 9条</span>
+        <span class="hero-stat-badge">🌐 海外 10条 · 国内 9条</span>
         <span class="hero-stat-badge">📊 五大板块覆盖</span>
         <span class="hero-stat-badge">🔬 熏儿出品 · RSS自动聚合</span>
       </div>
@@ -118,7 +130,7 @@
           <tbody>
             <tr>
               <td class="hot-rank">🥇</td>
-              <td><div class="hot-topic">‘Ask YouTube’ brings...</div></td>
+              <td><div class="hot-topic">Gemini Spark Is Goog...</div></td>
               <td><div class="heat-bar"><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span></div></td>
               <td>3天</td>
               <td>🔥 热门</td>
@@ -126,7 +138,7 @@
             </tr>
             <tr>
               <td class="hot-rank">🥈</td>
-              <td><div class="hot-topic">How to use Google’s ...</div></td>
+              <td><div class="hot-topic">Google's Managed Age...</div></td>
               <td><div class="heat-bar"><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span></div></td>
               <td>5天</td>
               <td>📈 上升</td>
@@ -174,49 +186,13 @@
               <div class="news-item">
                 <div class="news-item-top">
                   <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://techcrunch.com/2026/05/19/ask-youtube-brings-ai-powered-conversational-search-to-video-adds-gemini-omni-to-shorts/" target="_blank" rel="noopener">‘Ask YouTube’ brings AI-powered conversational search to video, adds Gemini Omni to Shorts</a>
-                </div>
-                <div class="news-source">来源：TechCrunch</div>
-                <div class="news-desc">Google is completely revamping its search experience, and that doesn't stop at YouTube.</div>
-                <div class="news-comment">🧠 模型能力持续迭代，但关键问题是：这次升级能解决哪个真实业务痛点？</div>
-              </div>
-              <div class="news-item">
-                <div class="news-item-top">
-                  <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://venturebeat.com/orchestration/claude-agents-can-finally-connect-to-enterprise-apis-without-leaking-credentials" target="_blank" rel="noopener">Claude agents can finally connect to enterprise APIs without leaking credentials</a>
-                </div>
-                <div class="news-source">来源：VentureBeat</div>
-                <div class="news-desc">The reason enterprises have been slow to connect AI agents to internal APIs and databases isn&#x27;t the models — it&#x27;s the credentials. In most p</div>
-                <div class="news-comment">🧠 模型能力持续迭代，但关键问题是：这次升级能解决哪个真实业务痛点？</div>
-              </div>
-              <div class="news-item">
-                <div class="news-item-top">
-                  <span class="news-repeat">昨日续</span>
-                  <a class="news-title-link" href="https://venturebeat.com/technology/google-says-gemini-3-5-flash-can-slash-enterprise-ai-costs-by-more-than-1-billion-a-year" target="_blank" rel="noopener">Google says Gemini 3.5 Flash can slash enterprise AI costs by more than $1 billion a year</a>
-                </div>
-                <div class="news-source">来源：VentureBeat</div>
-                <div class="news-desc">Google unveiled Gemini 3.5 Flash at its annual I/O developer conf</div>
-                <div class="news-comment">🧠 模型能力持续迭代，但关键问题是：这次升级能解决哪个真实业务痛点？</div>
-              </div>
-              <div class="news-item">
-                <div class="news-item-top">
-                  <span class="news-new">TODAY</span>
                   <a class="news-title-link" href="https://www.wired.com/story/googles-response-to-openclaws-24-7-ai-agent/" target="_blank" rel="noopener">Gemini Spark Is Google’s Response to OpenClaw’s 24/7 AI Agent</a>
                 </div>
                 <div class="news-source">来源：WIRED</div>
                 <div class="news-desc">Google’s always-running, data-hungry AI agent is designed to spend your money and send your emails.</div>
                 <div class="news-comment">🧠 模型能力持续迭代，但关键问题是：这次升级能解决哪个真实业务痛点？</div>
               </div></div></div>
-          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items">
-              <div class="news-item">
-                <div class="news-item-top">
-                  <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://www.qbitai.com/2026/05/420753.html" target="_blank" rel="noopener">智象未来超两千亿参数图像大模型HiDream-O1-Image-Pro发布，融资持续提速</a>
-                </div>
-                <div class="news-source">来源：量子位</div>
-                <div class="news-desc">向世界模型进发。</div>
-                <div class="news-comment">💰 资本持续涌入，头部效应加剧。融资不等于成功，商业化落地才是真考验。</div>
-              </div></div></div>
+          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items"><div class="news-empty">暂无相关资讯</div></div></div>
         </div>
       </div>
     </div>
@@ -234,10 +210,10 @@
               <div class="news-item">
                 <div class="news-item-top">
                   <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://techcrunch.com/2026/05/19/how-to-use-googles-new-ai-agents-to-go-beyond-your-standard-searches/" target="_blank" rel="noopener">How to use Google’s new AI agents to go beyond your standard searches</a>
+                  <a class="news-title-link" href="https://venturebeat.com/orchestration/googles-managed-agents-api-promises-one-call-deployment-at-the-cost-of-execution-layer-control" target="_blank" rel="noopener">Google's Managed Agents API promises one-call deployment at the cost of execution layer control</a>
                 </div>
-                <div class="news-source">来源：TechCrunch</div>
-                <div class="news-desc">Google is launching AI-powered “information agents” that can monitor topics in the background and proactively alert users to updates and changes.</div>
+                <div class="news-source">来源：VentureBeat</div>
+                <div class="news-desc">At Google I/O, the company unveiled Managed Agents in its Gemini API — a service that promises to collapse weeks of agent deployment work into a singl</div>
                 <div class="news-comment">⌨️ AI Coding工具军备竞赛持续升温，开发者效率正在被重新定义。</div>
               </div>
               <div class="news-item">
@@ -266,26 +242,24 @@
                 <div class="news-source">来源：VentureBeat</div>
                 <div class="news-desc">The creators of NanoClaw — the hit open source, enterprise-friendly variant of autonomous AI agent harness OpenClaw — are moving towards commercializi</div>
                 <div class="news-comment">🌐 开源加速AI生态建设，但开源≠免费——算力、部署、维护都需要成本。</div>
-              </div>
-              <div class="news-item">
-                <div class="news-item-top">
-                  <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://venturebeat.com/infrastructure/aws-nabs-white-hot-gen-ai-media-creation-startup-fal-becoming-its-preferred-cloud-provider" target="_blank" rel="noopener">AWS nabs white hot gen AI media creation startup fal, becoming its preferred cloud provider</a>
-                </div>
-                <div class="news-source">来源：VentureBeat</div>
-                <div class="news-desc">Generative AI’s rapid transition from text-based chatbots to high-fidelity media—spanning images, video, spatial 3D, and audio—has exposed a glaring b</div>
-                <div class="news-comment">⌨️ AI Coding工具军备竞赛持续升温，开发者效率正在被重新定义。</div>
               </div></div></div>
           <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items">
               <div class="news-item">
                 <div class="news-item-top">
                   <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://36kr.com/p/3817353357968516?f=rss" target="_blank" rel="noopener">第四届中国AIGC产业峰会在京顺利举办！近20位行业大咖解码Agent与非共识机遇</a>
+                  <a class="news-title-link" href="https://www.qbitai.com/2026/05/422001.html" target="_blank" rel="noopener">风行在线CEO易正朝：先全员Coding，再All in众创丨AIGC2026</a>
                 </div>
-                <div class="news-source">来源：36Kr</div>
-                <div class="news-desc">今日，由量子位主办的第四届中国AIGC产业峰会在京启幕。
-  2026年，AI产业一路高歌猛进。从“龙虾”到“Harness”，爆款Agent接连出圈、风靡全网。面对层出不穷的新业态与新玩法，不少从业者和普通用户都感到困惑：如何找准AI的使用方式？怎样把握产业机遇？又该如何跟上行业发展的步伐？
-  </div>
+                <div class="news-source">来源：量子位</div>
+                <div class="news-desc">AI会放大“自嗨”，解药只有交付结果</div>
+                <div class="news-comment">⌨️ AI Coding工具军备竞赛持续升温，开发者效率正在被重新定义。</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://www.qbitai.com/2026/05/421697.html" target="_blank" rel="noopener">上海交大AI教授亲授：半天带你拆解Agent底层逻辑</a>
+                </div>
+                <div class="news-source">来源：量子位</div>
+                <div class="news-desc">周日来北京线下揭秘</div>
                 <div class="news-comment">⌨️ AI Coding工具军备竞赛持续升温，开发者效率正在被重新定义。</div>
               </div></div></div>
         </div>
@@ -302,7 +276,21 @@
       <div class="sc-body">
         <div class="news-section-wrap">
           <div class="region-group"><div class="region-title">🌏 海外</div><div class="news-items"><div class="news-empty">暂无相关资讯</div></div></div>
-          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items"><div class="news-empty">暂无相关资讯</div></div></div>
+          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items">
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://36kr.com/p/3818450346738823?f=rss" target="_blank" rel="noopener">9亿次点击背后，AI应用的真实江湖｜2026中国AI应用全景图谱报告</a>
+                </div>
+                <div class="news-source">来源：36Kr</div>
+                <div class="news-desc">有一个问题，值得在2026年认真问一次——
+  你上一次用AI应用，是让它回答了一个问题，还是让它完成了一件事？
+  这两个动作之间，隔着一个时代。
+  2026年，AI应用的产品范式，正在从「聊天」走向「做事」。
+  这不是预言，是已经发生的现实。
+  从「回答」到「执行」，背后的数据是怎样的？推</div>
+                <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
+              </div></div></div>
         </div>
       </div>
     </div>
@@ -320,95 +308,102 @@
               <div class="news-item">
                 <div class="news-item-top">
                   <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://techcrunch.com/2026/05/20/irisgo-a-startup-backed-by-andrew-ng-looks-to-become-the-ai-desktop-buddy-you-never-knew-you-needed/" target="_blank" rel="noopener">IrisGo, a startup backed by Andrew Ng, looks to become the AI desktop buddy you never knew you needed</a>
+                  <a class="news-title-link" href="https://techcrunch.com/2026/05/20/imperagen-raises-5-million-to-redefine-enzyme-engineering/" target="_blank" rel="noopener">Imperagen raises £5 million to use quantum physics, AI on enzyme engineering</a>
                 </div>
                 <div class="news-source">来源：TechCrunch</div>
-                <div class="news-desc">Initially billed as an "AI butler," Iris watches what happens on a user's desktop and automatically learns how to do tasks for them, its co-founder sa</div>
+                <div class="news-desc">Biotech company Imperagen announced on Thursday a £5 million ($6.7 million) seed round led by PXN Ventures, with participation from IQ Capital and Nor</div>
                 <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
               </div>
               <div class="news-item">
                 <div class="news-item-top">
                   <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://techcrunch.com/2026/05/20/airbnb-gets-into-hotels-expands-ai-for-host-onboarding-and-customer-support/" target="_blank" rel="noopener">Airbnb gets into hotels, expands AI for host onboarding and customer support</a>
+                  <a class="news-title-link" href="https://techcrunch.com/2026/05/20/anthropic-says-its-about-to-have-its-first-profitable-quarter/" target="_blank" rel="noopener">Anthropic says it’s about to have its first profitable quarter</a>
                 </div>
                 <div class="news-source">来源：TechCrunch</div>
-                <div class="news-desc">Airbnb will soon let you book luggage storage and car rental services on its app.</div>
+                <div class="news-desc">Anthropic has told its investors that it will more than double revenue to around $10.9 billion in its second quarter.</div>
                 <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
               </div>
               <div class="news-item">
                 <div class="news-item-top">
                   <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://techcrunch.com/2026/05/20/openai-barrels-toward-ipo-that-may-happen-in-september/" target="_blank" rel="noopener">OpenAI barrels toward IPO that may happen in September</a>
+                  <a class="news-title-link" href="https://techcrunch.com/2026/05/20/the-spacex-ipo-filing-ai-bets-starship-dreams-elon-musk/" target="_blank" rel="noopener">The SpaceX IPO filing is filled with AI bets, Starship dreams, and Elon Musk at the center</a>
                 </div>
                 <div class="news-source">来源：TechCrunch</div>
-                <div class="news-desc">A day after Elon Musk lost his lawsuit that threatened OpenAI's structure, leadership, and finances, OpenAI is reportedly back to prepping for its IPO</div>
+                <div class="news-desc">SpaceX has finally made the contents of its IPO filing public, weeks ahead of what is expected to be the largest IPO ever and one that will make Musk </div>
                 <div class="news-comment">💰 资本持续涌入，头部效应加剧。融资不等于成功，商业化落地才是真考验。</div>
               </div>
               <div class="news-item">
                 <div class="news-item-top">
                   <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://techcrunch.com/2026/05/20/intuit-to-lay-off-over-3000-employees-to-refocus-on-ai/" target="_blank" rel="noopener">Intuit to lay off over 3,000 employees to refocus on AI</a>
+                  <a class="news-title-link" href="https://techcrunch.com/2026/05/20/xai-burned-6-4b-last-year-spacexs-ipo-filing-shows-why-the-spending-is-far-from-over/" target="_blank" rel="noopener">xAI burned $6.4B last year — SpaceX’s IPO filing shows why the spending is far from over</a>
                 </div>
                 <div class="news-source">来源：TechCrunch</div>
-                <div class="news-desc">In a memo to employees, CEO Sasan Goodarzi said the layoffs are meant to reduce complexity, simplify the company's corporate structure, and deliver be</div>
-                <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
+                <div class="news-desc">SpaceX's IPO filing reveals xAI lost $6.4 billion in 2025 while planning a massive Grok expansion — offering the first public look at Elon Musk's AI f</div>
+                <div class="news-comment">💰 资本持续涌入，头部效应加剧。融资不等于成功，商业化落地才是真考验。</div>
               </div>
               <div class="news-item">
                 <div class="news-item-top">
                   <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://techcrunch.com/2026/05/20/ai-search-startups-are-blowing-up/" target="_blank" rel="noopener">AI search startups are blowing up</a>
+                  <a class="news-title-link" href="https://techcrunch.com/2026/05/20/musks-xai-is-being-sued-over-its-data-center-generators-now-its-buying-2-8b-more/" target="_blank" rel="noopener">Musk’s xAI is being sued over its data center generators — now it’s buying $2.8B more</a>
                 </div>
                 <div class="news-source">来源：TechCrunch</div>
-                <div class="news-desc">AI search has quietly become one of the most attractive targets in consumer AI.</div>
-                <div class="news-comment">🔍 AI搜索正在重构信息获取方式，但准确性和实时性仍是最大挑战。</div>
+                <div class="news-desc">Elon Musk's xAI said it will buy $2.8 billion worth of natural gas turbines over the next three years, according to SpaceX's IPO filing.</div>
+                <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
               </div></div></div>
           <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items">
               <div class="news-item">
                 <div class="news-item-top">
                   <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://36kr.com/p/3816947890471812?f=rss" target="_blank" rel="noopener">早期项目 | Chance AI获美图等数百万美元投资，用户数已达20万</a>
+                  <a class="news-title-link" href="https://36kr.com/p/3818877539091333?f=rss" target="_blank" rel="noopener">36氪x PureblueAI清蓝战略合作启动仪式暨《2026消费品牌AI推荐力名册》发布 | 2026 AI Partner·北京亦庄AI+产业大会</a>
                 </div>
                 <div class="news-source">来源：36Kr</div>
-                <div class="news-desc">作者丨欧雪
-  编辑丨袁斯来
-  硬氪获悉，Visual Agent（视觉智能体）创业公司Chance AI宣布完成数百万美元天使轮融资。本轮由美图领投，NYX Ventures、阿里系投资机构等跟投。融资将用于模型能力迭代、北美学生群体增长、以及社区与商业化探索。
-  Chance AI成立于20</div>
+                <div class="news-desc">5月19日，2026北京亦庄AI+产业大会上，36氪与PureblueAI清蓝正式达成战略合作，并联合发布《2026消费品牌AI推荐力名册》。随着AI逐渐成为新的信息入口和消费决策入口，品牌在AI回答中是否被提及、是否被推荐、排序是否靠前，正在成为新的竞争维度。36氪副总裁迟涵表示，36氪是最早发现</div>
+                <div class="news-comment">🧠 模型能力持续迭代，但关键问题是：这次升级能解决哪个真实业务痛点？</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://36kr.com/p/3818800487679111?f=rss" target="_blank" rel="noopener">把确定性，写进农业：四个外行、两次失败、三千万学费换来的答案| 2026AI Partner·北京亦庄AI+产业大会</a>
+                </div>
+                <div class="news-source">来源：36Kr</div>
+                <div class="news-desc">两次失败、三千万学费——创业没有爽剧剧本，这是陆渔科技深耕农业AI真实的“入场券”。当99%的人还在用AI写文案、做设计时，有人把它扔进了鱼塘，只为解决一个最朴素的问题：不确定性。
+  
+  鲁敏用18年IT男转型“新农民”的经历，揭开了水产养殖最残酷的真相：1.38万亿的市场，数字化渗透率不足5%</div>
                 <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
               </div>
               <div class="news-item">
                 <div class="news-item-top">
                   <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://36kr.com/newsflashes/3817628052505733?f=rss" target="_blank" rel="noopener">OpenAI和Google加大在新加坡的人工智能投资力度</a>
+                  <a class="news-title-link" href="https://36kr.com/p/3817502775329667?f=rss" target="_blank" rel="noopener">从算力到价值：AI时代的基础设施重构与产业增长新引擎| 2026AI Partner·北京亦庄AI+产业大会</a>
                 </div>
                 <div class="news-source">来源：36Kr</div>
-                <div class="news-desc">据报道，OpenAI和Google加大在新加坡的人工智能投资力度。（财联社）</div>
-                <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
-              </div>
-              <div class="news-item">
-                <div class="news-item-top">
-                  <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://www.qbitai.com/2026/05/420743.html" target="_blank" rel="noopener">太初元碁洪源：异构计算能力将成为未来AI算力基础设施的重要方向｜AIGC2026</a>
-                </div>
-                <div class="news-source">来源：量子位</div>
-                <div class="news-desc">AI产业正在进入新一轮高强度算力周期</div>
+                <div class="news-desc">token经济如何重塑AI产业链？从芯片到智算中心，从模型服务到终端应用，token正在成为贯穿全链的计价单位。而当推理算力需求超越训练，智算中心的角色正从算力仓库变为token工厂，一个万亿级市场的大门刚刚打开。
+  
+  token正在成为AI时代的新质生产力单位。宋琛指出，随着Agent成为新</div>
                 <div class="news-comment">🖥️ 算力是AI时代的石油，英伟达的护城河比想象中更深——软件生态才是真壁垒。</div>
               </div>
               <div class="news-item">
                 <div class="news-item-top">
                   <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://www.qbitai.com/2026/05/420703.html" target="_blank" rel="noopener">VC、品牌顾问、编剧，正在批量把自己做成AI</a>
+                  <a class="news-title-link" href="https://36kr.com/p/3818784445465731?f=rss" target="_blank" rel="noopener">开场致辞 建设“全域人工智能之城” | 2026AI Partner·北京亦庄AI+产业大会</a>
                 </div>
-                <div class="news-source">来源：量子位</div>
-                <div class="news-desc">让你的经验24小时自动接单</div>
+                <div class="news-source">来源：36Kr</div>
+                <div class="news-desc">AI的聚光灯正从炫酷的C端应用，转向轰鸣的工厂、无声的手术室和奔跑的人形机器人。当“落地”成为当下的关键词，2026北京亦庄AI+产业大会吹响了“走！带着AI去前线”的号角，在产业第一线求解人工智能的真实生产力。我们记录下这场务实者的聚会，捕捉那些让技术扎根泥土的坚定声音。
+  
+  5月19日，2</div>
                 <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
               </div>
               <div class="news-item">
                 <div class="news-item-top">
                   <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://www.qbitai.com/2026/05/420698.html" target="_blank" rel="noopener">AIDC建设正从“通用标准”走向“适用高效”</a>
+                  <a class="news-title-link" href="https://36kr.com/p/3818651789182080?f=rss" target="_blank" rel="noopener">开场致辞 从技术狂欢到价值深水区 | 2026AI Partner·北京亦庄AI+产业大会</a>
                 </div>
-                <div class="news-source">来源：量子位</div>
-                <div class="news-desc">商汤大装置林海谈AIDC</div>
+                <div class="news-source">来源：36Kr</div>
+                <div class="news-desc">&nbsp;
+   AI叙事不再是颠覆一切，真正值得关注的是那些沉默的行业壁垒和经验能否被智能照亮。
+  
+  &nbsp;
+  四年间，这场大会从趋势观察走向落地实践，36氪也从AI的观察者转型为助推者。36氪CEO冯大刚在2026北京亦庄AI+产业大会的开场中，为焦虑的商业世界开出一剂解药</div>
                 <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
               </div></div></div>
         </div>
@@ -429,24 +424,53 @@
               <div class="news-item">
                 <div class="news-item-top">
                   <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://36kr.com/p/3816942423000196?f=rss" target="_blank" rel="noopener">氪星晚报｜2026福布斯中国人工智能科技企业TOP 50发布，中关村科金入选；三星劳资谈判破裂，威刚董事长称DRAM、NAND恐再掀涨价潮；新交所与中国银行签署新版战略合作备忘录</a>
+                  <a class="news-title-link" href="https://36kr.com/p/3818889074557829?f=rss" target="_blank" rel="noopener">城市级AI服务：从试点到常态化，机器人的实景作战与规模化落地| 2026AI Partner·北京亦庄AI+产业大会</a>
                 </div>
                 <div class="news-source">来源：36Kr</div>
-                <div class="news-desc">大公司：
-  新加坡加码人工智能布局，英伟达将落地本地研发中心
-  全球AI芯片巨头英伟达</div>
-                <div class="news-comment">🧠 模型能力持续迭代，但关键问题是：这次升级能解决哪个真实业务痛点？</div>
-              </div>
-              <div class="news-item">
-                <div class="news-item-top">
-                  <span class="news-new">TODAY</span>
-                  <a class="news-title-link" href="https://www.qbitai.com/2026/05/420656.html" target="_blank" rel="noopener">2026中国AIGC最值得关注的企业&产品图鉴来了！谁在造浪，谁在落地？</a>
-                </div>
-                <div class="news-source">来源：量子位</div>
-                <div class="news-desc">看谁真正会游泳</div>
+                <div class="news-desc">当Robotaxi还在为L4苦苦挣扎时，酷哇的环卫机器人、无人小巴、机器狗已经在50多个城市“上岗”赚钱了。
+  
+  具身智能最大的瓶颈不是算法，而是数据——没有量产就没有数据，没有数据就无法进化。酷哇的解法是“以战养战”：让机器人在真实运营中一边干活一边成长，用万台规模反哺模型迭代。李柯宏强调，</div>
                 <div class="news-comment">🏢 企业AI进入深水区，从试点到规模化落地，关键是找到可量化的ROI。</div>
               </div></div></div>
         </div>
+      </div>
+    </div>
+    
+    <div class="related-card">
+      <div class="related-header">
+        <span style="font-size:18px">📚</span>
+        <span class="related-title">延伸阅读 · 深度调研</span>
+        <span class="related-subtitle">基于今日新闻智能推荐</span>
+      </div>
+      <div class="related-list">
+        <a class="related-item" href="../../02-deep-research/trends/2026-ai-trends-complete.html">
+          <div class="related-icon">🌍</div>
+          <div class="related-content">
+            <div class="related-name">从AI大神的深度分享看2026年AI的下半场</div>
+            <div class="related-desc">10位AI思想领袖核心观点，三大趋势梳理</div>
+          </div>
+        </a>
+        <a class="related-item" href="../../02-deep-research/topics/ai-coding-tools-2026.html">
+          <div class="related-icon">⌨️</div>
+          <div class="related-content">
+            <div class="related-name">2026年AI编程工具全景报告</div>
+            <div class="related-desc">Cursor·Trae·Copilot·CodeFlicker 12款工具8维度横评</div>
+          </div>
+        </a>
+        <a class="related-item" href="../../02-deep-research/companies/anthropic-deep-dive.html">
+          <div class="related-icon">🏢</div>
+          <div class="related-content">
+            <div class="related-name">Anthropic深度调研：从安全信仰到企业Agent帝国</div>
+            <div class="related-desc">马斯克败诉、收购Stainless、Claude企业战略全解析</div>
+          </div>
+        </a>
+        <a class="related-item" href="../../02-deep-research/topics/ai-agent-automation-2026.html">
+          <div class="related-icon">🤖</div>
+          <div class="related-content">
+            <div class="related-name">AI Agent 自动化落地的现状与趋势</div>
+            <div class="related-desc">企业AI Agent落地现状、技术架构、行业案例与ROI</div>
+          </div>
+        </a>
       </div>
     </div>
     <div class="xunr-card">
@@ -454,10 +478,10 @@
         <div class="xunr-avatar">🔬</div>
         <div><div class="xunr-name">熏儿 · AI洞察</div><div class="xunr-role">萧炎的AI分身，RSS自动聚合全球AI动态</div></div>
       </div>
-      <div class="xunr-body">萧炎哥哥，今天我从 7 个信息源共聚合了 23 条AI相关资讯，覆盖海外和国内五大板块。所有新闻均来自公开RSS源，实时更新，点击标题可跳转原文阅读。</div>
+      <div class="xunr-body">萧炎哥哥，今天我从 7 个信息源共聚合了 19 条AI相关资讯，覆盖海外和国内五大板块。所有新闻均来自公开RSS源，实时更新，点击标题可跳转原文阅读。</div>
       <div class="xunr-stats">
-        <div class="xunr-stat"><strong>23</strong>今日资讯</div>
-        <div class="xunr-stat"><strong>14</strong>海外来源</div>
+        <div class="xunr-stat"><strong>19</strong>今日资讯</div>
+        <div class="xunr-stat"><strong>10</strong>海外来源</div>
         <div class="xunr-stat"><strong>9</strong>国内来源</div>
       </div>
     </div>

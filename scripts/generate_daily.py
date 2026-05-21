@@ -38,6 +38,76 @@ TOPIC_KEYWORDS = {
     "enterprise": ["企业","B2B","SaaS","落地","转型","生产力","ROI","成本","效率"],
 }
 
+# ─── 深度调研知识库（用于延伸阅读匹配） ─────────────────────
+# 每条调研报告关联的关键词，新闻命中任一关键词即可推荐
+RESEARCH_LIBRARY = [
+    {"title": "2026年AI编程工具全景报告", "href": "../../02-deep-research/topics/ai-coding-tools-2026.html",
+     "desc": "Cursor·Trae·Copilot·CodeFlicker 12款工具8维度横评", "icon": "⌨️",
+     "keywords": ["Cursor","Trae","Copilot","Devin","CodeFlicker","Claude Code","coding","code","编程","代码","IDE","vibe","AI Studio"]},
+    {"title": "Anthropic深度调研：从安全信仰到企业Agent帝国", "href": "../../02-deep-research/companies/anthropic-deep-dive.html",
+     "desc": "马斯克败诉、收购Stainless、Claude企业战略全解析", "icon": "🏢",
+     "keywords": ["Anthropic","Claude","Stainless","Karpathy","马斯克","Musk","claude"]},
+    {"title": "字节跳动AI版图深度调研", "href": "../../02-deep-research/companies/bytedance-ai-landscape.html",
+     "desc": "豆包·Trae·可灵·即梦·番茄小说全解析", "icon": "🇨🇳",
+     "keywords": ["字节","ByteDance","豆包","Trae","可灵","Kling","即梦","番茄","Doubao","抖音"]},
+    {"title": "OpenAI · $8400亿估值背后的战略全景", "href": "../../02-deep-research/companies/openai-gpt5-complete.html",
+     "desc": "OpenAI产品矩阵、商业模式、竞争格局深度分析", "icon": "🤖",
+     "keywords": ["OpenAI","GPT","ChatGPT","GPT-5","Sam Altman","Altman","Sora","openai"]},
+    {"title": "AI Agent 自动化落地的现状与趋势", "href": "../../02-deep-research/topics/ai-agent-automation-2026.html",
+     "desc": "企业AI Agent落地现状、技术架构、行业案例与ROI", "icon": "🤖",
+     "keywords": ["Agent","agent","自动化","RPA","工作流","workflow","Devin"]},
+    {"title": "MCP协议全解：AI工具生态的新标准", "href": "../../02-deep-research/topics/mcp-protocol-complete.html",
+     "desc": "Model Context Protocol架构设计与生态现状", "icon": "🔌",
+     "keywords": ["MCP","Model Context Protocol","tool calling","工具调用","function calling"]},
+    {"title": "AI Coding工具演进全景：从补全到自主编程", "href": "../../02-deep-research/topics/ai-coding-evolution-complete.html",
+     "desc": "AI编程工具5年演进史与未来方向", "icon": "📈",
+     "keywords": ["Copilot","Cursor","Tabnine","补全","autocomplete","coding"]},
+    {"title": "软件工程3.0：AI时代的开发范式革命", "href": "../../02-deep-research/trends/software3-complete.html",
+     "desc": "从Karpathy的LLM OS到AI Native应用架构", "icon": "🚀",
+     "keywords": ["LLM OS","Karpathy","软件3.0","Software 3.0","AI Native","范式"]},
+    {"title": "从AI大神的深度分享看2026年AI的下半场", "href": "../../02-deep-research/trends/2026-ai-trends-complete.html",
+     "desc": "10位AI思想领袖核心观点，三大趋势梳理", "icon": "🌍",
+     "keywords": ["趋势","具身","embodied","AGI","推理","reasoning"]},
+    {"title": "AI范式转变：从工具到可编程认知的跨越", "href": "../../02-deep-research/trends/ai-paradigm-shift-complete.html",
+     "desc": "AI从独立目的地进化为隐形基础设施", "icon": "💡",
+     "keywords": ["范式","paradigm","基础设施","infrastructure"]},
+    {"title": "AI Agent平台对比：Coze vs Dify vs FastGPT", "href": "../../02-deep-research/topics/coze-vs-dify-complete.html",
+     "desc": "三大国内主流Agent开发平台横向对比", "icon": "⚡",
+     "keywords": ["Coze","Dify","FastGPT","扣子","n8n","Flowise","低代码","no-code"]},
+    {"title": "飞书 vs 钉钉 · 企业AI协作平台深度对比", "href": "../../02-deep-research/topics/feishu-vs-dingtalk-complete.html",
+     "desc": "两大国内企业协作平台AI能力对比", "icon": "📊",
+     "keywords": ["飞书","Lark","钉钉","DingTalk","企业协作","SaaS"]},
+]
+
+def find_related_research(news, max_count=3):
+    """根据当日新闻标题/描述，匹配最相关的调研报告"""
+    # 收集所有新闻文本
+    all_text = []
+    for region in news.values():
+        for items in region.values():
+            for item in items:
+                all_text.append((item.get("title","") + " " + item.get("desc","")).lower())
+    if not all_text:
+        return []
+    combined = " ".join(all_text)
+
+    # 计算每篇调研的命中分数
+    scored = []
+    for research in RESEARCH_LIBRARY:
+        score = sum(1 for kw in research["keywords"] if kw.lower() in combined)
+        if score > 0:
+            scored.append((score, research))
+    # 按分数倒序，取前 N 篇
+    scored.sort(key=lambda x: -x[0])
+    result = [r for _, r in scored[:max_count]]
+    # 兜底：如果命中不足，补充 Agent 自动化 + AI Coding 工具
+    if len(result) < 2:
+        defaults = [r for r in RESEARCH_LIBRARY if r["title"].startswith("AI Agent 自动化") or r["title"].startswith("2026年AI编程")]
+        for d in defaults:
+            if d not in result and len(result) < max_count:
+                result.append(d)
+    return result
+
 # ─── 工具函数 ──────────────────────────────────────────
 def today_cn():
     utc = datetime.datetime.utcnow()
@@ -263,6 +333,67 @@ def build_hot_rows(news):
         topics[1]["topic"] = coding_items[0]["title"][:20] + "..." if len(coding_items[0]["title"]) > 20 else coding_items[0]["title"]
     return topics
 
+# ─── 今日快读 Ticker 提取 ──────────────────────────────────
+TICKER_TAG_MAP = {
+    "llm":        ("tick-green",  "模型"),
+    "coding":     ("tick-purple", "工具"),
+    "app":        ("tick-blue",   "应用"),
+    "industry":   ("tick-red",    "行业"),
+    "enterprise": ("tick-orange", "企业"),
+}
+
+def shorten_title(title, max_len=28):
+    """提取标题前N字作为快读条目"""
+    t = re.sub(r"\s+", " ", title or "").strip()
+    if len(t) > max_len:
+        t = t[:max_len].rstrip() + "…"
+    return t
+
+def extract_ticker_items(news, max_count=8):
+    """从各板块挑选最具代表性的 N 条新闻作为今日快读（round-robin确保分类分散）"""
+    picked = []
+    seen_titles = set()
+    # 按板块准备候选队列
+    queues = {}
+    priority = ["llm","industry","coding","app","enterprise"]
+    for cat in priority:
+        merged = []
+        for region in ["海外","国内"]:
+            merged.extend(news.get(region, {}).get(cat, [])[:3])
+        queues[cat] = merged
+
+    # round-robin: 每轮各板块取一条，确保分类分散
+    while len(picked) < max_count:
+        added_this_round = False
+        for cat in priority:
+            if not queues[cat]:
+                continue
+            item = queues[cat].pop(0)
+            title = item.get("title","").strip()
+            if not title or title in seen_titles:
+                continue
+            seen_titles.add(title)
+            tag_class, tag_label = TICKER_TAG_MAP.get(cat, ("tick-green","动态"))
+            picked.append({"tag_class": tag_class, "tag_label": tag_label, "text": shorten_title(title)})
+            added_this_round = True
+            if len(picked) >= max_count:
+                break
+        if not added_this_round:
+            break
+    return picked
+
+def build_ticker_html(news):
+    """构建今日快读滚动条 HTML（用于 index.html 替换）"""
+    items = extract_ticker_items(news)
+    if not items:
+        return None
+    parts = []
+    for i, it in enumerate(items):
+        parts.append(f'        <span class="tick-item"><span class="tick-tag {it["tag_class"]}">{it["tag_label"]}</span>{it["text"]}&nbsp;</span>')
+        if i < len(items) - 1:
+            parts.append('        <span class="tick-item tick-sep">·&nbsp;</span>')
+    return "\n".join(parts)
+
 # ─── HTML 生成 ──────────────────────────────────────────
 def heat_bar_html(heat):
     bars = "".join(
@@ -358,6 +489,32 @@ def render_html(date_str, news):
     ov_total = sum(len(v) for v in news.get("海外",{}).values())
     do_total = sum(len(v) for v in news.get("国内",{}).values())
 
+    # 延伸阅读：根据当日新闻匹配相关调研报告
+    related_research = find_related_research(news, max_count=4)
+    if related_research:
+        related_items_html = ""
+        for r in related_research:
+            related_items_html += f"""
+        <a class="related-item" href="{r['href']}">
+          <div class="related-icon">{r['icon']}</div>
+          <div class="related-content">
+            <div class="related-name">{r['title']}</div>
+            <div class="related-desc">{r['desc']}</div>
+          </div>
+        </a>"""
+        related_html = f"""
+    <div class="related-card">
+      <div class="related-header">
+        <span style="font-size:18px">📚</span>
+        <span class="related-title">延伸阅读 · 深度调研</span>
+        <span class="related-subtitle">基于今日新闻智能推荐</span>
+      </div>
+      <div class="related-list">{related_items_html}
+      </div>
+    </div>"""
+    else:
+        related_html = ""
+
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -426,6 +583,18 @@ def render_html(date_str, news):
     .pn-btn{{flex:1;background:white;border:1px solid var(--border2);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--text);display:block;transition:box-shadow .15s,border-color .15s}}
     .pn-btn:hover{{box-shadow:var(--shadow-md);border-color:var(--green)}}
     .pn-label{{font-size:11px;color:var(--text-muted);margin-bottom:3px}}.pn-title{{font-size:13px;font-weight:600}}
+    .related-card{{background:white;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-top:8px}}
+    .related-header{{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,#f0fdf4,#eff6ff)}}
+    .related-title{{font-size:15px;font-weight:700;color:var(--text-dark)}}
+    .related-subtitle{{font-size:12px;color:var(--text-muted);margin-left:auto}}
+    .related-list{{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px}}
+    @media(max-width:600px){{.related-list{{grid-template-columns:1fr}}}}
+    .related-item{{display:flex;gap:10px;padding:10px 12px;border:1px solid var(--border2);border-radius:10px;text-decoration:none;color:var(--text);transition:all .15s;background:#fafbfc}}
+    .related-item:hover{{border-color:var(--green);box-shadow:var(--shadow-md);transform:translateY(-1px)}}
+    .related-icon{{width:32px;height:32px;border-radius:8px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}}
+    .related-content{{flex:1;min-width:0}}
+    .related-name{{font-size:13px;font-weight:600;color:var(--text-dark);line-height:1.4;margin-bottom:3px}}
+    .related-desc{{font-size:11px;color:var(--text-muted);line-height:1.4;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}}
     .back-top{{position:fixed;bottom:24px;right:20px;background:var(--green);color:white;border:none;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;box-shadow:var(--shadow-md);z-index:99}}
   </style>
 </head>
@@ -480,6 +649,7 @@ def render_html(date_str, news):
       </div>
     </div>
     {sections_html}
+    {related_html}
     <div class="xunr-card">
       <div class="xunr-header">
         <div class="xunr-avatar">🔬</div>
@@ -503,7 +673,7 @@ def render_html(date_str, news):
 </html>"""
 
 # ─── 更新 index.html ────────────────────────────────────
-def update_index(date_str):
+def update_index(date_str, news=None):
     dt = datetime.datetime.strptime(date_str, "%Y-%m-%d")
     ym = dt.strftime("%Y-%m")
     year, month, day = dt.year, dt.month, dt.day
@@ -519,6 +689,22 @@ def update_index(date_str):
         r'(<div class="card-title">)\d{4}年\d+月\d+日 AI日报(</div>)',
         f'\\g<1>{year}年{month}月{day}日 AI日报\\g<2>', content, count=1
     )
+
+    # 更新「今日快读」ticker 链接日期
+    content = re.sub(
+        r'(<a class="ticker-link" href="01-daily-reports/)\d{4}-\d{2}/\d{4}-\d{2}-\d{2}(\.html">)',
+        f'\\g<1>{ym}/{date_str}\\g<2>', content
+    )
+
+    # 更新「今日快读」ticker 内容（用今天的新闻填充）
+    if news is not None:
+        new_ticker = build_ticker_html(news)
+        if new_ticker:
+            content = re.sub(
+                r'(<div class="ticker-track" id="tickerTrack">)[\s\S]*?(\s*</div>\s*</div>\s*<a class="ticker-link")',
+                lambda m: m.group(1) + "\n" + new_ticker + "\n      " + m.group(2),
+                content, count=1
+            )
 
     # 更新日历 hasDaily 数组
     pattern = rf"('{ym}':\s*\{{[^}}]*?hasDaily:\s*\[)([\d,\s]*?)(\])"
@@ -575,18 +761,25 @@ def main(target_date=None):
     print(f"\n🔬 熏儿开始生成 {date_str} AI日报（RSS模式，无需API Key）")
 
     report_path = get_report_path(dt)
+    news_data = None
     if report_path.exists():
         print(f"⚠️  {date_str} 日报已存在，跳过生成")
+        # 即使日报已存在，也尝试重新抓取新闻用于刷新ticker
+        try:
+            print("  📡 重抓新闻用于刷新首页 ticker...")
+            news_data = collect_news(date_str)
+        except Exception as e:
+            print(f"  ⚠️  抓取失败，跳过 ticker 更新: {e}")
     else:
         print("  📰 收集各大媒体RSS新闻...")
-        news = collect_news(date_str)
+        news_data = collect_news(date_str)
         print("  ✍️  渲染 HTML...")
-        html = render_html(date_str, news)
+        html = render_html(date_str, news_data)
         report_path.write_text(html, encoding="utf-8")
         print(f"  ✅ 日报已生成: {report_path}")
 
     print("  🔄 更新 index.html...")
-    update_index(date_str)
+    update_index(date_str, news_data)
     print(f"✅ {date_str} 全部完成！\n")
 
 if __name__ == "__main__":
