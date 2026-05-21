@@ -2300,6 +2300,22 @@
   </div>
 </footer>
 
+<!-- 搜索弹层 -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-box">
+    <div class="search-input-row">
+      <input class="search-input" id="searchInput" type="text" placeholder="搜索日报、调研报告… (Ctrl+K)">
+      <button class="search-close" id="searchClose">✕ 关闭</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+    <div class="search-hint">按 Esc 关闭 · Ctrl+K 快速打开</div>
+  </div>
+</div>
+
+<!-- 搜索 & 深色模式 浮动按钮 -->
+<button class="search-btn" id="searchBtn" title="搜索 (Ctrl+K)">🔍</button>
+<button class="dark-toggle" id="darkToggle" title="切换深色模式">🌙</button>
+
 <script>
   // ===== Tab 切换 =====
   document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -2541,22 +2557,6 @@
     results.innerHTML = '<div class="search-empty">输入关键词搜索日报和调研报告</div>';
   })();
 </script>
-
-<!-- 搜索弹层 -->
-<div class="search-overlay" id="searchOverlay">
-  <div class="search-box">
-    <div class="search-input-row">
-      <input class="search-input" id="searchInput" type="text" placeholder="搜索日报、调研报告… (Ctrl+K)">
-      <button class="search-close" id="searchClose">✕ 关闭</button>
-    </div>
-    <div class="search-results" id="searchResults"></div>
-    <div class="search-hint">按 Esc 关闭 · Ctrl+K 快速打开</div>
-  </div>
-</div>
-
-<!-- 搜索 & 深色模式 浮动按钮 -->
-<button class="search-btn" id="searchBtn" title="搜索 (Ctrl+K)">🔍</button>
-<button class="dark-toggle" id="darkToggle" title="切换深色模式">🌙</button>
 
 <!-- Vercount 访客统计 -->
 <script defer src="https://events.vercount.one/js"></script>
