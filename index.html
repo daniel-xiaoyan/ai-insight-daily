@@ -2529,7 +2529,7 @@
     const openBtn = document.getElementById('searchBtn');
     const closeBtn = document.getElementById('searchClose');
 
-    function openSearch() { overlay.classList.add('open'); input.focus(); input.select(); }
+    function openSearch() { overlay.classList.add('open'); input.value = ''; results.innerHTML = '<div class="search-empty">输入关键词搜索日报和调研报告</div>'; input.focus(); }
     function closeSearch() { overlay.classList.remove('open'); }
 
     openBtn.addEventListener('click', openSearch);
