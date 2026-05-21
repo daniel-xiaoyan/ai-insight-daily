@@ -1177,48 +1177,48 @@
     body.dark-mode .ticker-link { color: #34d399; border-color: #334155; }
     body.dark-mode .ticker-link:hover { background: #34d399; color: #0f172a; }
 
-    /* 深色模式切换按钮 */
-    .dark-toggle {
+    /* 顶部工具栏 - 搜索 & 深色模式 */
+    .header-tools {
       position: fixed;
-      bottom: 24px;
-      right: 20px;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: var(--color-bg-card);
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 8px;
+      z-index: 999;
+    }
+    .tool-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
       border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-md);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      z-index: 999;
+      background: var(--color-bg-card);
+      color: var(--color-text-primary);
       transition: all var(--transition);
+      white-space: nowrap;
     }
-    .dark-toggle:hover { transform: scale(1.1); box-shadow: var(--shadow-lg); }
-
-    /* ===== 搜索弹层 ===== */
-    .search-btn {
-      position: fixed;
-      bottom: 74px;
-      right: 20px;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
+    .tool-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
+    }
+    .tool-btn.tool-search {
       background: var(--color-primary);
-      border: none;
-      box-shadow: var(--shadow-md);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
       color: white;
-      z-index: 999;
-      transition: all var(--transition);
+      border-color: var(--color-primary);
     }
-    .search-btn:hover { transform: scale(1.1); background: var(--color-primary-dark); }
+    .tool-btn.tool-search:hover {
+      background: var(--color-primary-dark);
+    }
+    @media (max-width: 600px) {
+      .header-tools { top: 10px; right: 10px; gap: 6px; }
+      .tool-btn { padding: 6px 10px; font-size: 12px; }
+      .tool-btn .tool-label { display: none; }
+    }
 
     .search-overlay {
       display: none;
@@ -2312,9 +2312,15 @@
   </div>
 </div>
 
-<!-- 搜索 & 深色模式 浮动按钮 -->
-<button class="search-btn" id="searchBtn" title="搜索 (Ctrl+K)">🔍</button>
-<button class="dark-toggle" id="darkToggle" title="切换深色模式">🌙</button>
+<!-- 搜索 & 深色模式 顶部工具栏 -->
+<div class="header-tools">
+  <button class="tool-btn tool-search" id="searchBtn" title="搜索 (Ctrl+K)">
+    <span>🔍</span><span class="tool-label">搜索</span>
+  </button>
+  <button class="tool-btn" id="darkToggle" title="切换深色/浅色模式">
+    <span id="darkIcon">🌙</span><span class="tool-label" id="darkLabel">深色</span>
+  </button>
+</div>
 
 <script>
   // ===== Tab 切换 =====
@@ -2469,11 +2475,19 @@
   // ===== 深色模式 =====
   (function() {
     const btn = document.getElementById('darkToggle');
+    const icon = document.getElementById('darkIcon');
+    const label = document.getElementById('darkLabel');
+    if (!btn) return;
     const saved = localStorage.getItem('ai_insight_dark');
-    if (saved === '1') { document.body.classList.add('dark-mode'); btn.textContent = '☀️'; }
+    function apply(isDark) {
+      document.body.classList.toggle('dark-mode', isDark);
+      if (icon) icon.textContent = isDark ? '☀️' : '🌙';
+      if (label) label.textContent = isDark ? '浅色' : '深色';
+    }
+    apply(saved === '1');
     btn.addEventListener('click', () => {
-      const isDark = document.body.classList.toggle('dark-mode');
-      btn.textContent = isDark ? '☀️' : '🌙';
+      const isDark = !document.body.classList.contains('dark-mode');
+      apply(isDark);
       localStorage.setItem('ai_insight_dark', isDark ? '1' : '0');
     });
   })();
