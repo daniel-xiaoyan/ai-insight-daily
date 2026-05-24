@@ -1594,21 +1594,22 @@
     <div class="ticker-divider"></div>
     <div class="ticker-track-wrap">
       <div class="ticker-track" id="tickerTrack">
-        <span class="tick-item"><span class="tick-tag tick-green">模型</span>I Cloned Myself With Gemini’…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-green">模型</span>一季度AI领域融资超1100亿元 国产大模型融资金额暴增&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-red">行业</span>SolarSquare in talks to rais…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>Your AI agents need a termin…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>AI agents are quietly genera…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-orange">企业</span>“五类人AI替代不了，企业做第二名最稳妥” | 昆仑万维…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-green">模型</span>一季度AI领域融资超1100亿元 国产大模型融资金额暴增&nbsp;</span>
-        <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-red">行业</span>Ferrari is using IBM’s AI to…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>D&B's database of 642 millio…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>Your AI agents need a termin…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-red">行业</span>Nuclear startup Deep Fission…&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>D&B's database of 642 millio…&nbsp;</span>
+      
       
       
       
@@ -1626,7 +1627,7 @@
       
       </div>
     </div>
-    <a class="ticker-link" href="01-daily-reports/2026-05/2026-05-24.html">查看日报 →</a>
+    <a class="ticker-link" href="01-daily-reports/2026-05/2026-05-25.html">查看日报 →</a>
   </div>
 </div>
 
@@ -1647,12 +1648,12 @@
   <div class="tab-panel active" id="panel-daily">
     <div class="latest-cards">
       <!-- 最新日报 -->
-      <a class="report-card" href="01-daily-reports/2026-05/2026-05-24.html">
+      <a class="report-card" href="01-daily-reports/2026-05/2026-05-25.html">
         <div class="card-header">
           <span class="card-type-badge badge-daily">📅 日报</span>
           <span class="badge-new">NEW</span>
         </div>
-        <div class="card-title">2026年5月24日 AI日报</div>
+        <div class="card-title">2026年5月25日 AI日报</div>
         <div class="card-tags">
           <span class="tag">大模型</span>
           <span class="tag">AI算力</span>
@@ -2614,9 +2615,9 @@
   // ===== 日历 =====
   const dailyData = {
     '2026-05': {
-      hasDaily: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
+      hasDaily: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
       hasWeekly: [],
-      totalCount: 24
+      totalCount: 25
     },
     '2026-04': {
       hasDaily: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
@@ -2631,7 +2632,7 @@
   function renderCalendar() {
     const key = `${currentYear}-${String(currentMonth).padStart(2,'0')}`;
     const data = dailyData[key] || { hasDaily: [], hasWeekly: [], totalCount: 0 };
-    const today = new Date(2026, 4, 24); // 2026-05-18
+    const today = new Date(2026, 4, 25); // 2026-05-18
     const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
     const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
 
