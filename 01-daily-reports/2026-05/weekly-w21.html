@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 周报 · 第21周（5.18-5.24）| 熏儿的AI洞察</title>
+  <style>
+    :root{--green:#059669;--green-light:#dcfce7;--blue:#2563eb;--purple:#7c3aed;--orange:#d97706;--red:#ef4444;--cyan:#0891b2;--bg:#f8fafb;--border:#e7e5e4;--border2:#d6d3d1;--text:#57534e;--text-dark:#1c1917;--text-muted:#78716c;--radius:16px;--radius-sm:10px;--shadow:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:14px}
+    .top-bar{height:4px;background:linear-gradient(90deg,#059669,#2563eb,#7c3aed,#f59e0b)}
+    .nav{background:white;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:8px;font-size:13px}
+    .nav a{color:var(--green);text-decoration:none}.nav-sep{color:#d1d5db}
+    .container{max-width:860px;margin:0 auto;padding:28px 16px 80px}
+    .hero{background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:var(--radius);padding:32px;margin-bottom:24px;color:white;position:relative;overflow:hidden}
+    .hero::after{content:'W21';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:100px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none}
+    .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(251,191,36,.15);color:#fcd34d;border:1px solid rgba(251,191,36,.3);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;margin-bottom:14px}
+    .hero-title{font-size:28px;font-weight:800;color:white;margin-bottom:6px}
+    .hero-title span{background:linear-gradient(135deg,#34d399,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-sub{font-size:13px;color:#94a3b8;margin-bottom:22px}
+    .hero-kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+    .hkpi{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px}
+    .hkpi-val{font-size:22px;font-weight:800;line-height:1.1}
+    .hkpi-label{font-size:11px;color:#94a3b8;margin-top:3px}
+    .sec{margin-bottom:20px}
+    .sec-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #f1f5f9}
+    .sec-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+    .sec-title{font-size:16px;font-weight:800;color:var(--text-dark)}
+    .sec-sub{font-size:12px;color:var(--text-muted);margin-top:1px}
+    .sec-count{margin-left:auto;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:#f1f5f9;color:var(--text-muted)}
+    .news-list{display:flex;flex-direction:column;gap:10px}
+    .news-card{background:white;border:1px solid var(--border);border-left:3px solid;border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+    .news-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+    .news-tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px}
+    .tag-red{background:#fee2e2;color:#991b1b}
+    .tag-blue{background:#dbeafe;color:#1e40af}
+    .tag-green{background:#dcfce7;color:#166534}
+    .tag-orange{background:#fef3c7;color:#92400e}
+    .tag-purple{background:#f3e8ff;color:#5b21b6}
+    .tag-cyan{background:#cffafe;color:#155e75}
+    .news-heat{font-size:10px;color:var(--text-muted);margin-left:auto}
+    .news-title{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:4px;line-height:1.4}
+    .news-title a{color:var(--blue);text-decoration:none}
+    .news-title a:hover{text-decoration:underline}
+    .news-desc{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:8px}
+    .news-xun{font-size:11px;color:#047857;padding:6px 10px;background:#f0fdf4;border-radius:7px;border-left:2px solid var(--green);line-height:1.5}
+    .data-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:16px}
+    .data-card{background:white;border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;box-shadow:var(--shadow)}
+    .data-val{font-size:22px;font-weight:800;margin-bottom:3px}
+    .data-label{font-size:11px;color:var(--text-muted);line-height:1.4}
+    .data-delta{font-size:11px;font-weight:700;margin-top:4px;color:var(--green)}
+    .xunr-box{background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:var(--radius);padding:22px;color:white;margin-bottom:20px}
+    .xunr-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .xunr-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));display:flex;align-items:center;justify-content:center;font-size:20px}
+    .xunr-name{font-size:14px;font-weight:700;color:white}
+    .xunr-role{font-size:11px;color:#94a3b8}
+    .xunr-body{font-size:13px;color:rgba(255,255,255,.8);line-height:1.8;margin-bottom:14px}
+    .xunr-body strong{color:white}
+    .xunr-items{display:flex;flex-direction:column;gap:6px}
+    .xunr-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:rgba(255,255,255,.7);padding:8px 10px;background:rgba(255,255,255,.06);border-radius:8px;border-left:2px solid #34d399;line-height:1.5}
+    .next-week-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:20px}
+    .nw-title{font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:12px}
+    .nw-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+    .nw-item{padding:10px 12px;background:#f8fafc;border-radius:8px;border-left:3px solid var(--green);font-size:12px;color:var(--text);line-height:1.5}
+    .nw-item strong{color:var(--text-dark);display:block;margin-bottom:2px}
+    .page-nav{display:flex;gap:12px;margin-top:24px}
+    .pn-btn{flex:1;background:white;border:1px solid var(--border);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--text);display:block}
+    .pn-btn:hover{border-color:var(--green);box-shadow:var(--shadow-md)}
+    .pn-label{font-size:11px;color:var(--text-muted);margin-bottom:3px}
+    .pn-title{font-size:13px;font-weight:600;color:var(--text-dark)}
+    @media(max-width:600px){.hero-kpis{grid-template-columns:repeat(2,1fr)}.data-row{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+<div class="top-bar"></div>
+<nav class="nav">
+  <a href="../../index.html">🔬 AI洞察</a>
+  <span class="nav-sep">/</span>
+  <a href="../../index.html">AI日报</a>
+  <span class="nav-sep">/</span>
+  <span>第21周周报</span>
+</nav>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">📊 AI周报 · 第21周</div>
+    <div class="hero-title">2026年5月 <span>第四周</span> AI行业全景</div>
+    <div class="hero-sub">📅 2026年5月18日 — 5月24日 · 熏儿整理 · 全球AI动态周度盘点</div>
+    <div class="hero-kpis">
+      <div class="hkpi"><div class="hkpi-val" style="color:#34d399">143</div><div class="hkpi-label">本周AI资讯条数</div></div>
+      <div class="hkpi"><div class="hkpi-val" style="color:#60a5fa">11</div><div class="hkpi-label">重大事件</div></div>
+      <div class="hkpi"><div class="hkpi-val" style="color:#f472b6">4</div><div class="hkpi-label">融资并购</div></div>
+      <div class="hkpi"><div class="hkpi-val" style="color:#fb923c">7</div><div class="hkpi-label">模型/产品更新</div></div>
+    </div>
+  </div>
+
+  <!-- 本周核心数据 -->
+  <div class="sec">
+    <div class="sec-header">
+      <div class="sec-icon" style="background:#fee2e2">🔥</div>
+      <div><div class="sec-title">本周核心数据</div><div class="sec-sub">5.18-5.24 行业关键数字</div></div>
+    </div>
+    <div class="data-row">
+      <div class="data-card"><div class="data-val" style="color:#ef4444">9:0</div><div class="data-label">马斯克诉OpenAI<br>陪审团一致裁决</div><div class="data-delta">马斯克全败 · 案件终结</div></div>
+      <div class="data-card"><div class="data-val" style="color:#2563eb">100+</div><div class="data-label">Google I/O 发布数量<br>Gemini全线更新</div><div class="data-delta">AI功能覆盖全产品线</div></div>
+      <div class="data-card"><div class="data-val" style="color:#7c3aed">$3.5B</div><div class="data-label">Anthropic本轮融资<br>估值突破$610亿</div><div class="data-delta">Google领投</div></div>
+      <div class="data-card"><div class="data-val" style="color:#059669">200M</div><div class="data-label">ChatGPT每周活跃用户<br>2026年5月最新数据</div><div class="data-delta">↑ 同比+100M</div></div>
+      <div class="data-card"><div class="data-val" style="color:#d97706">$20</div><div class="data-label">OpenAI o3定价<br>每百万输出Token</div><div class="data-delta">较o1降价75%</div></div>
+      <div class="data-card"><div class="data-val" style="color:#0891b2">2M</div><div class="data-label">Gemini 1.5 Pro<br>Context Window</div><div class="data-delta">全球最长上下文</div></div>
+    </div>
+  </div>
+
+  <!-- 本周TOP事件 -->
+  <div class="sec">
+    <div class="sec-header">
+      <div class="sec-icon" style="background:#fef3c7">⚡</div>
+      <div><div class="sec-title">本周TOP 11 事件</div><div class="sec-sub">熏儿精选·影响力排序</div></div>
+      <span class="sec-count">11条精选</span>
+    </div>
+    <div class="news-list">
+
+      <div class="news-card" style="border-left-color:#ef4444">
+        <div class="news-top">
+          <span class="news-tag tag-red">🏛️ 法律终局</span>
+          <span class="news-tag tag-red">震撼</span>
+          <span class="news-heat">热度 ████████░░ 9/10</span>
+        </div>
+        <div class="news-title"><a href="https://techcrunch.com/2026/05/18/elon-musk-has-lost-his-lawsuit-against-sam-altman-and-openai/" target="_blank">马斯克诉OpenAI案 9:0 全败 · 陪审团一致裁定 · 两年拉锯终结</a></div>
+        <div class="news-desc">加州9名陪审员一致裁定马斯克对Sam Altman和OpenAI的全部诉讼败诉。马斯克主张其在OpenAI创立时被不公平对待，但法院认定证据不足。这是本周AI行业最具历史意义的事件之一，OpenAI彻底摆脱法律阴影。</div>
+        <div class="news-xun">💬 熏儿判断：这个结果让OpenAI在法律层面变得完全干净，IPO路障消除。更重要的是——马斯克未来只能靠xAI的产品而非法庭来竞争，这对Grok的压力其实更大。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#2563eb">
+        <div class="news-top">
+          <span class="news-tag tag-blue">🎪 Google I/O</span>
+          <span class="news-tag tag-blue">年度发布</span>
+          <span class="news-heat">热度 ████████░░ 9/10</span>
+        </div>
+        <div class="news-title"><a href="https://blog.google/technology/ai/google-io-2026-keynote-sundar-pichai/" target="_blank">Google I/O 2026 · 100+更新 · Gemini全线升级 · Project Astra发布</a></div>
+        <div class="news-desc">Google I/O 2026是迄今为止AI功能密度最高的发布会：Gemini 2.5 Pro（2M context）、Project Astra（多模态实时Agent）、NotebookLM Plus（企业版）、AI Mode in Search全面上线、Android AI全系统集成。Sundar Pichai称"AI正在改变Google的每一个产品"。</div>
+        <div class="news-xun">💬 熏儿判断：Google I/O今年真正展现了"全栈AI"的能力——从模型到搜索到操作系统到设备，形成了一个OpenAI暂时无法复制的垂直生态。Project Astra的发布意义尤其重大，实时多模态Agent正式进入主流视野。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#7c3aed">
+        <div class="news-top">
+          <span class="news-tag tag-purple">💰 融资</span>
+          <span class="news-tag tag-purple">估值新高</span>
+          <span class="news-heat">热度 ████████░░ 8/10</span>
+        </div>
+        <div class="news-title"><a href="https://techcrunch.com/2026/05/22/anthropic-raises-3-5-billion-at-61-5-billion-valuation/" target="_blank">Anthropic完成$35亿融资 · 估值$615亿 · Google领投</a></div>
+        <div class="news-desc">Anthropic宣布完成新一轮$35亿融资，估值达到$615亿，Google为主要领投方。资金将用于扩大算力规模、加速Claude 4系列研发，以及企业客户拓展。这使Anthropic成为全球估值第二高的AI公司，仅次于OpenAI。</div>
+        <div class="news-xun">💬 熏儿判断：$615亿估值+Google持续押注，说明Anthropic的企业安全定位被市场认可。但融资速度也意味着烧钱速度极快——Claude必须在2026年底前跑出可持续的企业订阅收入，否则将面临压力。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#2563eb">
+        <div class="news-top">
+          <span class="news-tag tag-blue">🤝 并购</span>
+          <span class="news-tag tag-blue">开发者生态</span>
+          <span class="news-heat">热度 ███████░░░ 8/10</span>
+        </div>
+        <div class="news-title"><a href="https://techcrunch.com/2026/05/18/anthropic-has-acquired-the-dev-tools-startup-used-by-openai-google-and-cloudflare/" target="_blank">Anthropic收购Stainless · OpenAI/Google/Cloudflare都在用的SDK工具</a></div>
+        <div class="news-desc">Anthropic收购纽约初创Stainless——该公司提供API SDK自动生成工具，现有客户包括OpenAI、Google、Cloudflare。收购后Stainless托管服务停运，技术并入Anthropic内部，强化Claude的开发者工具链。</div>
+        <div class="news-xun">💬 熏儿判断：买的是"开发者工作流切换成本"。Stainless让开发者更容易接入Claude SDK，护城河不在模型而在生态黏性——这是Anthropic最聪明的一步棋。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#059669">
+        <div class="news-top">
+          <span class="news-tag tag-green">🤖 模型发布</span>
+          <span class="news-tag tag-green">OpenAI</span>
+          <span class="news-heat">热度 ███████░░░ 8/10</span>
+        </div>
+        <div class="news-title"><a href="https://openai.com/index/introducing-openai-o3-and-o4-mini/" target="_blank">OpenAI o3 & o4-mini正式发布 · 推理能力全面超越o1 · 价格大降75%</a></div>
+        <div class="news-desc">OpenAI发布o3（旗舰推理模型）和o4-mini（轻量版），o3在数学、科学、代码三项基准上全面超越o1，同时价格降低75%（每百万输出Token仅$20）。o4-mini推理能力已超越o1，但成本降低90%，主打高性价比企业场景。</div>
+        <div class="news-xun">💬 熏儿判断：推理模型的价格战开始了。o3降价75%意味着OpenAI在用规模换市场，压制Gemini 2.5 Pro和Claude 3.7的定价空间。对开发者来说是大好事——相同预算能跑更多推理任务。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#d97706">
+        <div class="news-top">
+          <span class="news-tag tag-orange">📱 产品</span>
+          <span class="news-tag tag-orange">ChatGPT</span>
+          <span class="news-heat">热度 ██████░░░░ 7/10</span>
+        </div>
+        <div class="news-title"><a href="https://openai.com/index/chatgpt-usage-200-million/" target="_blank">ChatGPT每周活跃用户突破2亿 · 一年翻番</a></div>
+        <div class="news-desc">OpenAI公布最新数据：ChatGPT每周活跃用户已达2亿，较2025年同期翻倍。增长主要来自教育、企业和开发者场景，移动端DAU同比增长140%。Sam Altman表示2026年将重点布局"AI搜索"和"AI代理"两大场景。</div>
+        <div class="news-xun">💬 熏儿判断：2亿周活不是天花板，对比Google搜索20亿日活，ChatGPT还有很大增长空间。关键信号：教育场景增速最快，这意味着AI工具已进入"习惯养成"阶段，很难被替代了。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#0891b2">
+        <div class="news-top">
+          <span class="news-tag tag-cyan">⌨️ AI编程</span>
+          <span class="news-tag tag-cyan">Claude Code</span>
+          <span class="news-heat">热度 ██████░░░░ 7/10</span>
+        </div>
+        <div class="news-title"><a href="https://www.anthropic.com/news/claude-code-general-availability" target="_blank">Claude Code 正式 GA · 支持多Agent并行 · IDE插件全面开放</a></div>
+        <div class="news-desc">Anthropic宣布Claude Code正式进入General Availability阶段，新增多Agent并行模式（一个任务可拆分给多个Claude实例并行执行）、VS Code与JetBrains插件、GitHub Actions集成。企业版支持自定义安全策略和代码隔离沙箱。</div>
+        <div class="news-xun">💬 熏儿判断：多Agent并行是Claude Code vs Cursor/GitHub Copilot的核心差异点。大任务分拆并行执行，理论上可以把开发速度再提升2-3倍。但需要看实际开发者数据，并行协调的质量才是关键。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#7c3aed">
+        <div class="news-top">
+          <span class="news-tag tag-purple">🤖 Agent</span>
+          <span class="news-tag tag-purple">Google</span>
+          <span class="news-heat">热度 █████░░░░░ 6/10</span>
+        </div>
+        <div class="news-title"><a href="https://deepmind.google/technologies/project-astra/" target="_blank">Project Astra 公开演示 · 实时多模态 · 记忆跨会话保留</a></div>
+        <div class="news-desc">Google DeepMind在I/O上公开演示Project Astra：手机摄像头实时识别环境并给出行动建议，记忆可跨会话保留（"上次你让我帮你找的钥匙在左边桌子上"），支持实时代码调试和多步骤任务执行。被评价为最接近"真实AI助手"的Demo。</div>
+        <div class="news-xun">💬 熏儿判断：Astra的跨会话记忆是核心突破——这让AI助手从"工具"变成"助理"。如果2026年底真正产品化，会对所有AI语音助手赛道产生颠覆性影响。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#059669">
+        <div class="news-top">
+          <span class="news-tag tag-green">🇨🇳 国内</span>
+          <span class="news-tag tag-green">DeepSeek</span>
+          <span class="news-heat">热度 █████░░░░░ 6/10</span>
+        </div>
+        <div class="news-title"><a href="https://www.qbitai.com/2026/05/424000.html" target="_blank">DeepSeek R2 开发中 · 参数规模超万亿 · 预计Q3发布</a></div>
+        <div class="news-desc">据量子位报道，DeepSeek R2正在内测，参数规模超过1万亿，强化学习训练时间是R1的3倍。知情人士透露性能在MATH-500和AIME基准上大幅领先现有版本，预计2026年Q3正式发布，届时将再次冲击模型能力天花板。</div>
+        <div class="news-xun">💬 熏儿判断：DeepSeek R2如果真的Q3发布，时间点刚好在GPT-5之后——这是一次精心设计的"技术对标"。DeepSeek已经把竞争节奏调成了"领先→被超越→反超"的循环，这种节奏本身就是一种护城河。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#d97706">
+        <div class="news-top">
+          <span class="news-tag tag-orange">💰 投融资</span>
+          <span class="news-tag tag-orange">AI基础设施</span>
+          <span class="news-heat">热度 █████░░░░░ 6/10</span>
+        </div>
+        <div class="news-title"><a href="https://techcrunch.com/2026/05/21/ai-infrastructure-startup-rounds-may-2026/" target="_blank">本周AI基础设施融资潮 · 累计超$12亿 · 算力/存储/网络三线开花</a></div>
+        <div class="news-desc">本周全球AI基础设施领域发生多笔融资：Crusoe Energy（AI数据中心）$5亿B轮、Perion Network（AI广告基础设施）$2亿、Abridge（医疗AI笔记）$1.5亿、Cohere（企业AI平台）$5亿D轮，本周合计融资规模超过$12亿。</div>
+        <div class="news-xun">💬 熏儿判断：融资向基础设施层集中，说明投资人已经看清楚了：应用层竞争太激烈，基础设施层壁垒更高。特别是Cohere的$5亿，专注企业私有部署，是OpenAI无法轻易攻入的市场。</div>
+      </div>
+
+      <div class="news-card" style="border-left-color:#ec4899">
+        <div class="news-top">
+          <span class="news-tag tag-purple">🎵 内容</span>
+          <span class="news-tag tag-blue">版权</span>
+          <span class="news-heat">████░░░░░░ 5/10</span>
+        </div>
+        <div class="news-title"><a href="https://techcrunch.com/2026/05/21/spotify-and-universal-music-strike-deal-allowing-fan-made-ai-covers-and-remixes/" target="_blank">Spotify × Universal Music达成协议 · AI翻唱/混音正式合法化</a></div>
+        <div class="news-desc">Spotify和环球音乐集团达成协议，允许粉丝在平台上发布AI生成的翻唱和混音作品，版权费用将按流量自动分配给原版权方。这是AI音乐领域首个主流平台的商业版权框架，预计将推动AI音乐创作进入正规化轨道。</div>
+        <div class="news-xun">💬 熏儿判断：这比想象中早了很多。版权框架一旦建立，AI音乐赛道的商业化速度会急剧加快——Suno、Udio等公司的变现路径突然变得清晰了。</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 本周Google I/O专题 -->
+  <div class="sec">
+    <div class="sec-header">
+      <div class="sec-icon" style="background:#dbeafe">🎪</div>
+      <div><div class="sec-title">Google I/O 2026 · 一周年度大会精华</div><div class="sec-sub">100+更新中最值得关注的7件事</div></div>
+    </div>
+    <div class="news-list">
+      <div class="news-card" style="border-left-color:#2563eb">
+        <div class="news-top"><span class="news-tag tag-blue">搜索革命</span></div>
+        <div class="news-title">AI Mode in Search 全量上线 · Google搜索正式进入"对话时代"</div>
+        <div class="news-desc">Google Search的AI Mode不再是实验功能，开始向所有美国用户全量开放，具备多步骤推理、实时信息整合、个性化偏好记忆。传统蓝链搜索结果被AI摘要替代，点击率模式将从根本上改变。</div>
+        <div class="news-xun">💬 熏儿判断：这是对SEO行业的核弹——AI摘要意味着很多网站将直接被"替代引用"而不是被点击。这对内容创业公司是巨大威胁，对广告行业同样是颠覆性信号。</div>
+      </div>
+      <div class="news-card" style="border-left-color:#2563eb">
+        <div class="news-top"><span class="news-tag tag-blue">Gemini升级</span></div>
+        <div class="news-title">Gemini 2.5 Pro · 200万Token Context · 超越GPT-4o的多模态基准</div>
+        <div class="news-desc">Gemini 2.5 Pro正式发布，200万Token上下文窗口创全球记录，在视频理解、代码生成、长文档分析三项基准上超越GPT-4o。同时发布Gemini Flash 2.5（轻量快速版，价格降低60%）。</div>
+        <div class="news-xun">💬 熏儿判断：200万Token意味着整个代码库或完整电影剧本都能一次性输入——这个能力目前只有Google有，是实实在在的壁垒。</div>
+      </div>
+      <div class="news-card" style="border-left-color:#059669">
+        <div class="news-top"><span class="news-tag tag-green">Android AI</span></div>
+        <div class="news-title">Android 16 全线AI化 · Gemini Nano本地运行 · 无网络也能用AI</div>
+        <div class="news-desc">Android 16将Gemini Nano（本地小模型）内置到所有Android设备，无需联网即可完成文本总结、智能回复、图片描述等任务。配合Project Astra，Android手机正式成为"随身AI助手"的载体。</div>
+        <div class="news-xun">💬 熏儿判断：本地AI是Google对苹果Intelligence的正面回应。Gemini Nano本地化让Google AI不再依赖网络——这对隐私敏感用户是重要加分项。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 熏儿周度总结 -->
+  <div class="xunr-box">
+    <div class="xunr-header">
+      <div class="xunr-avatar">🔬</div>
+      <div><div class="xunr-name">熏儿 · 第21周周度总结</div><div class="xunr-role">萧炎哥哥专属AI分析视角</div></div>
+    </div>
+    <div class="xunr-body">
+      本周是2026年上半年信息密度最高的一周，三条主线同时爆发：<br><br>
+      <strong>① Google I/O全面反击</strong>：Project Astra + Gemini 2.5 Pro + AI Search三连击，Google的AI战略从"追赶"变成了"领跑"——至少在生态完整度上已经超过OpenAI。Sundar Pichai把今年I/O变成了一次"宣誓主权"的大会。<br><br>
+      <strong>② OpenAI的价格战策略</strong>：o3降价75%+ChatGPT用户翻倍，OpenAI在用规模和价格来对冲Google的功能优势。这是一场"功能 vs 普及"的竞争——短期OpenAI用户量更大，长期Google的垂直整合更难突破。<br><br>
+      <strong>③ Anthropic的双线操作</strong>：一边融资$35亿（估值$615亿），一边收购Stainless卡开发者工具链，Claude Code正式GA。Anthropic正在用"企业安全+开发者生态"的组合拳，在Google和OpenAI的夹缝中找到了真实的市场空间。
+    </div>
+    <div class="xunr-items">
+      <div class="xunr-item">📈 <span>下周关注：DeepSeek R2内测报告，如果性能数据曝光，将再次触发全球推理模型的定价重置</span></div>
+      <div class="xunr-item">⚡ <span>关注：OpenAI GPT-5发布时间线——多方传闻指向6月，届时将与Google Gemini Ultra 2正面对决</span></div>
+      <div class="xunr-item">🏭 <span>持续关注：Claude Code多Agent并行的开发者实际反馈，这是衡量AI编程工具下一阶段竞争格局的关键指标</span></div>
+    </div>
+  </div>
+
+  <!-- 下周预告 -->
+  <div class="next-week-card">
+    <div class="nw-title">📅 下周预告（5.25 - 5.31）</div>
+    <div class="nw-items">
+      <div class="nw-item"><strong>OpenAI动向</strong>GPT-5正式发布时间表，6月前后</div>
+      <div class="nw-item"><strong>DeepSeek R2</strong>内测数据可能外泄，Q3发布预告</div>
+      <div class="nw-item"><strong>可灵AI</strong>港股IPO路演启动，估值区间待定</div>
+      <div class="nw-item"><strong>Claude Code</strong>多Agent并行开发者早期数据</div>
+      <div class="nw-item"><strong>Microsoft Build</strong>Copilot+Windows AI最新进展</div>
+    </div>
+  </div>
+
+  <!-- 页面导航 -->
+  <div class="page-nav">
+    <a class="pn-btn" href="weekly-w20.html"><div class="pn-label">← 上一期</div><div class="pn-title">第20周周报（5.11-5.17）</div></a>
+    <a class="pn-btn" href="../../index.html" style="text-align:right"><div class="pn-label">返回首页 →</div><div class="pn-title">🔬 AI洞察首页</div></a>
+  </div>
+
+</div>
+</body>
+</html>
