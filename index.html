@@ -1562,21 +1562,22 @@
     <div class="ticker-divider"></div>
     <div class="ticker-track-wrap">
       <div class="ticker-track" id="tickerTrack">
-        <span class="tick-item"><span class="tick-tag tick-green">模型</span>Gemini’s new AI agent is abo…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-green">模型</span>Anthropic scales Claude Myth…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-red">行业</span>Alphabet plans to raise $80B…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-red">行业</span>Uber caps employee AI spendi…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>Nvidia chases $200B CPU mark…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>Microsoft offers devs a bett…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-orange">企业</span>云端模型如何落地物理世界？招商局狮子山人工智能实验室用L…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-green">模型</span>MeMo's memory model lets tea…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-green">模型</span>字节开源统一框架Bernini：给DiT配个“大模型军师…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-red">行业</span>Hackers hijacked Instagram a…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-red">行业</span>New Microsoft tool lets devs…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>Florida sues OpenAI, Sam Alt…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>OpenAI launches new Codex to…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-red">行业</span>Zigging when most are zaggin…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-red">行业</span>Martin Scorsese becomes the…&nbsp;</span>
+      
       
       
       
@@ -1630,7 +1631,7 @@
       
       </div>
     </div>
-    <a class="ticker-link" href="01-daily-reports/2026-06/2026-06-02.html">查看日报 →</a>
+    <a class="ticker-link" href="01-daily-reports/2026-06/2026-06-03.html">查看日报 →</a>
   </div>
 </div>
 
@@ -1651,12 +1652,12 @@
   <div class="tab-panel active" id="panel-daily">
     <div class="latest-cards">
       <!-- 最新日报 -->
-      <a class="report-card" href="01-daily-reports/2026-06/2026-06-02.html">
+      <a class="report-card" href="01-daily-reports/2026-06/2026-06-03.html">
         <div class="card-header">
           <span class="card-type-badge badge-daily">📅 日报</span>
           <span class="badge-new">NEW</span>
         </div>
-        <div class="card-title">2026年6月2日 AI日报</div>
+        <div class="card-title">2026年6月3日 AI日报</div>
         <div class="card-tags">
           <span class="tag">大模型</span>
           <span class="tag">AI算力</span>
@@ -2618,9 +2619,9 @@
   // ===== 日历 =====
   const dailyData = {
     '2026-06': {
-      hasDaily: [1,2],
+      hasDaily: [1,2,3],
       hasWeekly: [],
-      totalCount: 2
+      totalCount: 3
     },
     '2026-05': {
       hasDaily: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
@@ -2640,7 +2641,7 @@
   function renderCalendar() {
     const key = `${currentYear}-${String(currentMonth).padStart(2,'0')}`;
     const data = dailyData[key] || { hasDaily: [], hasWeekly: [], totalCount: 0 };
-    const today = new Date(2026, 5, 2); // 2026-05-18
+    const today = new Date(2026, 5, 3); // 2026-05-18
     const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
     const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
 
