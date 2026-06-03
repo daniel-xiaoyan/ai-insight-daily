@@ -672,6 +672,219 @@ def render_html(date_str, news):
 </body>
 </html>"""
 
+# ─── 周报自动生成 ────────────────────────────────────────
+
+def get_week_number(dt):
+    return dt.isocalendar()[1]
+
+def get_weekly_path(year, week_num, month_ym):
+    d = REPORTS_DIR / month_ym
+    d.mkdir(parents=True, exist_ok=True)
+    return d / f"weekly-w{week_num}.html"
+
+def collect_weekly_news(monday, sunday):
+    stories = []
+    dt = monday
+    while dt <= sunday:
+        date_str = format_date(dt)
+        ym = dt.strftime("%Y-%m")
+        path = REPORTS_DIR / ym / f"{date_str}.html"
+        if path.exists():
+            content = path.read_text(encoding="utf-8")
+            pattern = re.compile(
+                r'<a class="news-title-link" href="(https?://[^"]+)"[^>]*>([^<]+)</a>[\s\S]{0,200}?<span class="news-new">TODAY</span>',
+                re.IGNORECASE
+            )
+            for m in pattern.finditer(content):
+                link, title = m.group(1).strip(), m.group(2).strip()
+                if title and link:
+                    stories.append({"date": date_str, "title": title, "link": link})
+        dt += datetime.timedelta(days=1)
+    return stories
+
+def render_weekly_html(week_num, monday, sunday, stories):
+    m_str = f"{monday.month}月{monday.day}日"
+    s_str = f"{sunday.month}月{sunday.day}日"
+    prev_week = week_num - 1
+    ym = monday.strftime("%Y-%m")
+    prev_ym = (monday - datetime.timedelta(days=7)).strftime("%Y-%m")
+
+    topic_map = {
+        "大模型": ["GPT","Claude","Gemini","大模型","LLM","DeepSeek","Llama","模型","推理","Qwen","通义","文心","Kimi"],
+        "AI编程": ["Cursor","Copilot","Devin","Trae","coding","code","编程","代码","IDE","Claude Code","GitHub"],
+        "AI应用": ["Midjourney","Sora","Runway","DALL","视频","图像","音乐","可灵","即梦","搜索","Search"],
+        "企业落地": ["企业","B2B","SaaS","落地","转型","ROI","效率","生产力","Agent","自动化"],
+    }
+    TAG_COLOR = {
+        "行业动态": ("tag-orange","🏢 行业"),
+        "大模型":   ("tag-blue",  "🧠 模型"),
+        "AI编程":   ("tag-cyan",  "⌨️ 编程"),
+        "AI应用":   ("tag-purple","🎨 应用"),
+        "企业落地": ("tag-green", "🏭 企业"),
+    }
+    BORDER_COLOR = {
+        "行业动态":"#d97706","大模型":"#2563eb",
+        "AI编程":"#0891b2","AI应用":"#7c3aed","企业落地":"#059669",
+    }
+
+    top_stories = []
+    used = set()
+    for cat, kws in topic_map.items():
+        added = 0
+        for s in stories:
+            if s["link"] in used: continue
+            if any(k.lower() in s["title"].lower() for k in kws):
+                top_stories.append((cat, s))
+                used.add(s["link"])
+                added += 1
+                if added >= 2: break
+    for s in stories:
+        if s["link"] not in used and len(top_stories) < 10:
+            top_stories.append(("行业动态", s))
+            used.add(s["link"])
+
+    top_html = ""
+    for i, (cat, s) in enumerate(top_stories[:10]):
+        tag_cls, tag_label = TAG_COLOR.get(cat, ("tag-orange","📌"))
+        border = BORDER_COLOR.get(cat,"#059669")
+        filled = "█" * (10-i) + "░" * i
+        top_html += f"""
+      <div class="news-card" style="border-left-color:{border}">
+        <div class="news-top">
+          <span class="news-tag {tag_cls}">{tag_label}</span>
+          <span class="news-heat">热度 {filled[:10]} {10-i}/10</span>
+        </div>
+        <div class="news-title"><a href="{s['link']}" target="_blank">{s['title']}</a></div>
+        <div class="news-xun">💬 {s['date']} · AI洞察日报收录</div>
+      </div>"""
+    if not top_html:
+        top_html = '<div class="news-card" style="border-left-color:#94a3b8"><div class="news-title">本周新闻数据收集中，请查看各日日报获取完整内容。</div></div>'
+
+    total_count = len(stories)
+    prev_weekly_path = REPORTS_DIR / prev_ym / f"weekly-w{prev_week}.html"
+    prev_link = f"weekly-w{prev_week}.html" if prev_weekly_path.exists() else "../../index.html"
+    prev_title = f"第{prev_week}周周报" if prev_weekly_path.exists() else "返回首页"
+    financing_cnt = len([s for s in stories if any(k in s["title"] for k in ["融资","投资","收购","IPO"])])
+    product_cnt   = len([s for s in stories if any(k in s["title"] for k in ["发布","更新","升级","推出","上线"])])
+
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 周报 · 第{week_num}周（{m_str}-{s_str}）| 熏儿的AI洞察</title>
+  <style>
+    :root{{--green:#059669;--blue:#2563eb;--purple:#7c3aed;--orange:#d97706;--cyan:#0891b2;--bg:#f8fafb;--border:#e7e5e4;--text:#57534e;--text-dark:#1c1917;--text-muted:#78716c;--radius:16px;--shadow:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08)}}
+    *{{box-sizing:border-box;margin:0;padding:0}}
+    body{{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:14px}}
+    .top-bar{{height:4px;background:linear-gradient(90deg,#059669,#2563eb,#7c3aed,#f59e0b)}}
+    .nav{{background:white;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:8px;font-size:13px}}
+    .nav a{{color:var(--green);text-decoration:none}}.nav-sep{{color:#d1d5db}}
+    .container{{max-width:860px;margin:0 auto;padding:28px 16px 80px}}
+    .hero{{background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:var(--radius);padding:32px;margin-bottom:24px;color:white;position:relative;overflow:hidden}}
+    .hero::after{{content:'W{week_num}';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:100px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none}}
+    .hero-badge{{display:inline-flex;align-items:center;gap:6px;background:rgba(251,191,36,.15);color:#fcd34d;border:1px solid rgba(251,191,36,.3);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;margin-bottom:14px}}
+    .hero-title{{font-size:28px;font-weight:800;color:white;margin-bottom:6px}}
+    .hero-title span{{background:linear-gradient(135deg,#34d399,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}}
+    .hero-sub{{font-size:13px;color:#94a3b8;margin-bottom:22px}}
+    .hero-kpis{{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}}
+    .hkpi{{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px}}
+    .hkpi-val{{font-size:22px;font-weight:800;line-height:1.1}}.hkpi-label{{font-size:11px;color:#94a3b8;margin-top:3px}}
+    .sec{{margin-bottom:20px}}
+    .sec-header{{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #f1f5f9}}
+    .sec-icon{{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}}
+    .sec-title{{font-size:16px;font-weight:800;color:var(--text-dark)}}.sec-sub{{font-size:12px;color:var(--text-muted);margin-top:1px}}
+    .sec-count{{margin-left:auto;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:#f1f5f9;color:var(--text-muted)}}
+    .news-list{{display:flex;flex-direction:column;gap:10px}}
+    .news-card{{background:white;border:1px solid var(--border);border-left:3px solid;border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}}
+    .news-top{{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}}
+    .news-tag{{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px}}
+    .tag-red{{background:#fee2e2;color:#991b1b}}.tag-blue{{background:#dbeafe;color:#1e40af}}
+    .tag-green{{background:#dcfce7;color:#166534}}.tag-orange{{background:#fef3c7;color:#92400e}}
+    .tag-purple{{background:#f3e8ff;color:#5b21b6}}.tag-cyan{{background:#cffafe;color:#155e75}}
+    .news-heat{{font-size:10px;color:var(--text-muted);margin-left:auto}}
+    .news-title{{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:4px;line-height:1.4}}
+    .news-title a{{color:var(--blue);text-decoration:none}}.news-title a:hover{{text-decoration:underline}}
+    .news-xun{{font-size:11px;color:#047857;padding:6px 10px;background:#f0fdf4;border-radius:7px;border-left:2px solid var(--green);line-height:1.5}}
+    .xunr-box{{background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:var(--radius);padding:22px;color:white;margin-bottom:20px}}
+    .xunr-header{{display:flex;align-items:center;gap:10px;margin-bottom:12px}}
+    .xunr-avatar{{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));display:flex;align-items:center;justify-content:center;font-size:20px}}
+    .xunr-name{{font-size:14px;font-weight:700;color:white}}.xunr-role{{font-size:11px;color:#94a3b8}}
+    .xunr-body{{font-size:13px;color:rgba(255,255,255,.8);line-height:1.8;margin-bottom:14px}}
+    .xunr-body strong{{color:white}}
+    .page-nav{{display:flex;gap:12px;margin-top:24px}}
+    .pn-btn{{flex:1;background:white;border:1px solid var(--border);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--text);display:block}}
+    .pn-btn:hover{{border-color:var(--green);box-shadow:var(--shadow-md)}}
+    .pn-label{{font-size:11px;color:var(--text-muted);margin-bottom:3px}}.pn-title{{font-size:13px;font-weight:600;color:var(--text-dark)}}
+    @media(max-width:600px){{.hero-kpis{{grid-template-columns:repeat(2,1fr)}}}}
+  </style>
+</head>
+<body>
+<div class="top-bar"></div>
+<nav class="nav">
+  <a href="../../index.html">🔬 AI洞察</a><span class="nav-sep">/</span>
+  <a href="../../index.html">AI日报</a><span class="nav-sep">/</span>
+  <span>第{week_num}周周报</span>
+</nav>
+<div class="container">
+  <div class="hero">
+    <div class="hero-badge">📊 AI周报 · 第{week_num}周</div>
+    <div class="hero-title">2026年{monday.month}月 <span>第{week_num}周</span> AI行业全景</div>
+    <div class="hero-sub">📅 {monday.year}年{m_str} — {s_str} · 熏儿整理 · 全球AI动态周度盘点</div>
+    <div class="hero-kpis">
+      <div class="hkpi"><div class="hkpi-val" style="color:#34d399">{total_count}</div><div class="hkpi-label">本周AI资讯条数</div></div>
+      <div class="hkpi"><div class="hkpi-val" style="color:#60a5fa">{len(top_stories)}</div><div class="hkpi-label">精选事件</div></div>
+      <div class="hkpi"><div class="hkpi-val" style="color:#f472b6">{financing_cnt}</div><div class="hkpi-label">融资并购</div></div>
+      <div class="hkpi"><div class="hkpi-val" style="color:#fb923c">{product_cnt}</div><div class="hkpi-label">产品更新</div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-header">
+      <div class="sec-icon" style="background:#fef3c7">⚡</div>
+      <div><div class="sec-title">本周精选事件</div><div class="sec-sub">{m_str}-{s_str} 熏儿精选</div></div>
+      <span class="sec-count">{len(top_stories)}条精选</span>
+    </div>
+    <div class="news-list">{top_html}
+    </div>
+  </div>
+  <div class="xunr-box">
+    <div class="xunr-header">
+      <div class="xunr-avatar">🔬</div>
+      <div><div class="xunr-name">熏儿 · 第{week_num}周周度总结</div><div class="xunr-role">萧炎哥哥专属AI分析视角</div></div>
+    </div>
+    <div class="xunr-body">
+      本周共收录 <strong>{total_count}</strong> 条AI行业资讯，覆盖大模型、AI编程、行业应用、投融资等核心领域。<br><br>
+      AI行业的变化速度继续超出所有人预期——每一周都有新的里程碑事件。关键是从噪音中识别真正的结构性变化，而不是被每一条"突破性进展"分散注意力。<br><br>
+      <strong>本周信号：</strong>持续关注头部公司的战略动向，这比单一技术突破更能预判行业走向。
+    </div>
+  </div>
+  <div class="page-nav">
+    <a class="pn-btn" href="{prev_link}"><div class="pn-label">← 上一期</div><div class="pn-title">{prev_title}</div></a>
+    <a class="pn-btn" href="../../index.html" style="text-align:right"><div class="pn-label">返回首页 →</div><div class="pn-title">🔬 AI洞察首页</div></a>
+  </div>
+</div>
+</body>
+</html>"""
+
+
+def maybe_generate_weekly(dt):
+    """每天检查：如果上一整周的周报不存在，就生成它"""
+    days_since_monday = dt.weekday()
+    last_monday = dt - datetime.timedelta(days=days_since_monday + 7)
+    last_sunday = last_monday + datetime.timedelta(days=6)
+    week_num = get_week_number(last_monday)
+    ym = last_monday.strftime("%Y-%m")
+    weekly_path = get_weekly_path(last_monday.year, week_num, ym)
+    if weekly_path.exists():
+        print(f"  ✅ W{week_num} 周报已存在，跳过")
+        return False
+    print(f"  📊 生成 W{week_num} 周报（{format_date(last_monday)} ~ {format_date(last_sunday)}）...")
+    stories = collect_weekly_news(last_monday, last_sunday)
+    html = render_weekly_html(week_num, last_monday, last_sunday, stories)
+    weekly_path.write_text(html, encoding="utf-8")
+    print(f"  ✅ 周报已生成: {weekly_path}")
+    return True, week_num, ym, last_monday.day
+
+
 # ─── 更新 index.html ────────────────────────────────────
 def update_index(date_str, news=None):
     dt = datetime.datetime.strptime(date_str, "%Y-%m-%d")
@@ -744,12 +957,45 @@ def update_index(date_str, news=None):
         f'let currentMonth = {month};', content
     )
 
+    # 动态计算 hasWeekly：扫描当月目录中存在的 weekly-wXX.html 文件
+    def get_has_weekly(ym_str):
+        month_dir = REPORTS_DIR / ym_str
+        if not month_dir.exists():
+            return []
+        weekly_days = []
+        for f in month_dir.glob("weekly-w*.html"):
+            # 读取文件找到对应的起始日期（用文件内容中的 hero-sub 日期）
+            try:
+                c = f.read_text(encoding="utf-8")
+                # 从 hero-sub 中找 "X月X日" 格式
+                m2 = re.search(r'(\d+)月(\d+)日\s*[—–-]\s*(\d+)月(\d+)日', c)
+                if m2:
+                    start_month, start_day = int(m2.group(1)), int(m2.group(2))
+                    if str(start_month) == str(int(ym_str.split('-')[1])):
+                        weekly_days.append(start_day)
+                    else:
+                        # 跨月周报：取结束日所在月的某天（如果结束月匹配则用结束日）
+                        end_month, end_day = int(m2.group(3)), int(m2.group(4))
+                        if str(end_month) == str(int(ym_str.split('-')[1])):
+                            weekly_days.append(end_day)
+            except Exception:
+                pass
+        return sorted(set(weekly_days))
+
+    has_weekly = get_has_weekly(ym)
+
     # 确保 dailyData 有当前月份条目
     if f"'{ym}'" not in content:
         content = content.replace(
             "const dailyData = {",
-            f"const dailyData = {{\n    '{ym}': {{\n      hasDaily: [{day}],\n      hasWeekly: [],\n      totalCount: 1\n    }},"
-        )
+            f"const dailyData = {{\n    '{ym}': {{\n      hasDaily: [{day}],\n      hasWeekly: {has_weekly},\n      totalCount: 1\n    }},")
+
+    # 同步更新 hasWeekly 数组
+    content = re.sub(
+        rf"('{ym}':[^}}]*?hasWeekly:\s*\[)[^\]]*(\])",
+        lambda m: m.group(1) + ",".join(map(str, has_weekly)) + m.group(2),
+        content, flags=re.DOTALL
+    )
 
     INDEX_PATH.write_text(content, encoding="utf-8")
     print(f"  ✅ index.html 更新完成")
@@ -764,7 +1010,6 @@ def main(target_date=None):
     news_data = None
     if report_path.exists():
         print(f"⚠️  {date_str} 日报已存在，跳过生成")
-        # 即使日报已存在，也尝试重新抓取新闻用于刷新ticker
         try:
             print("  📡 重抓新闻用于刷新首页 ticker...")
             news_data = collect_news(date_str)
@@ -777,6 +1022,30 @@ def main(target_date=None):
         html = render_html(date_str, news_data)
         report_path.write_text(html, encoding="utf-8")
         print(f"  ✅ 日报已生成: {report_path}")
+
+    # ── 周报自动生成（每周一自动补上周的周报）──
+    print("  📊 检查是否需要生成周报...")
+    try:
+        weekly_result = maybe_generate_weekly(dt)
+        if weekly_result and weekly_result is not False:
+            _, week_num, weekly_ym, weekly_start_day = weekly_result
+            # 更新首页周报卡片
+            content = INDEX_PATH.read_text(encoding="utf-8")
+            last_monday = dt - datetime.timedelta(days=dt.weekday() + 7)
+            last_sunday = last_monday + datetime.timedelta(days=6)
+            w_title = f"AI 周报 · 第{week_num}周（{last_monday.month}.{last_monday.day} - {last_sunday.month}.{last_sunday.day}）"
+            content = re.sub(
+                r'(<a class="report-card" href="01-daily-reports/)\d{4}-\d{2}/weekly-w\d+(\.html">)',
+                f'\\g<1>{weekly_ym}/weekly-w{week_num}\\g<2>', content, count=1
+            )
+            content = re.sub(
+                r'(<div class="card-title">)AI 周报 · 第\d+周[^<]*(</div>)',
+                f'\\g<1>{w_title}\\g<2>', content, count=1
+            )
+            INDEX_PATH.write_text(content, encoding="utf-8")
+            print(f"  ✅ 首页周报卡片已更新为 W{week_num}")
+    except Exception as e:
+        print(f"  ⚠️  周报生成失败（不影响日报）: {e}")
 
     print("  🔄 更新 index.html...")
     update_index(date_str, news_data)
