@@ -1564,19 +1564,20 @@
       <div class="ticker-track" id="tickerTrack">
         <span class="tick-item"><span class="tick-tag tick-green">模型</span>AI price wars: OpenAI cuts G…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-red">行业</span>Anthropic says its own AI mo…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-red">行业</span>Fresh off its Wiz payout, In…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-purple">工具</span>Judge says Trump admin still…&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-blue">应用</span>36氪独家｜曾爱玲入职B站担任AI视频生成业务负责人，向…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-orange">企业</span>Companies are finally seeing…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-green">模型</span>Gemini Robotics 2 Brings Goo…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-red">行业</span>Apple stockpiles inventory a…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-red">行业</span>Sam Altman isn’t the only on…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-purple">工具</span>Hush Security says the AI se…&nbsp;</span>
-        <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-red">行业</span>AI hedge fund Situational Aw…&nbsp;</span>
+      
       
       
       
@@ -1864,7 +1865,7 @@
       
       </div>
     </div>
-    <a class="ticker-link" href="01-daily-reports/2026-07/2026-07-31.html">查看日报 →</a>
+    <a class="ticker-link" href="01-daily-reports/2026-08/2026-08-01.html">查看日报 →</a>
   </div>
 </div>
 
@@ -1885,12 +1886,12 @@
   <div class="tab-panel active" id="panel-daily">
     <div class="latest-cards">
       <!-- 最新日报 -->
-      <a class="report-card" href="01-daily-reports/2026-07/2026-07-31.html">
+      <a class="report-card" href="01-daily-reports/2026-08/2026-08-01.html">
         <div class="card-header">
           <span class="card-type-badge badge-daily">📅 日报</span>
           <span class="badge-new">NEW</span>
         </div>
-        <div class="card-title">2026年7月31日 AI日报</div>
+        <div class="card-title">2026年8月1日 AI日报</div>
         <div class="card-tags">
           <span class="tag">大模型</span>
           <span class="tag">AI算力</span>
@@ -2851,6 +2852,11 @@
 
   // ===== 日历 =====
   const dailyData = {
+    '2026-08': {
+      hasDaily: [1],
+      hasWeekly: [],
+      totalCount: 1
+    },
     '2026-07': {
       hasDaily: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
       hasWeekly: [6,13,20],
@@ -2874,12 +2880,12 @@
   };
 
   let currentYear = 2026;
-  let currentMonth = 7;
+  let currentMonth = 8;
 
   function renderCalendar() {
     const key = `${currentYear}-${String(currentMonth).padStart(2,'0')}`;
     const data = dailyData[key] || { hasDaily: [], hasWeekly: [], totalCount: 0 };
-    const today = new Date(2026, 6, 31); // 2026-05-18
+    const today = new Date(2026, 7, 1); // 2026-05-18
     const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
     const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
 
@@ -2934,8 +2940,8 @@
     const nextBtn = document.getElementById('nextMonth');
     prevBtn.style.opacity = (currentYear === 2026 && currentMonth === 4) ? '0.3' : '1';
     prevBtn.style.pointerEvents = (currentYear === 2026 && currentMonth === 4) ? 'none' : '';
-    nextBtn.style.opacity = (currentYear === 2026 && currentMonth === 7) ? '0.3' : '1';
-    nextBtn.style.pointerEvents = (currentYear === 2026 && currentMonth === 7) ? 'none' : '';
+    nextBtn.style.opacity = (currentYear === 2026 && currentMonth === 8) ? '0.3' : '1';
+    nextBtn.style.pointerEvents = (currentYear === 2026 && currentMonth === 8) ? 'none' : '';
   }
 
   function changeMonth(delta) {
