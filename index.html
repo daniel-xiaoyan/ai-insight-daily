@@ -1562,7 +1562,7 @@
     <div class="ticker-divider"></div>
     <div class="ticker-track-wrap">
       <div class="ticker-track" id="tickerTrack">
-        <span class="tick-item"><span class="tick-tag tick-green">模型</span>AI price wars: OpenAI cuts G…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-green">模型</span>Sam Altman is still making t…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-red">行业</span>Google nixes its Earth AI fe…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
@@ -1570,13 +1570,14 @@
         <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-blue">应用</span>36氪独家｜曾爱玲入职B站担任AI视频生成业务负责人，向…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-green">模型</span>Gemini Robotics 2 Brings Goo…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-green">模型</span>AI price wars: OpenAI cuts G…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-red">行业</span>Fresh off its Wiz payout, In…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-purple">工具</span>Structured AI data pipelines…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-red">行业</span>Sam Altman isn’t the only on…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-green">模型</span>Gemini Robotics 2 Brings Goo…&nbsp;</span>
+      
       
       
       
@@ -1868,7 +1869,7 @@
       
       </div>
     </div>
-    <a class="ticker-link" href="01-daily-reports/2026-08/2026-08-01.html">查看日报 →</a>
+    <a class="ticker-link" href="01-daily-reports/2026-08/2026-08-02.html">查看日报 →</a>
   </div>
 </div>
 
@@ -1889,12 +1890,12 @@
   <div class="tab-panel active" id="panel-daily">
     <div class="latest-cards">
       <!-- 最新日报 -->
-      <a class="report-card" href="01-daily-reports/2026-08/2026-08-01.html">
+      <a class="report-card" href="01-daily-reports/2026-08/2026-08-02.html">
         <div class="card-header">
           <span class="card-type-badge badge-daily">📅 日报</span>
           <span class="badge-new">NEW</span>
         </div>
-        <div class="card-title">2026年8月1日 AI日报</div>
+        <div class="card-title">2026年8月2日 AI日报</div>
         <div class="card-tags">
           <span class="tag">大模型</span>
           <span class="tag">AI算力</span>
@@ -2856,9 +2857,9 @@
   // ===== 日历 =====
   const dailyData = {
     '2026-08': {
-      hasDaily: [1],
+      hasDaily: [1,2],
       hasWeekly: [],
-      totalCount: 1
+      totalCount: 2
     },
     '2026-07': {
       hasDaily: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
@@ -2888,7 +2889,7 @@
   function renderCalendar() {
     const key = `${currentYear}-${String(currentMonth).padStart(2,'0')}`;
     const data = dailyData[key] || { hasDaily: [], hasWeekly: [], totalCount: 0 };
-    const today = new Date(2026, 7, 1); // 2026-05-18
+    const today = new Date(2026, 7, 2); // 2026-05-18
     const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
     const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
 
