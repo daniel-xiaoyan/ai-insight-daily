@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026-08-06 AI日报 v4.0 | 熏儿的AI洞察</title>
+  <style>
+    :root{--green:#059669;--green-light:#dcfce7;--green-dark:#047857;--blue:#2563eb;--blue-light:#dbeafe;--purple:#7c3aed;--orange:#d97706;--orange-light:#fef3c7;--red:#ef4444;--bg:#f8fafb;--border:#f5f5f4;--border2:#e7e5e4;--text:#57534e;--text-dark:#1c1917;--text-muted:#78716c;--radius:16px;--radius-sm:10px;--shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--shadow-md:0 4px 12px rgba(0,0,0,.08)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+    .top-bar{height:4px;background:linear-gradient(90deg,#059669,#2563eb,#7c3aed)}
+    .nav{background:white;border-bottom:1px solid var(--border2);padding:10px 20px;display:flex;align-items:center;gap:8px;font-size:13px}
+    .nav a{color:var(--green);text-decoration:none}.nav-sep{color:var(--border2)}.nav-cur{color:var(--text-muted)}
+    .page-layout{display:grid;grid-template-columns:200px 1fr;gap:24px;max-width:1060px;margin:0 auto;padding:24px 16px 60px;align-items:start}
+    @media(max-width:860px){.page-layout{grid-template-columns:1fr}.sidebar{display:none}}
+    .sidebar{position:sticky;top:16px}.sidebar-card{background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px}
+    .sidebar-title{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+    .sidebar-nav{display:flex;flex-direction:column;gap:2px}
+    .sidebar-link{display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:7px;text-decoration:none;font-size:12px;color:var(--text-muted);transition:all .15s}
+    .sidebar-link:hover{background:var(--green-light);color:var(--green-dark);font-weight:600}
+    .main{display:flex;flex-direction:column;gap:16px}
+    .section-card{background:white;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+    .section-card-header{padding:16px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px}
+    .sc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+    .sc-icon-green{background:#dcfce7}.sc-icon-blue{background:#dbeafe}.sc-icon-orange{background:#fef3c7}.sc-icon-purple{background:#f3e8ff}.sc-icon-dark{background:#1e293b;color:white}
+    .sc-titles{flex:1}.sc-title{font-size:18px;font-weight:700;color:var(--text-dark);line-height:1.3}.sc-subtitle{font-size:13px;color:var(--text-muted);margin-top:2px}
+    .sc-body{padding:16px 20px}
+    .hero-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+    .hero-label{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--green);margin-bottom:10px}
+    .hero-title-row{display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+    .hero-title{font-size:28px;font-weight:800;color:var(--text-dark)}
+    .hero-ver{background:var(--green-light);color:var(--green-dark);font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px}
+    .hero-date{font-size:15px;color:var(--text-muted);margin-bottom:16px}
+    .hero-stats{display:flex;gap:10px;flex-wrap:wrap}
+    .hero-stat-badge{background:#f8fafb;border:1px solid var(--border2);border-radius:999px;padding:5px 14px;font-size:12px;color:var(--text);font-weight:500}
+    .hot-table{width:100%;border-collapse:collapse;font-size:12px}
+    .hot-table th{padding:6px 8px;background:#fef2f2;text-align:left;font-weight:700;color:#991b1b;border-bottom:1px solid var(--border2);white-space:nowrap}
+    .hot-table td{padding:6px 8px;border-bottom:1px solid var(--border);vertical-align:middle;background:white}
+    .hot-table tr:hover td{background:#f8fafb}
+    .hot-rank{font-size:16px;width:40px}.hot-topic{font-weight:600;color:var(--text-dark)}.hot-signal{font-size:12px;color:var(--text-muted)}
+    .heat-bar{display:flex;gap:1px;height:14px;align-items:center}
+    .heat-bar-fill{width:3px;height:10px;background:#e5e7eb;border-radius:1px}
+    .heat-bar-fill.filled{background:linear-gradient(to bottom,#ef4444,#f97316)}
+    .news-section-wrap{display:flex;flex-direction:column;gap:12px}
+    .region-title{font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+    .news-items{display:flex;flex-direction:column;gap:8px}
+    .news-item{background:#f8fafb;border:1px solid var(--border2);border-radius:10px;padding:12px 14px}
+    .news-item-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+    .news-new{font-size:9px;font-weight:700;background:#ef4444;color:white;padding:2px 6px;border-radius:999px;letter-spacing:.5px}
+    .news-repeat{font-size:9px;font-weight:700;background:#94a3b8;color:white;padding:2px 6px;border-radius:999px;letter-spacing:.5px}
+    .news-title-link{font-size:14px;font-weight:600;color:var(--blue);text-decoration:none;line-height:1.4;flex:1}
+    .news-title-link:hover{text-decoration:underline;color:var(--green)}
+    .news-source{font-size:11px;color:var(--text-muted)}
+    .news-desc{font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.5}
+    .news-comment{font-size:11px;color:var(--green-dark);margin-top:6px;padding:6px 10px;background:var(--green-light);border-radius:6px;line-height:1.5}
+    .news-empty{font-size:13px;color:var(--text-muted);padding:8px 0}
+    .xunr-card{background:white;border:1px solid var(--border2);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .xunr-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+    .xunr-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#059669,#2563eb);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+    .xunr-name{font-size:14px;font-weight:700;color:var(--text-dark)}.xunr-role{font-size:12px;color:var(--text-muted)}
+    .xunr-body{font-size:13px;color:var(--text);line-height:1.8}
+    .xunr-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .xunr-stat{background:#f8fafb;border-radius:8px;padding:8px 12px;font-size:12px;color:var(--text-muted)}
+    .xunr-stat strong{color:var(--text-dark);display:block;font-size:16px}
+    .page-nav{display:flex;gap:12px}
+    .pn-btn{flex:1;background:white;border:1px solid var(--border2);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--text);display:block;transition:box-shadow .15s,border-color .15s}
+    .pn-btn:hover{box-shadow:var(--shadow-md);border-color:var(--green)}
+    .pn-label{font-size:11px;color:var(--text-muted);margin-bottom:3px}.pn-title{font-size:13px;font-weight:600}
+    .related-card{background:white;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-top:8px}
+    .related-header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,#f0fdf4,#eff6ff)}
+    .related-title{font-size:15px;font-weight:700;color:var(--text-dark)}
+    .related-subtitle{font-size:12px;color:var(--text-muted);margin-left:auto}
+    .related-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px}
+    @media(max-width:600px){.related-list{grid-template-columns:1fr}}
+    .related-item{display:flex;gap:10px;padding:10px 12px;border:1px solid var(--border2);border-radius:10px;text-decoration:none;color:var(--text);transition:all .15s;background:#fafbfc}
+    .related-item:hover{border-color:var(--green);box-shadow:var(--shadow-md);transform:translateY(-1px)}
+    .related-icon{width:32px;height:32px;border-radius:8px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+    .related-content{flex:1;min-width:0}
+    .related-name{font-size:13px;font-weight:600;color:var(--text-dark);line-height:1.4;margin-bottom:3px}
+    .related-desc{font-size:11px;color:var(--text-muted);line-height:1.4;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+    .back-top{position:fixed;bottom:24px;right:20px;background:var(--green);color:white;border:none;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;box-shadow:var(--shadow-md);z-index:99}
+  </style>
+</head>
+<body>
+<div class="top-bar"></div>
+<nav class="nav">
+  <a href="../../index.html">🔬 AI洞察</a>
+  <span class="nav-sep">/</span>
+  <a href="../../index.html">AI日报</a>
+  <span class="nav-sep">/</span>
+  <span class="nav-cur">2026-08-06</span>
+</nav>
+<div class="page-layout">
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">本期目录</div>
+      <nav class="sidebar-nav">
+        <a class="sidebar-link" href="#hero">📋 全文概览</a>
+        <a class="sidebar-link" href="#hot">🔥 热度趋势</a>
+        <a class="sidebar-link" href="#llm">🧠 大模型</a>
+        <a class="sidebar-link" href="#coding">⌨️ AI Coding</a>
+        <a class="sidebar-link" href="#app">📱 AI应用</a>
+        <a class="sidebar-link" href="#industry">🏭 AI行业</a>
+        <a class="sidebar-link" href="#enterprise">🔄 企业AI转型</a>
+      </nav>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="hero-card" id="hero">
+      <div class="hero-label">AI INSIGHT · DAILY REPORT</div>
+      <div class="hero-title-row">
+        <div class="hero-title">AI 日报</div>
+        <span class="hero-ver">v4.0</span>
+      </div>
+      <div class="hero-date">📅 2026年8月6日 · 周四</div>
+      <div class="hero-stats">
+        <span class="hero-stat-badge">🌐 海外 11条 · 国内 6条</span>
+        <span class="hero-stat-badge">📊 五大板块覆盖</span>
+        <span class="hero-stat-badge">🔬 熏儿出品 · RSS自动聚合</span>
+      </div>
+    </div>
+    <div class="section-card" id="hot">
+      <div class="section-card-header">
+        <div class="sc-icon" style="background:#fee2e2">🔥</div>
+        <div class="sc-titles"><div class="sc-title">热度趋势</div><div class="sc-subtitle">今日AI圈最受关注话题排行</div></div>
+      </div>
+      <div class="sc-body">
+        <table class="hot-table">
+          <thead><tr><th>排名</th><th>话题</th><th>热度</th><th>天数</th><th>趋势</th><th>核心信号</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="hot-rank">🥇</td>
+              <td><div class="hot-topic">Qwen3.8-Max arrives ...</div></td>
+              <td><div class="heat-bar"><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span></div></td>
+              <td>3天</td>
+              <td>🔥 热门</td>
+              <td class="hot-signal">头部模型持续迭代</td>
+            </tr>
+            <tr>
+              <td class="hot-rank">🥈</td>
+              <td><div class="hot-topic">Rogue AI agents crea...</div></td>
+              <td><div class="heat-bar"><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span></div></td>
+              <td>5天</td>
+              <td>📈 上升</td>
+              <td class="hot-signal">开发者采用率飙升</td>
+            </tr>
+            <tr>
+              <td class="hot-rank">🥉</td>
+              <td><div class="hot-topic">AI Agent自动化</div></td>
+              <td><div class="heat-bar"><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span></div></td>
+              <td>4天</td>
+              <td>📈 上升</td>
+              <td class="hot-signal">企业落地加速</td>
+            </tr>
+            <tr>
+              <td class="hot-rank">4️⃣</td>
+              <td><div class="hot-topic">AI监管政策</div></td>
+              <td><div class="heat-bar"><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span></div></td>
+              <td>7天</td>
+              <td>⚠️ 关注</td>
+              <td class="hot-signal">多国立法进程加快</td>
+            </tr>
+            <tr>
+              <td class="hot-rank">5️⃣</td>
+              <td><div class="hot-topic">AI芯片算力竞争</div></td>
+              <td><div class="heat-bar"><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill filled"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span><span class="heat-bar-fill"></span></div></td>
+              <td>6天</td>
+              <td>🔥 热门</td>
+              <td class="hot-signal">英伟达持续领跑</td>
+            </tr></tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="section-card" id="llm">
+      <div class="section-card-header">
+        <div class="sc-icon sc-icon-green">🧠</div>
+        <div class="sc-titles">
+          <div class="sc-title">大模型动态</div>
+          <div class="sc-subtitle">模型发布、能力进展与技术突破</div>
+        </div>
+      </div>
+      <div class="sc-body">
+        <div class="news-section-wrap">
+          <div class="region-group"><div class="region-title">🌏 海外</div><div class="news-items">
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-repeat">昨日续</span>
+                  <a class="news-title-link" href="https://venturebeat.com/technology/qwen3-8-max-arrives-with-a-bold-claim-it-outperforms-gpt-5-6-sol-max-and-fable-5-on-agentic-computer-use" target="_blank" rel="noopener">Qwen3.8-Max arrives with a bold claim: it outperforms GPT-5.6 Sol Max and Fable 5 on agentic computer use</a>
+                </div>
+                <div class="news-source">来源：VentureBeat</div>
+                <div class="news-desc">Chinese e-commerce and cloud giant Alibaba&#x27;s famed Qwen team of AI researchers last night unveiled Qwen3.8-Max, a new flagsh</div>
+                <div class="news-comment">🧠 模型能力持续迭代，但关键问题是：这次升级能解决哪个真实业务痛点？</div>
+              </div></div></div>
+          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items"><div class="news-empty">暂无相关资讯</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-card" id="coding">
+      <div class="section-card-header">
+        <div class="sc-icon sc-icon-blue">⌨️</div>
+        <div class="sc-titles">
+          <div class="sc-title">AI Coding</div>
+          <div class="sc-subtitle">编程工具、IDE插件、开发效率</div>
+        </div>
+      </div>
+      <div class="sc-body">
+        <div class="news-section-wrap">
+          <div class="region-group"><div class="region-title">🌏 海外</div><div class="news-items">
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://www.theverge.com/ai-artificial-intelligence/975577/aisi-openai-anthropic-agent-hacking" target="_blank" rel="noopener">Rogue AI agents created fake online identities in another hacking attempt</a>
+                </div>
+                <div class="news-source">来源：The Verge</div>
+                <div class="news-desc">Yet more rogue AI agents from OpenAI and Anthropic have been caught attempting to hack real targets online without permission. The discoveries add to </div>
+                <div class="news-comment">⌨️ AI Coding工具军备竞赛持续升温，开发者效率正在被重新定义。</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://venturebeat.com/technology/ai-startup-hark-unveils-first-product-an-affordable-fast-computer-use-agent-hark-handoff" target="_blank" rel="noopener">AI startup Hark unveils first product: an affordable, fast computer use agent Hark Handoff</a>
+                </div>
+                <div class="news-source">来源：VentureBeat</div>
+                <div class="news-desc">Hark, the secretive</div>
+                <div class="news-comment">⌨️ AI Coding工具军备竞赛持续升温，开发者效率正在被重新定义。</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-repeat">昨日续</span>
+                  <a class="news-title-link" href="https://venturebeat.com/orchestration/ai-coding-agents-are-blowing-through-budgets-replit-kilo-code-and-symbotic-explain-how-theyre-managing-it" target="_blank" rel="noopener">AI coding agents are blowing through budgets — Replit, Kilo Code, and Symbotic explain how they're managing it</a>
+                </div>
+                <div class="news-source">来源：VentureBeat</div>
+                <div class="news-desc">At Kilo Code, engineers are reading or writing code themselves only about 1% of the time now, according to co-founder Emilie Schario — the rest is age</div>
+                <div class="news-comment">⌨️ AI Coding工具军备竞赛持续升温，开发者效率正在被重新定义。</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://www.wired.com/story/exclusive-kitchenaid-promo-code/" target="_blank" rel="noopener">KitchenAid Promo Codes: Save Up to 20%</a>
+                </div>
+                <div class="news-source">来源：WIRED</div>
+                <div class="news-desc">Save on every purchase with top KitchenAid coupons from WIRED, including up to 20% off countertop appliances.</div>
+                <div class="news-comment">⌨️ AI Coding工具军备竞赛持续升温，开发者效率正在被重新定义。</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://www.wired.com/story/ok-well-there-are-even-more-ai-agent-hacking-incidents/" target="_blank" rel="noopener">OK, Well, Rogue AI Agents Are Hacking Again</a>
+                </div>
+                <div class="news-source">来源：WIRED</div>
+                <div class="news-desc">Rogue AI agents from OpenAI and Anthropic have again been caught trying to disrupt servers and software—and leaving instructions for future bad behavi</div>
+                <div class="news-comment">⌨️ AI Coding工具军备竞赛持续升温，开发者效率正在被重新定义。</div>
+              </div></div></div>
+          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items"><div class="news-empty">暂无相关资讯</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-card" id="app">
+      <div class="section-card-header">
+        <div class="sc-icon sc-icon-purple">📱</div>
+        <div class="sc-titles">
+          <div class="sc-title">AI应用</div>
+          <div class="sc-subtitle">消费级应用、创意工具、AIGC</div>
+        </div>
+      </div>
+      <div class="sc-body">
+        <div class="news-section-wrap">
+          <div class="region-group"><div class="region-title">🌏 海外</div><div class="news-items"><div class="news-empty">暂无相关资讯</div></div></div>
+          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items">
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://www.qbitai.com/2026/08/466847.html" target="_blank" rel="noopener">114B参数、6B激活，Sand.ai刚刚开源全球首个千亿MoE视频生成模型</a>
+                </div>
+                <div class="news-source">来源：量子位</div>
+                <div class="news-desc">10秒1080P，成本只要5毛钱</div>
+                <div class="news-comment">🌐 开源加速AI生态建设，但开源≠免费——算力、部署、维护都需要成本。</div>
+              </div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-card" id="industry">
+      <div class="section-card-header">
+        <div class="sc-icon sc-icon-orange">🏭</div>
+        <div class="sc-titles">
+          <div class="sc-title">AI行业</div>
+          <div class="sc-subtitle">融资、监管、行业格局与竞争</div>
+        </div>
+      </div>
+      <div class="sc-body">
+        <div class="news-section-wrap">
+          <div class="region-group"><div class="region-title">🌏 海外</div><div class="news-items">
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://techcrunch.com/2026/08/05/jeff-dean-and-other-top-ai-researchers-are-leaving-google-to-launch-their-own-startup/" target="_blank" rel="noopener">Jeff Dean and other top AI researchers are leaving Google to launch their own startup</a>
+                </div>
+                <div class="news-source">来源：TechCrunch</div>
+                <div class="news-desc">The legendary Google executive is joined by other outgoing Google execs in a joint mission to use AI to push forward the process of scientific discove</div>
+                <div class="news-comment">🔍 AI搜索正在重构信息获取方式，但准确性和实时性仍是最大挑战。</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://techcrunch.com/2026/08/05/reddit-aims-to-make-karma-less-important-for-first-time-posters-with-shift-to-ai-moderation-tools/" target="_blank" rel="noopener">Reddit aims to make ‘karma’ less important for first-time posters with shift to AI moderation tools</a>
+                </div>
+                <div class="news-source">来源：TechCrunch</div>
+                <div class="news-desc">Reddit is expanding its moderation tools and building stronger abuse prevention systems that it says could eventually reduce communities’ reliance on </div>
+                <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://techcrunch.com/2026/08/05/shopify-says-ai-search-is-driving-more-traffic-and-sales-not-replacing-google/" target="_blank" rel="noopener">Shopify says AI search is driving more traffic and sales, not replacing Google</a>
+                </div>
+                <div class="news-source">来源：TechCrunch</div>
+                <div class="news-desc">Shopify says AI isn’t cannibalizing search traffic the way it has for publishers. Instead, AI-driven traffic and orders to Shopify stores tripled year</div>
+                <div class="news-comment">🔍 AI搜索正在重构信息获取方式，但准确性和实时性仍是最大挑战。</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://techcrunch.com/2026/08/05/techcrunch-disrupt-2026s-real-world-ai-stage-features-robots-automated-factories-and-extinct-animals/" target="_blank" rel="noopener">TechCrunch Disrupt 2026’s Real World AI Stage features robots, automated factories, and extinct animals</a>
+                </div>
+                <div class="news-source">来源：TechCrunch</div>
+                <div class="news-desc">On our new Real World AI stage, we’ll be focusing on the intersection between the digital and physical, and all the ways we’ll continue to see a blend</div>
+                <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://techcrunch.com/2026/08/05/anthropic-is-hiring-an-ai-chip-design-team/" target="_blank" rel="noopener">Anthropic is hiring an AI chip design team</a>
+                </div>
+                <div class="news-source">来源：TechCrunch</div>
+                <div class="news-desc">Anthropic is building a team for designing its own custom AI chips. The Claude maker said it would co-design hardware and models to help its technolog</div>
+                <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
+              </div></div></div>
+          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items">
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://36kr.com/p/3926621101422721?f=rss" target="_blank" rel="noopener">以 AI 赋能名中医传承教育：韩学杰传承工作室与传神素问在京签约</a>
+                </div>
+                <div class="news-source">来源：36Kr</div>
+                <div class="news-desc">名老中医毕生积累的学术思想与临证经验，如何借助数智技术实现“可学、可传、可续”？2026年8月4日，传神素问（武汉）数智科技有限公司（以下简称“传神素问”）与韩学杰传承工作室在京举行战略合作签约仪式，双方将依托中医大模型与数字孪生技术，共建“中医九法五径智能传承模型”，探索名医学术思想数智化传承的新</div>
+                <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://36kr.com/p/3926013599086727?f=rss" target="_blank" rel="noopener">早期项目 | 从智能喂养切入，一家创业公司想搭建母婴AI生态</a>
+                </div>
+                <div class="news-source">来源：36Kr</div>
+                <div class="news-desc">作者&nbsp;|&nbsp;张子怡
+  编辑&nbsp;|&nbsp;袁斯来
+  母婴市场在全球拥有万亿级规模。中国的母婴消费市场规模已突破5万亿元，年均增速保持12%的稳健水平；全球母婴市场总量更是达到约2万亿美元。
+  庞大的母婴市场背后，其智能化渗透率较低，尚不足1%。全球母婴家庭普遍面临养</div>
+                <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://36kr.com/newsflashes/3926597105367424?f=rss" target="_blank" rel="noopener">谷歌正与人工智能编码代理初创公司Mechanize洽谈一项价值超过15亿美元的交易</a>
+                </div>
+                <div class="news-source">来源：36Kr</div>
+                <div class="news-desc">据报道，谷歌正与人工智能编码代理初创公司Mechanize洽谈一项价值超过15亿美元的交易。（财联社）</div>
+                <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://www.qbitai.com/2026/08/467034.html" target="_blank" rel="noopener">别再吹AI生图了，不能图层编辑的AI都是“画饼”</a>
+                </div>
+                <div class="news-source">来源：量子位</div>
+                <div class="news-desc">兔展智能发布RabbitVis，让AI真正走完设计全流程</div>
+                <div class="news-comment">🎬 视频生成AI爆发，但训练成本极高。谁能控制成本同时保持质量，谁才能活到最后。</div>
+              </div>
+              <div class="news-item">
+                <div class="news-item-top">
+                  <span class="news-new">TODAY</span>
+                  <a class="news-title-link" href="https://www.qbitai.com/2026/08/467001.html" target="_blank" rel="noopener">又一家AI基金暴雷了</a>
+                </div>
+                <div class="news-source">来源：量子位</div>
+                <div class="news-desc">开源改写游戏规则</div>
+                <div class="news-comment">📌 AI行业动态持续演进，关键是从噪音中识别真正的结构性变化。</div>
+              </div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-card" id="enterprise">
+      <div class="section-card-header">
+        <div class="sc-icon sc-icon-dark">🔄</div>
+        <div class="sc-titles">
+          <div class="sc-title">企业AI转型</div>
+          <div class="sc-subtitle">企业采购、落地案例、ROI数据</div>
+        </div>
+      </div>
+      <div class="sc-body">
+        <div class="news-section-wrap">
+          <div class="region-group"><div class="region-title">🌏 海外</div><div class="news-items"><div class="news-empty">暂无相关资讯</div></div></div>
+          <div class="region-group"><div class="region-title">🇨🇳 国内</div><div class="news-items"><div class="news-empty">暂无相关资讯</div></div></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="related-card">
+      <div class="related-header">
+        <span style="font-size:18px">📚</span>
+        <span class="related-title">延伸阅读 · 深度调研</span>
+        <span class="related-subtitle">基于今日新闻智能推荐</span>
+      </div>
+      <div class="related-list">
+        <a class="related-item" href="../../02-deep-research/companies/openai-gpt5-complete.html">
+          <div class="related-icon">🤖</div>
+          <div class="related-content">
+            <div class="related-name">OpenAI · $8400亿估值背后的战略全景</div>
+            <div class="related-desc">OpenAI产品矩阵、商业模式、竞争格局深度分析</div>
+          </div>
+        </a>
+        <a class="related-item" href="../../02-deep-research/topics/ai-coding-tools-2026.html">
+          <div class="related-icon">⌨️</div>
+          <div class="related-content">
+            <div class="related-name">2026年AI编程工具全景报告</div>
+            <div class="related-desc">Cursor·Trae·Copilot·CodeFlicker 12款工具8维度横评</div>
+          </div>
+        </a>
+        <a class="related-item" href="../../02-deep-research/companies/anthropic-deep-dive.html">
+          <div class="related-icon">🏢</div>
+          <div class="related-content">
+            <div class="related-name">Anthropic深度调研：从安全信仰到企业Agent帝国</div>
+            <div class="related-desc">马斯克败诉、收购Stainless、Claude企业战略全解析</div>
+          </div>
+        </a>
+        <a class="related-item" href="../../02-deep-research/topics/ai-agent-automation-2026.html">
+          <div class="related-icon">🤖</div>
+          <div class="related-content">
+            <div class="related-name">AI Agent 自动化落地的现状与趋势</div>
+            <div class="related-desc">企业AI Agent落地现状、技术架构、行业案例与ROI</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="xunr-card">
+      <div class="xunr-header">
+        <div class="xunr-avatar">🔬</div>
+        <div><div class="xunr-name">熏儿 · AI洞察</div><div class="xunr-role">萧炎的AI分身，RSS自动聚合全球AI动态</div></div>
+      </div>
+      <div class="xunr-body">萧炎哥哥，今天我从 7 个信息源共聚合了 17 条AI相关资讯，覆盖海外和国内五大板块。所有新闻均来自公开RSS源，实时更新，点击标题可跳转原文阅读。</div>
+      <div class="xunr-stats">
+        <div class="xunr-stat"><strong>17</strong>今日资讯</div>
+        <div class="xunr-stat"><strong>11</strong>海外来源</div>
+        <div class="xunr-stat"><strong>6</strong>国内来源</div>
+      </div>
+    </div>
+    <div class="page-nav">
+      <a class="pn-btn" href="2026-08-05.html"><div class="pn-label">← 前一篇</div><div class="pn-title">2026-08-05 AI日报</div></a>
+      <a class="pn-btn" href="../../index.html" style="text-align:right"><div class="pn-label">返回首页 →</div><div class="pn-title">🔬 AI洞察首页</div></a>
+    </div>
+  </main>
+</div>
+<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ 顶部</button>
+</body>
+</html>
