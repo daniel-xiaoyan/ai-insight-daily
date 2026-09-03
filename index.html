@@ -2126,10 +2126,10 @@
 
     <!-- 统计徽章 -->
     <div class="research-stat-badges">
-      <div class="rs-badge">📊 23篇报告</div>
-      <div class="rs-badge">🗓️ 跨4个月</div>
+      <div class="rs-badge">📊 26篇报告</div>
+      <div class="rs-badge">🗓️ 跨7个月</div>
       <div class="rs-badge">🏢 6篇公司调研</div>
-      <div class="rs-badge">📌 9篇专题调研</div>
+      <div class="rs-badge">📌 11篇专题调研</div>
       <div class="rs-badge">🔄 持续更新中</div>
     </div>
 
@@ -2145,6 +2145,70 @@
     <!-- 时间轴 -->
     <div class="research-timeline" id="researchTimeline">
 
+      <!-- 2026年8月 -->
+      <div class="timeline-month-group">
+        <div class="timeline-month-header">
+          <span class="tmh-title">2026年8月</span>
+          <span class="tmh-count">1篇</span>
+        </div>
+        <div class="timeline-items">
+          <div class="tl-item" data-type="topic">
+            <a class="tl-card" href="02-deep-research/topics/ai-coding-tools-aug2026.html">
+              <div class="tl-card-top">
+                <span class="tl-tag tl-tag-topic">专题调研</span>
+                <span class="tl-new">最新</span>
+                <span class="tl-date">2026-08-20</span>
+              </div>
+              <div class="tl-title">AI编程工具新格局：Claude Code、Cursor与下一代IDE战争</div>
+              <div class="tl-desc">Cursor·Claude Code·GitHub Copilot·Windsurf·Trae——2026年8月最新盘点，从「补全工具」到「代码Agent」的范式转移深度解析</div>
+              <div class="tl-meta">📅 2026-08-20 · 专题调研 · 熏儿出品</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026年7月 -->
+      <div class="timeline-month-group">
+        <div class="timeline-month-header">
+          <span class="tmh-title">2026年7月</span>
+          <span class="tmh-count">1篇</span>
+        </div>
+        <div class="timeline-items">
+          <div class="tl-item" data-type="topic">
+            <a class="tl-card" href="02-deep-research/topics/ai-agent-landing-2026.html">
+              <div class="tl-card-top">
+                <span class="tl-tag tl-tag-topic">专题调研</span>
+                <span class="tl-date">2026-07-15</span>
+              </div>
+              <div class="tl-title">AI Agent从概念到落地：2026年中期全景报告</div>
+              <div class="tl-desc">73%企业已测试Agent，但只有18%达到预期ROI——深度解析Agent落地的成功场景、失败案例与关键决策</div>
+              <div class="tl-meta">📅 2026-07-15 · 专题调研 · 熏儿出品</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026年6月 -->
+      <div class="timeline-month-group">
+        <div class="timeline-month-header">
+          <span class="tmh-title">2026年6月</span>
+          <span class="tmh-count">1篇</span>
+        </div>
+        <div class="timeline-items">
+          <div class="tl-item" data-type="trend">
+            <a class="tl-card" href="02-deep-research/trends/llm-price-war-2026.html">
+              <div class="tl-card-top">
+                <span class="tl-tag tl-tag-trend">趋势洞察</span>
+                <span class="tl-date">2026-06-10</span>
+              </div>
+              <div class="tl-title">2026年大模型价格战全解析</div>
+              <div class="tl-desc">GPT-4级别模型24个月内价格降97%——从DeepSeek引爆到Gemini Flash创新低，价格战背后的商业逻辑与能力跃升全解析</div>
+              <div class="tl-meta">📅 2026-06-10 · 趋势洞察 · 熏儿出品</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
       <!-- 2026年5月 -->
       <div class="timeline-month-group">
         <div class="timeline-month-header">
@@ -2156,7 +2220,6 @@
             <a class="tl-card" href="02-deep-research/topics/ai-coding-tools-2026.html">
               <div class="tl-card-top">
                 <span class="tl-tag tl-tag-topic">专题调研</span>
-                <span class="tl-new">最新</span>
                 <span class="tl-date">2026-05-19</span>
               </div>
               <div class="tl-title">2026年AI编程工具全景报告</div>
@@ -2168,7 +2231,6 @@
             <a class="tl-card" href="02-deep-research/companies/anthropic-deep-dive.html">
               <div class="tl-card-top">
                 <span class="tl-tag tl-tag-company">公司调研</span>
-                <span class="tl-new">最新</span>
                 <span class="tl-date">2026-05-19</span>
               </div>
               <div class="tl-title">Anthropic深度调研：从安全信仰到企业Agent帝国</div>
@@ -2180,7 +2242,6 @@
             <a class="tl-card" href="02-deep-research/companies/bytedance-ai-landscape.html">
               <div class="tl-card-top">
                 <span class="tl-tag tl-tag-company">公司调研</span>
-                <span class="tl-new">最新</span>
                 <span class="tl-date">2026-05-19</span>
               </div>
               <div class="tl-title">字节跳动AI版图深度调研</div>
@@ -3124,6 +3185,9 @@
     // 搜索数据索引：日报 + 深度调研
     const searchIndex = [
       // 深度调研
+      {type:'research',title:'AI编程工具新格局：Claude Code、Cursor与下一代IDE战争',desc:'Cursor·Claude Code·Copilot·Windsurf·Trae——2026年8月最新盘点，从代码补全到代码Agent的范式转移',date:'2026-08-20',href:'02-deep-research/topics/ai-coding-tools-aug2026.html',tags:'编程 Cursor Claude Code IDE Agent Windsurf Trae'},
+      {type:'research',title:'AI Agent从概念到落地：2026年中期全景报告',desc:'73%企业已测试Agent，但只有18%达到预期ROI——深度解析落地成功场景、失败案例与关键决策',date:'2026-07-15',href:'02-deep-research/topics/ai-agent-landing-2026.html',tags:'Agent 落地 ROI 企业 Multi-Agent'},
+      {type:'research',title:'2026年大模型价格战全解析',desc:'GPT-4级别模型24个月内价格降97%——从DeepSeek引爆到Gemini Flash创新低，价格战背后的商业逻辑与能力跃升',date:'2026-06-10',href:'02-deep-research/trends/llm-price-war-2026.html',tags:'价格战 DeepSeek GPT Gemini Claude 大模型'},
       {type:'research',title:'2026年AI编程工具全景报告',desc:'Cursor·Trae·Copilot·CodeFlicker·Claude Code·Devin 12款工具8大维度横向对比',date:'2026-05-19',href:'02-deep-research/topics/ai-coding-tools-2026.html',tags:'编程 Cursor Trae CodeFlicker IDE Agent'},
       {type:'research',title:'Anthropic深度调研：从安全信仰到企业Agent帝国',desc:'马斯克败诉、收购Stainless、Claude企业Agent战略全解析',date:'2026-05-19',href:'02-deep-research/companies/anthropic-deep-dive.html',tags:'Anthropic Claude Stainless 安全 企业'},
       {type:'research',title:'字节跳动AI版图深度调研',desc:'豆包·Trae·可灵·即梦·番茄小说——字节8款AI产品全解析',date:'2026-05-19',href:'02-deep-research/companies/bytedance-ai-landscape.html',tags:'字节 豆包 Trae 可灵 即梦 番茄小说'},
