@@ -1562,21 +1562,22 @@
     <div class="ticker-divider"></div>
     <div class="ticker-track-wrap">
       <div class="ticker-track" id="tickerTrack">
+        <span class="tick-item"><span class="tick-tag tick-green">模型</span>Claude can now analyze your…&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-red">行业</span>Meta warns that election bac…&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>Airbnb says it’s launching a…&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-green">模型</span>Claude AI can plug directly…&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-red">行业</span>OpenAI released a new cybers…&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>Meta says US users can now v…&nbsp;</span>
+        <span class="tick-item tick-sep">·&nbsp;</span>
         <span class="tick-item"><span class="tick-tag tick-green">模型</span>'Welcome to the AGI era': Op…&nbsp;</span>
         <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-red">行业</span>Apple is reportedly cutting…&nbsp;</span>
-        <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>Almost no one uses AI agents…&nbsp;</span>
-        <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-green">模型</span>Google’s Gemini 3.8 Flash is…&nbsp;</span>
-        <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-red">行业</span>AI PACs spent millions tryin…&nbsp;</span>
-        <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>Meta acquires AI coding star…&nbsp;</span>
-        <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-red">行业</span>Nothing CEO says company’s m…&nbsp;</span>
-        <span class="tick-item tick-sep">·&nbsp;</span>
-        <span class="tick-item"><span class="tick-tag tick-purple">工具</span>Corsair Discount Code: Up to…&nbsp;</span>
+        <span class="tick-item"><span class="tick-tag tick-red">行业</span>US government warns of ‘ongo…&nbsp;</span>
+      
       
       
       
@@ -2252,7 +2253,7 @@
       
       </div>
     </div>
-    <a class="ticker-link" href="01-daily-reports/2026-11/2026-11-05.html">查看日报 →</a>
+    <a class="ticker-link" href="01-daily-reports/2026-11/2026-11-06.html">查看日报 →</a>
   </div>
 </div>
 
@@ -2273,12 +2274,12 @@
   <div class="tab-panel active" id="panel-daily">
     <div class="latest-cards">
       <!-- 最新日报 -->
-      <a class="report-card" href="01-daily-reports/2026-11/2026-11-05.html">
+      <a class="report-card" href="01-daily-reports/2026-11/2026-11-06.html">
         <div class="card-header">
           <span class="card-type-badge badge-daily">📅 日报</span>
           <span class="badge-new">NEW</span>
         </div>
-        <div class="card-title">2026年11月5日 AI日报</div>
+        <div class="card-title">2026年11月6日 AI日报</div>
         <div class="card-tags">
           <span class="tag">大模型</span>
           <span class="tag">AI算力</span>
@@ -3301,9 +3302,9 @@
   // ===== 日历 =====
   const dailyData = {
     '2026-11': {
-      hasDaily: [1,2,3,4,5],
+      hasDaily: [1,2,3,4,5,6],
       hasWeekly: [],
-      totalCount: 5
+      totalCount: 6
     },
     '2026-10': {
       hasDaily: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
@@ -3348,7 +3349,7 @@
   function renderCalendar() {
     const key = `${currentYear}-${String(currentMonth).padStart(2,'0')}`;
     const data = dailyData[key] || { hasDaily: [], hasWeekly: [], totalCount: 0 };
-    const today = new Date(2026, 10, 5); // 2026-05-18
+    const today = new Date(2026, 10, 6); // 2026-05-18
     const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
     const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
 
